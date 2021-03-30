@@ -1,0 +1,38 @@
+﻿<Window x:Class="FlightSimulatorInspection.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FlightSimulatorInspection"
+        xmlns:View="clr-namespace:FlightSimulatorInspection.Views"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="637">
+    <Grid>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="6*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <!-- Video -->
+                <View:VideoV Grid.Row="0"/>
+                <!-- Player -->
+                <View:PlayerV Grid.Row="1"/>
+            </Grid>
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <!-- Graphs -->
+                <View:GraphsV Grid.Row="0"/>
+                <!-- FlightControls -->
+                <View:FlightControlsV Grid.Row="1"/>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>
