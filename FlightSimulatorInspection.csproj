@@ -57,6 +57,7 @@
     </ApplicationDefinition>
     <Compile Include="Models\FlightStats.cs" />
     <Compile Include="Models\ConnectionHandler .cs" />
+    <Compile Include="Models\clientFG.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\FlightControlsVM.cs" />
     <Compile Include="ViewModels\PlayerVM.cs" />
