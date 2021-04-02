@@ -55,8 +55,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Models\FlightStats.cs" />
+    <Compile Include="Models\ConnectionHandler .cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\FlightControlsVM.cs" />
+    <Compile Include="ViewModels\PlayerVM.cs" />
+    <Compile Include="ViewModels\VideoVM.cs" />
     <Compile Include="Views\FlightControlsV.xaml.cs">
       <DependentUpon>FlightControlsV.xaml</DependentUpon>
     </Compile>
@@ -128,6 +132,7 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <None Include="Resources\reg_flight.csv" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -144,5 +149,6 @@
   <ItemGroup>
     <Resource Include="Images\JoystickSplitted.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

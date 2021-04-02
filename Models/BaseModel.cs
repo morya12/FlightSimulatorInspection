@@ -10,9 +10,5 @@ namespace FlightSimulatorInspection.Models
         {
             this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propName));
         }
-        /*140
-        260
-        300 gift card
-        200MB*/
     }
 }

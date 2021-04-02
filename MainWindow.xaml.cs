@@ -1,4 +1,5 @@
 ﻿using FlightSimulatorInspection.Views;
+using FlightSimulatorInspection.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,6 +25,7 @@ namespace FlightSimulatorInspection
         public MainWindow()
         {
             InitializeComponent();
+            ConnectionHandler.readCSV();
         }
 
     }
