@@ -12,23 +12,76 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Diagnostics;
 
 namespace FlightSimulatorInspection.Views
 {
     /// <summary>
     /// Interaction logic for LoginV.xaml
     /// </summary>
-    public partial class LoginV : Page
+    public partial class LoginV : Window
     {
+        private string csvPath;
+        private string xmlPath;
+        private bool regAlgo;
+        private bool circleAlgo;
+        public string CsvPath
+        {
+            get
+            {
+                return this.csvPath;
+            }
+            set
+            {
+                this.csvPath = value;
+            }
+        }
+        public string XmlPath
+        {
+            get
+            {
+                return this.XmlPath;
+            }
+            set
+            {
+                this.XmlPath = value;
+            }
+        }
+        public bool RegAlgo
+        {
+            get
+            {
+                return this.regAlgo;
+            }
+            set
+            {
+                this.regAlgo = value;
+            }
+        }
+        public bool CircleAlgo
+        {
+            get
+            {
+                return this.circleAlgo;
+            }
+            set
+            {
+                this.circleAlgo = value;
+            }
+        }
+
+
+
+
         public LoginV()
         {
             InitializeComponent();
         }
-        private void b1_Click(object sender, RoutedEventArgs e)
+        
+        private void b1Click(object sender, RoutedEventArgs e)
         {
-            /*// Create OpenFileDialog
+            // Create OpenFileDialog
             Microsoft.Win32.OpenFileDialog openFileDlg = new Microsoft.Win32.OpenFileDialog();
-
             // Launch OpenFileDialog by calling ShowDialog method
             Nullable<bool> result = openFileDlg.ShowDialog();
             // Get the selected file name and display in a TextBox.
@@ -36,44 +89,55 @@ namespace FlightSimulatorInspection.Views
             if (result == true)
             {
                 b1.Content = openFileDlg.FileName;
-                //  TextBlock1.Text = System.IO.File.ReadAllText(openFileDlg.FileName);
-                Console.WriteLine(openFileDlg.FileName);
-                Console.WriteLine("here");
-                //manager.infoFilePath = openFileDlg.FileName;
-                Console.WriteLine("csv after");
+                this.csvPath = openFileDlg.FileName;
 
-            }*/
+            }
         }
-        private void b2_Click(object sender, RoutedEventArgs e)
+        private void b2Click(object sender, RoutedEventArgs e)
         {
-           /* // Create OpenFileDialog
-            Microsoft.Win32.OpenFileDialog openFileDlg = new Microsoft.Win32.OpenFileDialog();
+             // Create OpenFileDialog
+             Microsoft.Win32.OpenFileDialog openFileDlg = new Microsoft.Win32.OpenFileDialog();
 
+             // Launch OpenFileDialog by calling ShowDialog method
+             Nullable<bool> result = openFileDlg.ShowDialog();
+             // Get the selected file name and display in a TextBox.
+             // Load content of file in a TextBlock
+
+             if (result == true)
+             {
+                 b2.Content = openFileDlg.FileName;
+                 //  TextBlock1.Text = System.IO.File.ReadAllText(openFileDlg.FileName);
+             }
+        }
+
+        private void b3Click(object sender, RoutedEventArgs e)
+        {
+            // Create OpenFileDialog
+            Microsoft.Win32.OpenFileDialog openFileDlg = new Microsoft.Win32.OpenFileDialog();
             // Launch OpenFileDialog by calling ShowDialog method
             Nullable<bool> result = openFileDlg.ShowDialog();
             // Get the selected file name and display in a TextBox.
             // Load content of file in a TextBlock
-
             if (result == true)
             {
-                b2.Content = openFileDlg.FileName;
-                Console.WriteLine("info before");
+                b3.Content = openFileDlg.FileName;
+                Process pros = Process.Start(b3.Content.ToString()); //open FG
 
-               //manager.setUpFilePath = openFileDlg.FileName;
-                Console.WriteLine("info after");
-
-
-                //  TextBlock1.Text = System.IO.File.ReadAllText(openFileDlg.FileName);
-            }*/
+            }
         }
-        private void start_Click(object sender, RoutedEventArgs e)
-        {
+        private void startClick(object sender, RoutedEventArgs e)
+        {   
+            //check which algotithm selected
+            if((bool)regressionAlgo.IsChecked)
+            {
+                this.RegAlgo = true;
+            } 
+            else
+            {
+                this.CircleAlgo = true;
+            }
 
-        }
-
-        private void ComboBox_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
-        {
-
+            this.Close(); //close loginview and show mainview
         }
     }
 }

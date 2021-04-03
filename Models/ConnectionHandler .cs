@@ -10,9 +10,11 @@ namespace FlightSimulatorInspection.Models
 {
     public class ConnectionHandler
     {
-        public static void readCSV()
+        public static void readCSV(string csvPath)
         {
-            var lines = File.ReadAllLines("C:\\Users\\97205\\source\\repos\\FlightSimulatorInspection\\Resources\\reg_flight.csv");
+          //  var lines = File.ReadAllLines("C:\\Users\\97254\\source\\repos\\morya12\\FlightSimulatorInspection\\Resources\\reg_flight.csv");
+           // var lines = File.ReadAllLines("C:\\Users\\97205\\source\\repos\\FlightSimulatorInspection\\Resources\\reg_flight.csv");
+         var lines = File.ReadAllLines(csvPath);
             new Thread(
                 delegate () 
                 {
