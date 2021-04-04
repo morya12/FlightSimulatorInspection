@@ -1,4 +1,4 @@
-﻿<Page x:Class="FlightSimulatorInspection.Views.LoginV"
+﻿<Window x:Class="FlightSimulatorInspection.Views.LoginV"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -8,48 +8,50 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="LoginV">
 
-    <Grid>
-        <Rectangle Height="280" VerticalAlignment="Top">
-            <Rectangle.Fill>
-                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="#FF2281D1"/>
-                    <GradientStop Color="#FF34268A" Offset="1"/>
-                    <GradientStop Color="#FF33288b" Offset="0.5"/>
+  <Grid>
+    <!-- backround-->
+    <Rectangle Height="280" VerticalAlignment="Top">
+      <Rectangle.Fill>
+        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+          <GradientStop Color="#FF2281D1"/>
+          <GradientStop Color="#FF34268A" Offset="1"/>
+          <GradientStop Color="#FF33288b" Offset="0.5"/>
+        </LinearGradientBrush>
+      </Rectangle.Fill>
+    </Rectangle>
+    <Image Source="/Images/plane.png" Width="70" Height="100" VerticalAlignment="Top" Margin="132,18,131.333,0"/>
+    <Rectangle Width="280" Height="240" Fill="White" VerticalAlignment="Bottom" Margin="0,100" RadiusY="19.333" RadiusX="19.333">
+      <Rectangle.Effect>
+        <DropShadowEffect Color ="#FFBBBBBB" Direction="0" BlurRadius="15" RenderingBias="Quality" ShadowDepth="1"/>
+      </Rectangle.Effect>
+    </Rectangle>
+    <!-- main grid-->
+    <Grid Width="280" Height="240" VerticalAlignment="Bottom" Margin="0,100" >
+      <Grid.RowDefinitions>
+        <RowDefinition Height="0*"/>
+        <RowDefinition/>
+      </Grid.RowDefinitions>
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="0*"/>
+        <ColumnDefinition/>
+      </Grid.ColumnDefinitions>
+      <TextBlock Text="welcome" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="105,13,104,0" Foreground="Gray" FontSize="18" Grid.ColumnSpan="2" Grid.RowSpan="2" />
 
+      <!-- upload file buttons-->
+      <Button x:Name="b1" Grid.ColumnSpan="2" Content="upload CSV file" HorizontalAlignment="Center" Margin="20,60,20,0" Grid.RowSpan="2" Width="240" Click="b1Click" Background="#FFF6F6F6" BorderBrush="{DynamicResource {x:Static SystemColors.ActiveCaptionBrushKey}}"  Foreground="#FF092BB6" RenderTransformOrigin="1,0.5" VerticalAlignment="Top" Height="24"/>
+      <Button x:Name="b2" Grid.ColumnSpan="2" Content="upload XML file" HorizontalAlignment="Center" Margin="20,100,20,0" Grid.RowSpan="2" Width="240" Click="b2Click" Background="#FFF6F6F6" BorderBrush="{DynamicResource {x:Static SystemColors.ActiveCaptionBrushKey}}"  Foreground="#FF092BB6" RenderTransformOrigin="1,0.5" VerticalAlignment="Top" Height="24"/>
+      <Button x:Name="b3" Grid.ColumnSpan="2" Content="open FlightGear" HorizontalAlignment="Center" Margin="20,140,20,0" Grid.RowSpan="2" Width="240" Click="b3Click" Background="#FFF6F6F6" BorderBrush="{DynamicResource {x:Static SystemColors.ActiveCaptionBrushKey}}"  Foreground="#FF092BB6" RenderTransformOrigin="1,0.5" VerticalAlignment="Top" Height="24"/>
 
-                </LinearGradientBrush>
-            </Rectangle.Fill>
-        </Rectangle>
-        <Image Source="/Images/plane.png" Width="70" Height="100" VerticalAlignment="Top" Margin="132,18,131.333,0"/>
-        <Rectangle Width="280" Height="240" Fill="White" VerticalAlignment="Bottom" Margin="0,100" RadiusY="19.333" RadiusX="19.333">
-            <Rectangle.Effect>
-                <DropShadowEffect Color ="#FFBBBBBB" Direction="0" BlurRadius="15" RenderingBias="Quality" ShadowDepth="1"/>
-            </Rectangle.Effect>
-        </Rectangle>
-        <Grid Width="280" Height="240" VerticalAlignment="Bottom" Margin="0,100" >
-            <Grid.RowDefinitions>
-                <RowDefinition Height="0*"/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="0*"/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-            <TextBlock Text="welcome" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="105,13,104,0" Foreground="Gray" FontSize="18" Grid.ColumnSpan="2" Grid.RowSpan="2" />
-
-
-            <Button x:Name="b1" Grid.ColumnSpan="2" Content="uploud CSV file" HorizontalAlignment="Center" Margin="20,60,20,0" Grid.RowSpan="2" Width="240" Click="b1_Click" Background="#FFF6F6F6" BorderBrush="{DynamicResource {x:Static SystemColors.ActiveCaptionBrushKey}}"  Foreground="#FF092BB6" RenderTransformOrigin="1,0.5" VerticalAlignment="Top" Height="24"/>
-            <Button x:Name="b2" Grid.ColumnSpan="2" Content="uploud XML file" HorizontalAlignment="Center" Margin="20,100,20,0" Grid.RowSpan="2" Width="240" Click="b2_Click" Background="#FFF6F6F6" BorderBrush="{DynamicResource {x:Static SystemColors.ActiveCaptionBrushKey}}"  Foreground="#FF092BB6" RenderTransformOrigin="1,0.5" VerticalAlignment="Top" Height="24"/>
-
-
-
-            <ComboBox Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="20,140,20,0" Grid.RowSpan="2" VerticalAlignment="Top" Width="240"  BorderBrush="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"  Foreground="#FF092BB6" RenderTransformOrigin="1,0.5" Height="24"  IsEditable="True" IsReadOnly="True"  Text="choose algorithm" SelectionChanged="ComboBox_SelectionChanged_1"  >
-                <ComboBoxItem Name="algo1" Content="linear regression algorithm" HorizontalAlignment="Center"/>
-                <ComboBoxItem Name="algo2" Content="smallest circle algorithm" HorizontalAlignment="Center"/>
-            </ComboBox>
-
-        </Grid>
-        <Button VerticalAlignment="Bottom"  Margin="0,85" Width="150" Content="START" Click="start_Click" Background="#FF2281D1" Foreground="White" Height="25"  />
+      <!-- choose algorithm -->
+      <TextBlock Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="20,170,20,0" Grid.RowSpan="2" TextWrapping="Wrap" Text="choose algorithm:" VerticalAlignment="Top" Foreground="#FF092BB6"/>
+      <WrapPanel Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="25" Margin="20,190,20,0" Grid.RowSpan="2" VerticalAlignment="Top" Width="238" >
+        <RadioButton x:Name="regressionAlgo" Content="regression analysis " IsChecked="True" Foreground="#FF092BB6" />
+        <RadioButton x:Name="minCircleAlgo" Content="circle analysis" Foreground="#FF092BB6" />
+      </WrapPanel>
 
     </Grid>
-</Page>
+    <!-- start button-->
+    <Button x:Name="startButton" VerticalAlignment="Bottom" Margin="0,85" Width="150" Content="START"   Click="startClick" Background="#FF2281D1" Foreground="White" Height="25"  />
+
+  </Grid>
+</Window>
