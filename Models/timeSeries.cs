@@ -86,6 +86,5 @@ namespace FlightSimulatorInspection.Models
         {
             this.numOfRows = cols;
         }
-        ///// no need this class at all...////
     }
 }
