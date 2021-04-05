@@ -86,5 +86,31 @@ namespace FlightSimulatorInspection.Models
         {
             this.numOfRows = cols;
         }
+        public List<string> Parameters()
+        {
+            return this.parameters;
+        }
+        public List<List<float>> Info()
+        {
+            return info;
+        }
+        public List<float> getFeatureDataCol(string feature)
+        {
+            int i = 0;
+            foreach (string a in parameters)
+            {
+                if (a==feature) {
+                    return info[i];
+                }
+                i++;
+            }
+            return null;
+        }
+
+        public float getData(string feature, int timeStep)
+        {
+            List<float> col = getFeatureDataCol(feature);
+            return col[timeStep];
+        }
     }
 }
