@@ -1,5 +1,7 @@
-﻿using System;
+﻿using FlightSimulatorInspection.ViewModels;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,9 +22,12 @@ namespace FlightSimulatorInspection.Views
     /// </summary>
     public partial class GraphsV : UserControl
     {
+        private GraphsVM vm;
         public GraphsV()
         {
             InitializeComponent();
+            vm = new GraphsVM();
+            Trace.WriteLine("~~~~~~~~~~~~~~~~Graphs View CREATED~~~~~~~~~~~~~~~~~~~");
         }
     }
 }

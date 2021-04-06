@@ -164,6 +164,22 @@ namespace FlightSimulatorInspection.Models
                 }
             }
         }
+        /// <summary>
+        /// indexer of type int key. uses indexer of type string.
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        public double this[int key]
+        {
+            get
+            {
+                return this[Enum.GetName(typeof(Stats), key)];
+            }
+            set
+            {
+                this[Enum.GetName(typeof(Stats), key)] = value;
+            }
+        }
 
         /// <summary>
         /// parse a new line with commas to float and update statsTable accordingly

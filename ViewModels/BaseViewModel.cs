@@ -17,15 +17,6 @@ namespace FlightSimulatorInspection.ViewModels
         }
         #endregion
 
-        protected FlightStats model;
-        
-        #region Constructor
-        public BaseViewModel()
-        {
-            this.model = FlightStats.Instance;
-            model.PropertyChanged += (object sender, PropertyChangedEventArgs e) => NotifyPropertyChanged("VM_" + e.PropertyName);
-        }
-        #endregion
     }
 
 }

@@ -5,10 +5,23 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FlightSimulatorInspection"
         xmlns:View="clr-namespace:FlightSimulatorInspection.Views"
+        xmlns:ViewModel="clr-namespace:FlightSimulatorInspection.ViewModels"
+        xmlns:wf="clr-namespace:System.Windows.Forms;assembly=System.Windows.Forms"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="637">
+
     <Grid>
-        <Grid>
+        <Grid x:Name="MainGrid">
+            <!-- Trigger visibility of MainGrid depends on visibility of LoginGrid -->
+            <Grid.Style>
+                <Style>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ElementName=LoginBorder, Path=Visibility}" Value="Visible">
+                            <Setter Property="Grid.Visibility" Value="Collapsed"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Grid.Style>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="2*"/>
                 <ColumnDefinition Width="*"/>
@@ -19,9 +32,9 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <!-- Video -->
-                <View:VideoV Grid.Row="0"/>
+                <Border x:Name="VideoBorder" Grid.Row="0"/>
                 <!-- Player -->
-                <View:PlayerV Grid.Row="1"/>
+                <Border x:Name="PlayerBorder" Grid.Row="1"/>
             </Grid>
             <Grid Grid.Column="1">
                 <Grid.RowDefinitions>
@@ -29,10 +42,12 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <!-- Graphs -->
-                <View:GraphsV Grid.Row="0"/>
+                <Border x:Name="GraphsVBorder" Grid.Row="0"/>
                 <!-- FlightControls -->
-                <View:FlightControlsV Grid.Row="1"/>
+                <Border x:Name="FlightControlsVBorder" Grid.Row="1"/>
             </Grid>
         </Grid>
+        <Border x:Name="LoginBorder">
+        </Border>
     </Grid>
 </Window>

@@ -1,19 +1,7 @@
 ﻿using FlightSimulatorInspection.Views;
 using FlightSimulatorInspection.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using FlightSimulatorInspection.ViewModels;
 
 namespace FlightSimulatorInspection
 {
@@ -25,15 +13,19 @@ namespace FlightSimulatorInspection
         public MainWindow()
         {
             InitializeComponent();
-            LoginV  loginWindow = new LoginV(); // open the login window before the main window
-            loginWindow.ShowDialog();
-            // checks if user insert csv file
-            if(String.IsNullOrEmpty(loginWindow.CsvPath)){ 
-                  this.Close();
-            }
-            else {
-                ConnectionHandler.readCSV(loginWindow.CsvPath);
-            }
+            DataBase db = new DataBase();
+            LoginBorder.Child = new LoginV(new LoginVM(db));
+            VideoBorder.Child = new VideoV(new VideoVM(db));
+            PlayerBorder.Child = new PlayerV();
+            GraphsVBorder.Child = new GraphsV();
+            FlightControlsVBorder.Child = new FlightControlsV();
+        }
+        protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
+        {
+            base.OnClosing(e);
+            //close FG.exe
+            if(VideoBorder.Child != null)
+                (VideoBorder.Child as VideoV).OnClosing();
         }
 
     }

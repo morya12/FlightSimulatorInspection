@@ -7,9 +7,6 @@
              xmlns:ViewModels="clr-namespace:FlightSimulatorInspection.ViewModels" x:Class="FlightSimulatorInspection.Views.FlightControlsV"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <UserControl.DataContext>
-        <ViewModels:FlightControlsVM/>
-    </UserControl.DataContext>
     <Grid Background="AliceBlue" TextBlock.FontSize="10" TextBlock.FontWeight="Bold" TextBlock.TextAlignment="Center">
         <Grid.RowDefinitions>
             <RowDefinition Height="9*"/>

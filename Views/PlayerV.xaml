@@ -7,9 +7,6 @@
              xmlns:ViewModels="clr-namespace:FlightSimulatorInspection.ViewModels" x:Class="FlightSimulatorInspection.Views.PlayerV"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <UserControl.DataContext>
-        <ViewModels:PlayerVM/>
-    </UserControl.DataContext>
     <Grid Background="Aquamarine">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>

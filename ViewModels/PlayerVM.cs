@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,19 +11,20 @@ namespace FlightSimulatorInspection.ViewModels
 {
     public class PlayerVM : BaseViewModel
     {
-        //You may add Properties here
-        public string VM_Throttle
+        private BaseModel model;
+        public PlayerVM()
         {
-            get
-            {
-                return model[FlightStats.Stats.Throttle.ToString()].ToString();
-            }
+            Trace.WriteLine("~~~~~~~~~~~~~~~~Player ViewModel CREATED~~~~~~~~~~~~~~~~~~~");
+
+            this.model = FlightStats.Instance;
+            model.PropertyChanged += (object sender, PropertyChangedEventArgs e) => NotifyPropertyChanged("VM_" + e.PropertyName);
         }
+        //You may add Properties here
         public int VM_TimeStep
         {
             get
             {
-                return model.TimeStep;
+                return (model as FlightStats).TimeStep;
             }
         }
     }

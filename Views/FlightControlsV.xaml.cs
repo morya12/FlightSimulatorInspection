@@ -1,4 +1,5 @@
 ﻿using FlightSimulatorInspection.ViewModels;
+using System.Diagnostics;
 using System.Windows.Controls;
 
 namespace FlightSimulatorInspection.Views
@@ -12,8 +13,9 @@ namespace FlightSimulatorInspection.Views
         public FlightControlsV()
         {
             InitializeComponent();
-            this.vm = new FlightControlsVM();
+            vm = new FlightControlsVM();
             DataContext = vm;
+            Trace.WriteLine("~~~~~~~~~~~~~~~~FlightControls View CREATED~~~~~~~~~~~~~~~~~~~");
         }
 
     }
