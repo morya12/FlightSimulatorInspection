@@ -13,20 +13,20 @@ namespace FlightSimulatorInspection.Models
     class clientFG
     {
         private string csvFilePath;
-        private string xmlUpFilePath;
+        private string xmlFilePath;
         private int speed;
-        public string SetUpFilePath
+        public string XmlFilePath
         {
             get
             {
-                return this.xmlUpFilePath;
+                return this.xmlFilePath;
             }
             set
             {
-                this.xmlUpFilePath = value;
+                this.xmlFilePath = value;
             }
         }
-        public string InfoFilePath
+        public string CsvFilePath
         {
             get
             {
@@ -58,10 +58,10 @@ namespace FlightSimulatorInspection.Models
         }
         public int host = 6400;
 
-        public clientFG(string setUpFile, string infoFile)
+        public clientFG(string xmlFile, string csvFile)
         {
-            this.xmlUpFilePath = setUpFile;
-            this.csvFilePath = infoFile;
+            this.xmlFilePath = xmlFile;
+            this.csvFilePath = csvFile;
         }
 
         public clientFG()
@@ -73,28 +73,23 @@ namespace FlightSimulatorInspection.Models
         {
 
             Socket s = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-            //IPHostEntry ipHostInfo = Dns.GetHostEntry("localhost");
             IPAddress ipAddress = System.Net.IPAddress.Parse("127.0.0.1");
             IPEndPoint remoteEP = new IPEndPoint(ipAddress, this.host);
             Console.WriteLine(remoteEP.ToString());
             s.Connect(remoteEP);
-            Console.WriteLine("connected"); // to remove
             //int i = 0;
             try
             {
-                string[] lines = File.ReadAllLines(this.InfoFilePath);
-                Console.Write(this.InfoFilePath);
-                //string local_file_temp_xxx_todo_debug = "C:\\Users\\Mor\\Desktop\\לימודים\\תכנות מתקדם\\flightsimulator\\reg_flight.csv";
-                //string[] lines = File.ReadAllLines(local_file_temp_xxx_todo_debug);
+                string[] lines = File.ReadAllLines(CsvFilePath);
                 byte[] bytes;
                 foreach (string line in lines)
                 {
-                    Console.WriteLine(line);
+                    //Console.WriteLine(line);
+                    //Console.WriteLine();
                     bytes = Encoding.ASCII.GetBytes(line);
                     s.Send(bytes);
-                    Thread.Sleep((1 / this.speed) * 100);
+                    Thread.Sleep(100 / Speed);
                 }
-                Console.WriteLine("end");
             }
             catch
             {

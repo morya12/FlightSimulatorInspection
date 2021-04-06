@@ -62,9 +62,11 @@
     <Compile Include="Models\FlightStats.cs" />
     <Compile Include="Models\ConnectionHandler .cs" />
     <Compile Include="Models\clientFG.cs" />
+    <Compile Include="Models\Graph.cs" />
     <Compile Include="Models\timeSeries.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\FlightControlsVM.cs" />
+    <Compile Include="ViewModels\GraphVM.cs" />
     <Compile Include="ViewModels\GraphsVM.cs" />
     <Compile Include="ViewModels\LoginVM.cs" />
     <Compile Include="ViewModels\PlayerVM.cs" />
