@@ -1,12 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Text;
+﻿using System.IO;
 using System.Threading;
-using System.Threading.Tasks;
-using FlightSimulatorInspection;
 
 namespace FlightSimulatorInspection.Models
 {
@@ -14,16 +7,16 @@ namespace FlightSimulatorInspection.Models
     {
         public static void readCSV(string csvPath)
         {
-            clientFG c = new clientFG();
-            c.CsvFilePath=csvPath;
-         
-            
-          //  var lines = File.ReadAllLines("C:\\Users\\97254\\source\\repos\\morya12\\FlightSimulatorInspection\\Resources\\reg_flight.csv");
-           // var lines = File.ReadAllLines("C:\\Users\\97205\\source\\repos\\FlightSimulatorInspection\\Resources\\reg_flight.csv");
-         var lines = File.ReadAllLines(csvPath);
+            //clientFG c = new clientFG();
+            //c.CsvFilePath=csvPath;
+
+
+            //  var lines = File.ReadAllLines("C:\\Users\\97254\\source\\repos\\morya12\\FlightSimulatorInspection\\Resources\\reg_flight.csv");
+             var lines = File.ReadAllLines("C:\\Users\\97205\\source\\repos\\FlightSimulatorInspection\\Resources\\reg_flight.csv");
+            //var lines = File.ReadAllLines(csvPath);
             
             new Thread(
-                delegate () 
+                delegate ()
                 {
                     //need to add stop signal
                     for (int i = 1; i < lines.Length; i++)
@@ -33,11 +26,11 @@ namespace FlightSimulatorInspection.Models
                     }
                 }).Start();
 
-            new Thread(
+            /*new Thread(
             delegate ()
             {
                 c.connect();
-            }).Start();
+            }).Start();*/
             //c.connect();
 
             // todo assign each thread to a different var and join() them (wait for finish)

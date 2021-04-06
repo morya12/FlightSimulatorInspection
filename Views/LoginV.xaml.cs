@@ -76,7 +76,7 @@ namespace FlightSimulatorInspection.Views
             {
                 //vm.CircleAlgo = true;
             }
-            //ConnectionHandler.readCSV("da");
+            ConnectionHandler.readCSV("da");
             (this.Parent as Border).Visibility = Visibility.Collapsed;
 
 

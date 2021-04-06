@@ -16,6 +16,20 @@ namespace FlightSimulatorInspection.ViewModels
             model.PropertyChanged += (object sender, PropertyChangedEventArgs e) => NotifyPropertyChanged("VM_" + e.PropertyName);
         }
         //You may add Properties here
+        public double VM_Elevator
+        {
+            get
+            {
+                return (model as FlightStats)[FlightStats.Stats.Elevator.ToString()]*125 +125;
+            }
+        }
+        public double VM_Aileron
+        {
+            get
+            {
+                return (model as FlightStats)[FlightStats.Stats.Aileron.ToString()]*125 + 125;
+            }
+        }
         public double VM_Rudder
         {
             get

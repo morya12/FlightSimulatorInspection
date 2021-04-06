@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace FlightSimulatorInspection.ViewModels
 {
+    /*need to talk to Mor / Asaf about this class*/
     class GraphsVM : BaseViewModel
     {
         private BaseModel model;
