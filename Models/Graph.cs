@@ -20,19 +20,41 @@ namespace FlightSimulatorInspection.Models
     }
     public class Graph
     {
-
-        int timeStep { get; set; }
+        private DataBase db;
         float featureAValue;
+        float featureBValue;
+        string featureA;
+        string featureB;
+        List<float> featureACol;
+        List<float> featureBCol;
+        List<float> dataByFeature; // to do list of float
+        timeSeries ts;
+        public event PropertyChangedEventHandler PropertyChanged;
+        public List<string> parameters;
+
+
+        public Graph()
+        {
+        }
+        public DataBase DB
+        {
+            get
+            {
+                return this.db;
+            }
+            set
+            {
+                this.db = value;
+            }
+        }
         public float FeatureAValue
         {
-            get { return this.featureBValue; }
-        }
-        float featureBValue;
+            get { return this.featureAValue; }
+        } 
         public float FeatureBValue
         {
             get { return this.featureBValue; }
         }
-        string featureA;
         public string FeatureA
         {
             get { return this.featureA; }
@@ -43,74 +65,49 @@ namespace FlightSimulatorInspection.Models
                     this.featureA = value;
                     Console.WriteLine(FeatureA);
                     NotifyPropertyChanged("featureA");
+                    this.featureACol = this.ts.getFeatureDataCol(this.featureA);
 
                 }
             }
         }
-
-
-        string featureB;
         public string FeatureB
         {
             get { return this.featureB; }
             set
             {
                 if (this.featureB != value)
+                {
                     this.featureB = value;
+                    NotifyPropertyChanged("featureB"); 
+                    this.featureBCol = this.ts.getFeatureDataCol(this.featureB);
+
+                }
             }
         }
-        List<Point> dataByFeature; // to do list of float
-        List<Point> correlatedData;
-        string section6Choise;
-        List<float> section7FeatureACol;
-        List<float> section7FeatureBCol;
-        timeSeries ts;
-        //public Graph(timeSeries ts)
-        public Graph()
+        public List<string> Parameters
         {
-            //this.ts = ts;
-            this.timeStep = 0;
-            this.section6Choise = null;
-            this.dataByFeature = new List<Point>();
-            this.correlatedData = new List<Point>();
-        }
-
-        public void calcSection6Graph(string feature)
-        {
-            if (feature != section6Choise)
+            get
             {
-                this.dataByFeature = new List<Point>();
+                if (this.parameters.Count == 0)
+                {
+                    this.parameters = ts.Parameters();
+                }
+                return this.parameters;
             }
-            Point p = new Point(timeStep, ts.getData(section6Choise, timeStep));
-            this.dataByFeature.Add(p);
-        }
-
-        public void calcSection7Graph(string feature1, string feature2)
-        {
-            List<float> featureA;
-            List<float> featureB;
-
-            if (section7FeatureACol == null)
+            set
             {
-                featureA = ts.getFeatureDataCol(feature1);
-                featureB = ts.getFeatureDataCol(feature2);
-                this.section7FeatureACol = featureA;
-                this.section7FeatureBCol = featureB;
+                //
             }
-            else
-            {
-                featureA = this.section7FeatureACol;
-                featureB = this.section7FeatureBCol;
-            }
-
-            this.correlatedData.Add(new Point(featureA[timeStep], featureB[timeStep]));
+           
         }
-        public event PropertyChangedEventHandler PropertyChanged;
+      
 
         public void NotifyPropertyChanged(string propName)
         {
             this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propName));
         }
+
+        
     }
 }
 

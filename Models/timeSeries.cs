@@ -8,7 +8,7 @@ using System.IO;
 
 namespace FlightSimulatorInspection.Models
 {
-    class timeSeries
+    public class timeSeries
     {
         private int numOfRows;
 	    private int numOfCols;
@@ -69,7 +69,6 @@ namespace FlightSimulatorInspection.Models
             }
 
         }
-
         public int NumOfRows()
         {
             return this.numOfRows;

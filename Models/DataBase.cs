@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace FlightSimulatorInspection.Models
 {
     public class DataBase : BaseModel
@@ -14,6 +15,8 @@ namespace FlightSimulatorInspection.Models
         private string fgPath;
         private bool regAlgo = false;
         private bool circleAlgo = false;
+        private timeSeries timeSeries;
+        private int timeStep;
         #endregion
 
         #region Properties
@@ -80,6 +83,30 @@ namespace FlightSimulatorInspection.Models
 
             }
         }
+        public timeSeries TimeSeries
+        {
+            get
+            {
+                return this.timeSeries;
+            }
+            set
+            {
+                this.timeSeries = value;
+            }
+        }
+        public int TimeStep
+        {
+            get
+            {
+                return this.timeStep;
+
+            }
+            set
+            {
+                this.timeStep = value;
+            }
+        }
+        
         #endregion
 
     }
