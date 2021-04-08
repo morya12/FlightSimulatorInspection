@@ -74,6 +74,12 @@
     <Compile Include="Views\FlightControlsV.xaml.cs">
       <DependentUpon>FlightControlsV.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\GraphAV.xaml.cs">
+      <DependentUpon>GraphAV.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\GraphBV.xaml.cs">
+      <DependentUpon>GraphBV.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\GraphsV.xaml.cs">
       <DependentUpon>GraphsV.xaml</DependentUpon>
     </Compile>
@@ -101,6 +107,14 @@
     <Page Include="Views\FlightControlsV.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\GraphAV.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\GraphBV.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\GraphsV.xaml">
       <SubType>Designer</SubType>
@@ -159,6 +173,13 @@
   <ItemGroup>
     <Resource Include="Images\JoystickSplitted.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <PackageReference Include="LiveCharts">
+      <Version>0.9.7</Version>
+    </PackageReference>
+    <PackageReference Include="LiveCharts.Wpf">
+      <Version>0.9.7</Version>
+    </PackageReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

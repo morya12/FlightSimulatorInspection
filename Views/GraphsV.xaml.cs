@@ -1,7 +1,5 @@
-﻿using FlightSimulatorInspection.ViewModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,6 +12,10 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using FlightSimulatorInspection.ViewModels;
+using FlightSimulatorInspection.Models;
+
+
 
 namespace FlightSimulatorInspection.Views
 {
@@ -22,12 +24,38 @@ namespace FlightSimulatorInspection.Views
     /// </summary>
     public partial class GraphsV : UserControl
     {
-        private GraphsVM vm;
+        GraphAV a;
+        GraphBV b;
+        GraphVM graphVM;
         public GraphsV()
         {
             InitializeComponent();
-            vm = new GraphsVM();
-            Trace.WriteLine("~~~~~~~~~~~~~~~~Graphs View CREATED~~~~~~~~~~~~~~~~~~~");
+            graphVM = new GraphVM(new Graph());
+            GraphABorder.Child = new GraphAV(graphVM);
+
+            // here need to get list of graph
+            for (int i = 0; i < 10; ++i)
+            {
+                ListBoxItem newItem = new ListBoxItem();
+                newItem.Content = "Item " + i;
+                featureListBox.Items.Add(newItem);
+            }
         }
+
+        private void featureListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            // selectedItem. 
+            //ListBoxItem c = e.Source as ListBoxItem;
+            //if (c != null)
+            if (featureListBox.SelectedItem != null)
+            {
+                Console.WriteLine((featureListBox.SelectedItem as ListBoxItem).Content.ToString());
+                graphVM.VM_FeatureA = (featureListBox.SelectedItem as ListBoxItem).Content.ToString();
+               // a.tb1.Text = (featureListBox.SelectedItem as ListBoxItem).Content.ToString();
+            }
+
+        }
+
+
     }
 }

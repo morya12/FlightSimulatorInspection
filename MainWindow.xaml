@@ -8,7 +8,7 @@
         xmlns:ViewModel="clr-namespace:FlightSimulatorInspection.ViewModels"
         xmlns:wf="clr-namespace:System.Windows.Forms;assembly=System.Windows.Forms"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="637">
+        Title="MainWindow" Height="600" Width="1000">
 
     <Grid>
         <Grid x:Name="MainGrid">

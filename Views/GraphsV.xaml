@@ -4,9 +4,28 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:FlightSimulatorInspection.Views"
+             xmlns:View="clr-namespace:FlightSimulatorInspection.Views"
+
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
-    <Grid Background="Aqua">
-            
-    </Grid>
+             d:DesignHeight="250" d:DesignWidth="350">
+  <Grid Background="black">
+    <Grid.RowDefinitions>
+      <RowDefinition Height="auto" />
+      <RowDefinition Height="Auto" />
+    </Grid.RowDefinitions>
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="auto" />
+      <ColumnDefinition Width="auto" />
+    </Grid.ColumnDefinitions>
+        <Border x:Name="GraphABorder" Grid.Row="0" Grid.Column="0"/>
+        
+    <View:GraphBV Grid.Row="0" Grid.Column="1"/>
+    <WrapPanel Grid.Row="0">
+      <ListBox x:Name="listBox" />
+    </WrapPanel>
+    <WrapPanel HorizontalAlignment="Left" Height="125" Margin="0,4.333,0,-126" Grid.Row="1" VerticalAlignment="Top" Width="90">
+      <ListBox x:Name="featureListBox" Height="125" Width="100" SelectionChanged="featureListBox_SelectionChanged"/>
+    </WrapPanel>
+
+  </Grid>
 </UserControl>
