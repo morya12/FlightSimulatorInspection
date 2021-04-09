@@ -60,17 +60,13 @@ namespace FlightSimulatorInspection.Models
             "Turn_indicator_indicated_turn_rate",
             "Vertical_speed_indicator_indicated_speed_fpm",
             "Engine_rpm"};
-            string path = Directory.GetCurrentDirectory();
-            System.Text.StringBuilder sb = new System.Text.StringBuilder(path);
-            sb.Append("/'").Append(csvFileName);
-
-            if (!File.Exists(path))
+            if (!File.Exists(csvFileName))
             {
                 Console.WriteLine("file not found"); // need to print on screen 
             }
             else
             {   
-                string[] lines = File.ReadAllLines(path);
+                string[] lines = File.ReadAllLines(csvFileName);
                 this.numOfCols = parameters.Count();
 
 

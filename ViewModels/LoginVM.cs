@@ -36,6 +36,7 @@ namespace FlightSimulatorInspection.ViewModels
                 model.CsvPath = csvPath;
             }
         }
+        
 
     }
 }

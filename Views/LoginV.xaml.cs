@@ -13,7 +13,6 @@ namespace FlightSimulatorInspection.Views
     public partial class LoginV : UserControl
     {
         private LoginVM vm;
-        private string csvPath;
         public LoginV(LoginVM vm)
         {
             InitializeComponent();
@@ -32,7 +31,7 @@ namespace FlightSimulatorInspection.Views
             if (result == true)
             {
                 b1.Content = openFileDlg.FileName;
-                this.csvPath = openFileDlg.FileName;
+                vm.VM_CsvPath = openFileDlg.FileName;
             }
         }
         private void b2Click(object sender, RoutedEventArgs e)
@@ -76,7 +75,10 @@ namespace FlightSimulatorInspection.Views
             {
                 //vm.CircleAlgo = true;
             }
-            ConnectionHandler.readCSV("da");
+            string path = b1.Content.ToString();
+            //this.vm.
+            this.vm.VM_CsvPath = path;
+            ConnectionHandler.readCSV(path);
             (this.Parent as Border).Visibility = Visibility.Collapsed;
 
 

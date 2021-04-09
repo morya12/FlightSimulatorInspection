@@ -28,13 +28,13 @@ namespace FlightSimulatorInspection.Models
         List<float> featureACol;
         List<float> featureBCol;
         List<float> dataByFeature; // to do list of float
-        timeSeries ts;
         public event PropertyChangedEventHandler PropertyChanged;
         public List<string> parameters;
 
 
         public Graph()
         {
+            //this.db = this.
         }
         public DataBase DB
         {
@@ -65,7 +65,7 @@ namespace FlightSimulatorInspection.Models
                     this.featureA = value;
                     Console.WriteLine(FeatureA);
                     NotifyPropertyChanged("featureA");
-                    this.featureACol = this.ts.getFeatureDataCol(this.featureA);
+                    this.featureACol = this.db.TimeSeries.getFeatureDataCol(this.featureA);
 
                 }
             }
@@ -79,8 +79,7 @@ namespace FlightSimulatorInspection.Models
                 {
                     this.featureB = value;
                     NotifyPropertyChanged("featureB"); 
-                    this.featureBCol = this.ts.getFeatureDataCol(this.featureB);
-
+                    this.featureBCol = this.db.TimeSeries.getFeatureDataCol(this.featureB);
                 }
             }
         }
@@ -97,7 +96,6 @@ namespace FlightSimulatorInspection.Models
            
         }
       
-
         public void NotifyPropertyChanged(string propName)
         {
             this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propName));

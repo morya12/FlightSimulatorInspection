@@ -27,10 +27,10 @@ namespace FlightSimulatorInspection.Views
         GraphAV a;
         GraphBV b;
         GraphVM graphVM;
-        public GraphsV()
+        public GraphsV(DataBase db)
         {
             InitializeComponent();
-            graphVM = new GraphVM(new Graph());
+            graphVM = new GraphVM(new Graph(), db);
             GraphABorder.Child = new GraphAV(graphVM);
 
             // here need to get list of graph

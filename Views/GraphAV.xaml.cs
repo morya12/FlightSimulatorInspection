@@ -67,7 +67,7 @@ public partial class GraphAV : UserControl, INotifyPropertyChanged
         Task.Run(() =>
         {
             var r = new Random();
-            while (true)
+            while (true) 
             {
                 Thread.Sleep(500);
                 value = (r.NextDouble() > 0.3 ? 1 : -1) * r.Next(0, 5); //need to bind to feature 
@@ -81,7 +81,6 @@ public partial class GraphAV : UserControl, INotifyPropertyChanged
                 });
             }
         });
-
         DataContext = this;
     }
         

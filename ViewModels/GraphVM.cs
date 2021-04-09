@@ -42,9 +42,10 @@ namespace FlightSimulatorInspection.ViewModels
         {
             get { return graphModel.FeatureBValue; }
         }
-        public GraphVM(Graph model)
+        public GraphVM(Graph model, DataBase db)
         {
             this.graphModel = model;
+            this.graphModel.DB = db;
             graphModel.PropertyChanged += delegate (object sender, PropertyChangedEventArgs e) {
                 NotifyPropertyChanged("VM_" + e.PropertyName);
             };
