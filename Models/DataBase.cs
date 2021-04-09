@@ -107,6 +107,10 @@ namespace FlightSimulatorInspection.Models
                 this.timeStep = value;
             }
         }
+        public DataBase()
+        {
+            this.timeSeries = new timeSeries();
+        }
         
         #endregion
 

@@ -20,15 +20,16 @@ using LiveCharts.Wpf;
 using FlightSimulatorInspection.ViewModels;
 
 namespace FlightSimulatorInspection.Views
-{ 
+{
     /// <summary>
     /// Interaction logic for MaterialCards.xaml
     /// </summary>
-public partial class GraphAV : UserControl, INotifyPropertyChanged
-{
-    private double lastvalue;
-    private double value;
-    private GraphVM vm;
+    public partial class GraphAV : UserControl, INotifyPropertyChanged
+    {
+        private double lastvalue;
+        private double value;
+        private List<float> data;
+        private GraphVM vm;
 
     public GraphAV(GraphVM g)
     {
@@ -66,11 +67,28 @@ public partial class GraphAV : UserControl, INotifyPropertyChanged
 
         Task.Run(() =>
         {
+            this.data = this.vm.getDataCol();
             var r = new Random();
-            while (true) 
+            int i = 0;
+            while (true)  // currently not in sync with simulator
             {
+                this.data = this.vm.getDataCol();
                 Thread.Sleep(500);
-                value = (r.NextDouble() > 0.3 ? 1 : -1) * r.Next(0, 5); //need to bind to feature 
+                if (this.data != null && this.data.Any())
+                {
+                    value = data[i];
+                    i++;
+                    foreach (float f in this.data)
+                        Console.WriteLine(f);
+
+                }
+                else
+                {
+                    value = 0;
+
+
+                }
+                //value = (r.NextDouble() > 0.3 ? 1 : -1) * r.Next(0, 5); //need to bind to feature 
                 Application.Current.Dispatcher.Invoke(() =>
                 {
                     FeaturASeries[0].Values.Add(new ObservableValue(value));
@@ -79,6 +97,7 @@ public partial class GraphAV : UserControl, INotifyPropertyChanged
                     SetLecture();
 
                 });
+                
             }
         });
         DataContext = this;

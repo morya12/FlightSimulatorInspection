@@ -51,5 +51,15 @@ namespace FlightSimulatorInspection.ViewModels
             };
         }
 
+        public List<string> getParameters()
+        {
+            return this.graphModel.Parameters;
+        }
+
+        public List<float> getDataCol()
+        {
+            return this.graphModel.dataCol();
+        }
+
     }
 }

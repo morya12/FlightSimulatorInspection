@@ -95,7 +95,10 @@ namespace FlightSimulatorInspection.Models
             }
            
         }
-      
+        public List<float> dataCol()
+        {
+            return this.db.TimeSeries.getFeatureDataCol(FeatureA);
+        }
         public void NotifyPropertyChanged(string propName)
         {
             this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propName));
