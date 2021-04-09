@@ -88,11 +88,7 @@ namespace FlightSimulatorInspection.Models
         {
             get
             {
-                if (this.parameters.Count == 0)
-                {
-                    this.parameters = ts.Parameters();
-                }
-                return this.parameters;
+                return this.DB.TimeSeries.Parameters();
             }
             set
             {

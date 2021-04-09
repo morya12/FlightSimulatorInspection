@@ -28,6 +28,14 @@ namespace FlightSimulatorInspection.ViewModels
                 model.FGPath = fgPath;
             }
         }
+        public string VM_CsvPath
+        {
+            set
+            {
+                csvPath = value;
+                model.CsvPath = csvPath;
+            }
+        }
 
     }
 }

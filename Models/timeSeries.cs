@@ -15,14 +15,51 @@ namespace FlightSimulatorInspection.Models
         List<String> parameters;    // the parameters part of the table
         List<List<float>> info;     // the info part of the table
 
-        public timeSeries()
-        {
-            this.numOfCols = 0;
-            this.numOfRows = 0;
-        }
-
         public timeSeries(string csvFileName)
         {
+            parameters = new List<string>()
+            { "Aileron",
+            "Elevator",
+            "Rudder",
+            "Flaps",
+            "Slats",
+            "Speedbrake",
+            "Throttle",
+            "Throttle2",
+            "Engine_pump1",
+            "Engine_pump2",
+            "Electric_pump1",
+            "Electric_pump2",
+            "External_power",
+            "APU_generator",
+            "Latitude",
+            "Longitude",
+            "Altitude",
+            "Roll",
+            "Pitch",
+            "Heading",
+            "SideSlip",
+            "Airspeed",
+            "Glideslope",
+            "Vertical_speed_fps",
+            "Airspeed_indicator_indicated_speed_kt",
+            "Altimeter_indicated_altitude_ft",
+            "Altimeter_pressure_alt_ft",
+            "Attitude_indicator_indicated_pitch_deg",
+            "Attitude_indicator_indicated_roll_deg",
+            "Attitude_indicator_internal_pitch_deg",
+            "Attitude_indicator_internal_roll_deg",
+            "Encoder_indicated_altitude_ft",
+            "Encoder_pressure_alt_ft",
+            "Gps_indicated_altitude_ft",
+            "Gps_indicated_ground_speed_kt",
+            "Gps_indicated_vertical_speed",
+            "Indicated_heading_deg",
+            "Magnetic_compass_indicated_heading_deg",
+            "Slip_skid_ball_indicated_slip_skid",
+            "Turn_indicator_indicated_turn_rate",
+            "Vertical_speed_indicator_indicated_speed_fpm",
+            "Engine_rpm"};
             string path = Directory.GetCurrentDirectory();
             System.Text.StringBuilder sb = new System.Text.StringBuilder(path);
             sb.Append("/'").Append(csvFileName);
@@ -33,16 +70,8 @@ namespace FlightSimulatorInspection.Models
             }
             else
             {   
-                List<string> csvParameters = new List<string>(); // handle parameters
-
                 string[] lines = File.ReadAllLines(path);
-                string[] paramsArr = lines[0].Split(',');
-                foreach (var word in paramsArr)
-                {
-                    csvParameters.Add(word);
-                }
-                this.parameters = csvParameters;
-                this.numOfCols = csvParameters.Count();
+                this.numOfCols = parameters.Count();
 
 
                 List<List<float>> csvListOfLists = new List<List<float>>();   // handle info
@@ -57,10 +86,13 @@ namespace FlightSimulatorInspection.Models
                     {
                         csvContentInFloat.Add(float.Parse(word));
                     }
-                    if (ifFirstLine)
+                    if (ifFirstLine) 
                     {
                         ifFirstLine = false;
-                        continue;   // skip adding to info
+                        if (csvContentInString[0] == "Aileron")
+                        {
+                            continue;   // skip adding to info
+                        }
                     }
                     csvListOfLists.Add(csvContentInFloat);
                 }

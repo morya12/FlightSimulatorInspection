@@ -41,6 +41,7 @@ namespace FlightSimulatorInspection.Models
             set
             {
                 this.csvPath = value;
+                this.timeSeries = new timeSeries(csvPath);
                 NotifyPropertyChanged(nameof(CsvPath));
             }
         }
