@@ -11,20 +11,20 @@ namespace FlightSimulatorInspection.Models
             //c.CsvFilePath=csvPath;
 
 
-              var lines = File.ReadAllLines("C:\\Users\\97254\\source\\repos\\morya12\\FlightSimulatorInspection\\Resources\\reg_flight.csv");
+         //     var lines = File.ReadAllLines("C:\\Users\\97254\\source\\repos\\morya12\\FlightSimulatorInspection\\Resources\\reg_flight.csv");
             // var lines = File.ReadAllLines("C:\\Users\\97205\\source\\repos\\FlightSimulatorInspection\\Resources\\reg_flight.csv");
             //var lines = File.ReadAllLines(csvPath);
             
-            new Thread(
-                delegate ()
-                {
+ //           new Thread(
+ //               delegate ()
+ //               {
                     //need to add stop signal
-                    for (int i = 1; i < lines.Length; i++)
-                    {
-                        FlightStats.Instance.updateStatsTable(lines[i], i);
-                        Thread.Sleep(10);
-                    }
-                }).Start();
+   //                 for (int i = 1; i < lines.Length; i++)
+   //                 {
+   //                     FlightStats.Instance.updateStatsTable(lines[i], i);
+   //                     Thread.Sleep(10);
+   //                 }
+  //              }).Start();
 
             /*new Thread(
             delegate ()
