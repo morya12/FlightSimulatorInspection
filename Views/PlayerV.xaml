@@ -8,12 +8,43 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
   <Grid Background="#99ccff">
-    <MediaElement x:Name="mediaElement" HorizontalAlignment="Left" Height="330" Margin="10,10,0,0" VerticalAlignment="Top" Width="773" RenderTransformOrigin="-2.803,-1.3" AllowDrop="True" MediaOpened="MediaElement_MediaOpened"/>
-    <Button Content="Pause" FontWeight="UltraBlack"  Background="Orange" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="115,355,0,0" Click="Button_Click_1"/>
-    <Button Content="Play" FontWeight="UltraBlack" Background="Orange" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="10,355,0,0" Click="Button_Click"/>
-    <Button Content="Stop" FontWeight="UltraBlack" Background="Orange" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="225,355,0,0" Click="Button_Click_2"/>
-    <Slider HorizontalAlignment="Left" TickFrequency="5" Name="slider_seek" Margin="10,385,0,-0.333" VerticalAlignment="Top" Height="36" Width="755" ValueChanged="Slider_seek_ValueChanged"/>
-    <Slider x:Name="speedRatioSlider" Value="1" Maximum="4" HorizontalAlignment="Left" VerticalAlignment="Top" Height="30" Width="90" Margin="335,355,0,0" ValueChanged="Slider_ValueChanged"/>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="auto" />
+      <RowDefinition Height="*"/>
+    </Grid.RowDefinitions>
+    <!--Top Bar-->
+    <Grid Grid.Row="0">
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="*"/>
+        <ColumnDefinition Width="*"/>
+        <ColumnDefinition Width="*"/>
+        <ColumnDefinition Width="*"/>
+      </Grid.ColumnDefinitions>
+      <!--Play Button-->
+      <StackPanel HorizontalAlignment="Center" Orientation="Vertical" Grid.Column="0" Margin="0 10 0 0">
+        <Button Content="Play" FontWeight="UltraBlack" Background="Orange" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
+      </StackPanel>
+      <!--Pause Button-->
+      <StackPanel HorizontalAlignment="Center" Orientation="Vertical" Grid.Column="1" Margin="0 10 0 0">
+        <Button Content="Pause" FontWeight="UltraBlack"  Background="Orange" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Click="Button_Click_1"/>
+      </StackPanel>
+      <!--Stop Button-->
+      <StackPanel HorizontalAlignment="Center" Grid.Column="2" Margin="0 10 0 0">
+        <Button Content="Stop" FontWeight="UltraBlack" Background="Orange" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Click="Button_Click_2"/>
+      </StackPanel>
+      <!--SpeedRatio Slider-->
+      <StackPanel Grid.Column="3" HorizontalAlignment="Center" Margin="0 10 0 0">
+        <Slider x:Name="speedRatioSlider" Value="1" Maximum="4" HorizontalAlignment="Left" VerticalAlignment="Top" Height="30" Width="90" ValueChanged="Slider_ValueChanged"/>
+      </StackPanel>
+    </Grid>
+    <Grid Grid.Row="1">
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="*"/>
+      </Grid.ColumnDefinitions>
+      <StackPanel Grid.Column="0" HorizontalAlignment="Center" Margin="0 10 0 0">
+        <Slider HorizontalAlignment="Left" TickFrequency="5" Name="slider_seek" VerticalAlignment="Top" Height="36" Width="600" ValueChanged="Slider_seek_ValueChanged"/>
+      </StackPanel>
+    </Grid>
 
   </Grid>
 </UserControl>
