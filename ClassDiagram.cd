@@ -1,0 +1,356 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="FlightSimulatorInspection.App" Collapsed="true">
+    <Position X="18.25" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>App.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FlightSimulatorInspection.MainWindow" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="6.5" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>MainWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.559" Collapsed="true" />
+  </Class>
+  <Class Name="FlightSimulatorInspection.Models.NativeMethods" Collapsed="true">
+    <Position X="20" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAQAAQAAAAAA=</HashCode>
+      <FileName>Models\AnomalyDetection.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FlightSimulatorInspection.Models.AnomalyDetection" Collapsed="true">
+    <Position X="14.75" Y="2.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAEBAAAAAQAAAIAAgACAAAAAAAAAAAAAgAAAAAAAAA=</HashCode>
+      <FileName>Models\AnomalyDetection.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FlightSimulatorInspection.Models.BaseModel" Collapsed="true">
+    <Position X="6.5" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAIAAAAAAAAAAgAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\BaseModel.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="FlightSimulatorInspection.Models.ClientFG" Collapsed="true">
+    <Position X="5.5" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gBAAAAAAAAAAAAAAgAAAAAABAAAAAQAAAAgAAAAQAAA=</HashCode>
+      <FileName>Models\ClientFG.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FlightSimulatorInspection.Models.ConnectionHandler" Collapsed="true">
+    <Position X="7.25" Y="3.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAA=</HashCode>
+      <FileName>Models\ConnectionHandler .cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FlightSimulatorInspection.Models.CorrelatedFeatures" Collapsed="true">
+    <Position X="14.75" Y="3.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AEgIBAAACAQAAggAAEAIAAAAAAAAQAAAAAAAAABIgAA=</HashCode>
+      <FileName>Models\DataBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FlightSimulatorInspection.Models.AnomalyReport" Collapsed="true">
+    <Position X="16.5" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAAAAIAAAAAAAAAAAAAAAAAAAEAAAABA=</HashCode>
+      <FileName>Models\DataBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FlightSimulatorInspection.Models.DataBase" Collapsed="true">
+    <Position X="7.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAFAAAAAQYACQYgCAACACggAAAAAAQAAAAQEgAIABA=</HashCode>
+      <FileName>Models\DataBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FlightSimulatorInspection.Models.FlightStats" Collapsed="true">
+    <Position X="5.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAAAAQAAAAACAAAAAAAAAAAAAAAQAAAEBAAABA=</HashCode>
+      <FileName>Models\FlightStats.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FlightSimulatorInspection.Models.Point" Collapsed="true">
+    <Position X="14.75" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABgAAAAAAA=</HashCode>
+      <FileName>Models\Graph.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FlightSimulatorInspection.Models.Graph" Collapsed="true">
+    <Position X="18.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAABIAAAUAIAgAAAAIAAAgAAAkAAAAJAAUCCIABA=</HashCode>
+      <FileName>Models\Graph.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FlightSimulatorInspection.Models.TimeSeries" Collapsed="true">
+    <Position X="21.75" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAARAAAACAAAAAAAAAAAAAAAIAAAAAEAQIAIAECAAAA=</HashCode>
+      <FileName>Models\TimeSeries.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FlightSimulatorInspection.Properties.Resources" Collapsed="true">
+    <Position X="18.25" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAABEAAAAQAAAAAAAAAAAAAAAIA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FlightSimulatorInspection.Properties.Settings" Collapsed="true">
+    <Position X="20" Y="5.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAIAAAAAABAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FlightSimulatorInspection.ViewModels.BaseViewModel" Collapsed="true">
+    <Position X="6.5" Y="8.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAIAAAAAAAAAAgAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModels\BaseViewModel.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="FlightSimulatorInspection.ViewModels.FlightControlsVM" Collapsed="true">
+    <Position X="0.5" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAgAAAAAAAAAAAAAABBAAAAAAIACA=</HashCode>
+      <FileName>ViewModels\FlightControlsVM.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FlightSimulatorInspection.ViewModels.GraphsVM" Collapsed="true">
+    <Position X="2.75" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAA=</HashCode>
+      <FileName>ViewModels\GraphsVM.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FlightSimulatorInspection.ViewModels.GraphVM" Collapsed="true">
+    <Position X="5" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAAAQAAARAAAAgYAABAKAAAACAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModels\GraphVM.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FlightSimulatorInspection.ViewModels.LoginVM" Collapsed="true">
+    <Position X="7.25" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABAACAAAQAAGAQgAAACAAAAAAAAAAAAAAAAQgAIAAA=</HashCode>
+      <FileName>ViewModels\LoginVM.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FlightSimulatorInspection.ViewModels.PlayerVM" Collapsed="true">
+    <Position X="9.5" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAIAAA=</HashCode>
+      <FileName>ViewModels\PlayerVM.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FlightSimulatorInspection.ViewModels.VideoVM" Collapsed="true">
+    <Position X="11.75" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABAACAAAQAAIAgCIAAAgAJEAQQAgAABAEgAASSoAAA=</HashCode>
+      <FileName>ViewModels\VideoVM.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FlightSimulatorInspection.Views.FlightControlsV" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="16.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\FlightControlsV.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="FlightSimulatorInspection.Views.GraphAV" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="20" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQAAAQAAAgAABAIAAAAAAAgAAgACAAAAAQAAAAAAA=</HashCode>
+      <FileName>Views\GraphAV.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="FlightSimulatorInspection.Views.GraphBV" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="21.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQAAAQAAAAAABAIAAAAAAAgAAgACAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\GraphBV.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="FlightSimulatorInspection.Views.GraphsV" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="14.75" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAA=</HashCode>
+      <FileName>Views\GraphsV.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="FlightSimulatorInspection.Views.LoginV" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="16.5" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABACAAAAAAgAACAAAAAAAAAAgAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\LoginV.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="FlightSimulatorInspection.Views.PlayerV" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="21.75" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAUAAIABAAAhAAAAAAAAAAEAAAAAAABAAAAACAAAAAA=</HashCode>
+      <FileName>Views\PlayerV.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="FlightSimulatorInspection.Views.RegressionGraphV" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="16.5" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAAAAgAAAAAAAAAAAAAAEABAEAAABgAAAAAAA=</HashCode>
+      <FileName>Views\RegressionGraphV.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="FlightSimulatorInspection.Views.VideoV" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="14.75" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAAAAgAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\VideoV.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Delegate Name="FlightSimulatorInspection.Models.CreateDetector" Collapsed="true">
+    <Position X="18.25" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAACAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\AnomalyDetection.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Delegate Name="FlightSimulatorInspection.Models.detect" Collapsed="true">
+    <Position X="20" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAA=</HashCode>
+      <FileName>Models\AnomalyDetection.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Delegate Name="FlightSimulatorInspection.Models.getARVectorSize" Collapsed="true">
+    <Position X="21.75" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAA=</HashCode>
+      <FileName>Models\AnomalyDetection.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Delegate Name="FlightSimulatorInspection.Models.CreateAnomalyReportWrapperByIndx" Collapsed="true">
+    <Position X="14.75" Y="7.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAECAAAAAAAAAA=</HashCode>
+      <FileName>Models\AnomalyDetection.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Delegate Name="FlightSimulatorInspection.Models.getDescription" Collapsed="true">
+    <Position X="20" Y="8.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAABAAAAAAAAAAAAAAAAAAEAAAAEAAAAAAAAAAA=</HashCode>
+      <FileName>Models\AnomalyDetection.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Delegate Name="FlightSimulatorInspection.Models.getTimeStep" Collapsed="true">
+    <Position X="16.5" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAA=</HashCode>
+      <FileName>Models\AnomalyDetection.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Delegate Name="FlightSimulatorInspection.Models.getNormalModel" Collapsed="true">
+    <Position X="20" Y="9" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAA=</HashCode>
+      <FileName>Models\AnomalyDetection.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Delegate Name="FlightSimulatorInspection.Models.getCFVectorSize" Collapsed="true">
+    <Position X="14.75" Y="8.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAA=</HashCode>
+      <FileName>Models\AnomalyDetection.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Delegate Name="FlightSimulatorInspection.Models.CreateCorrelatedFeaturesWrapperByIndx" Collapsed="true">
+    <Position X="16.5" Y="7.5" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAECAAAAAAAAAA=</HashCode>
+      <FileName>Models\AnomalyDetection.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Delegate Name="FlightSimulatorInspection.Models.getFeature1" Collapsed="true">
+    <Position X="21.75" Y="8.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAABAAAAAAAAAAAAAAAAAAEAAAAEAAAAAAAAAAA=</HashCode>
+      <FileName>Models\AnomalyDetection.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Delegate Name="FlightSimulatorInspection.Models.getFeature2" Collapsed="true">
+    <Position X="14.75" Y="9" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAABAAAAAAAAAAAAAAAAAAEAAAAEAAAAAAAAAAA=</HashCode>
+      <FileName>Models\AnomalyDetection.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Delegate Name="FlightSimulatorInspection.Models.getLineA" Collapsed="true">
+    <Position X="16.5" Y="9" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAA=</HashCode>
+      <FileName>Models\AnomalyDetection.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Delegate Name="FlightSimulatorInspection.Models.getLineB" Collapsed="true">
+    <Position X="18.25" Y="9" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAA=</HashCode>
+      <FileName>Models\AnomalyDetection.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Delegate Name="FlightSimulatorInspection.Models.getRadius" Collapsed="true">
+    <Position X="21.75" Y="9" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAA=</HashCode>
+      <FileName>Models\AnomalyDetection.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Delegate Name="FlightSimulatorInspection.Models.getCX" Collapsed="true">
+    <Position X="16.5" Y="8.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAA=</HashCode>
+      <FileName>Models\AnomalyDetection.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Delegate Name="FlightSimulatorInspection.Models.getCY" Collapsed="true">
+    <Position X="18.25" Y="8.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAA=</HashCode>
+      <FileName>Models\AnomalyDetection.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Delegate Name="FlightSimulatorInspection.Models.setThreshold" Collapsed="true">
+    <Position X="18.25" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAACAAAAAAAAAAAAAAAAEAAAAAAAAAAA=</HashCode>
+      <FileName>Models\AnomalyDetection.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Delegate Name="FlightSimulatorInspection.Models.getTestFileSize" Collapsed="true">
+    <Position X="14.75" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAA=</HashCode>
+      <FileName>Models\AnomalyDetection.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
