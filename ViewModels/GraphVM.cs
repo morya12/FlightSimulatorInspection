@@ -17,25 +17,24 @@ namespace FlightSimulatorInspection.ViewModels
 
         public string VM_FeatureA
         {
-            get { return graphModel.FeatureA; }
+            get { return graphModel.UserChoise; }
             set
             {
-                if (graphModel.FeatureA != value)
-                    graphModel.FeatureA = value;
+                if (graphModel.UserChoise != value)
+                    graphModel.UserChoise = value;
             }
         }
         public float VM_FeatureAValue
         {
             get { return graphModel.FeatureAValue; }
         }
-
         public string VM_FeatureB
         {
-            get { return graphModel.FeatureB; }
+            get { return graphModel.CorrelatedFeatureB; }
             set
             {
-                if (graphModel.FeatureB != value)
-                    graphModel.FeatureB = value;
+                if (graphModel.CorrelatedFeatureB != value)
+                    graphModel.CorrelatedFeatureB = value;
             }
         }
         public float VM_FeatureBValue
@@ -50,12 +49,10 @@ namespace FlightSimulatorInspection.ViewModels
                 NotifyPropertyChanged("VM_" + e.PropertyName);
             };
         }
-
         public List<string> getParameters()
         {
             return this.graphModel.Parameters;
         }
-
         public List<float> getDataCol()
         {
             return this.graphModel.dataCol();
