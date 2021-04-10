@@ -53,9 +53,6 @@ namespace FlightSimulatorInspection.Views
                 Console.WriteLine((featureListBox.SelectedItem as ListBoxItem).Content.ToString());
                 graphVM.VM_FeatureA = (featureListBox.SelectedItem as ListBoxItem).Content.ToString();
             }
-
         }
-
-
     }
 }

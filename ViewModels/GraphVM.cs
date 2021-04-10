@@ -13,6 +13,8 @@ namespace FlightSimulatorInspection.ViewModels
     public class GraphVM : BaseViewModel
     {
         Graph graphModel;
+        Point xRange;
+        Point yRange;
       
 
         public string VM_FeatureA
@@ -56,6 +58,28 @@ namespace FlightSimulatorInspection.ViewModels
         public List<float> getDataCol()
         {
             return this.graphModel.dataCol();
+        }
+        
+        public Point XRange
+        {
+            get
+            {
+                if (this.xRange == null) {
+                    xRange = this.graphModel.getRange('A');
+                }
+                return xRange;
+            }
+        }
+        public Point YRange
+        {
+            get
+            {
+                if (this.yRange == null)
+                {
+                    yRange = this.graphModel.getRange('B');
+                }
+                return yRange;
+            }
         }
 
     }

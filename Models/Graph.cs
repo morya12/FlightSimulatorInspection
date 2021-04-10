@@ -117,31 +117,8 @@ namespace FlightSimulatorInspection.Models
         {
             this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propName));
         }
-        public Point getMinRange(char c)
-        {
-            List<float> dataCol = this.featureACol;
-            if (c == 'B')
-            {
-                dataCol = this.featureBCol;
-            }
-            float min = float.MaxValue;
-            int index = 0;
-            int minIndex = -1;
-            foreach (float f in dataCol)
-            {
-                if (f < min)
-                {
-                    min = f;
-                    minIndex = index;
 
-                }
-                index++;
-            }
-            return new Point(featureACol[minIndex], featureBCol[minIndex]);
-        }
-
-
-        public Point getMaxRange(char c)
+        public Point getRange(char c)
         {
             List<float> dataCol = this.featureACol;
             if (c == 'B')
@@ -149,19 +126,26 @@ namespace FlightSimulatorInspection.Models
                 dataCol = this.featureBCol;
             }
             float max = float.MinValue;
+            float min = float.MaxValue;
             int index = 0;
             int maxIndex = -1;
+            int minIndex = -1;
             foreach (float f in dataCol)
             {
                 if (f > max)
                 {
                     max = f;
                     maxIndex = index;
-
                 }
+                if (f < min)
+                {
+                    min = f;
+                    minIndex = index;
+                }
+
                 index++;
             }
-            return new Point(featureACol[maxIndex], featureBCol[maxIndex]);
+            return new Point(dataCol[minIndex], dataCol[maxIndex]);
         }
 
 

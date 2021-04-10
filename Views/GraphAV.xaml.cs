@@ -78,13 +78,10 @@ namespace FlightSimulatorInspection.Views
                 {
                     value = data[i];
                     i++;
-
                 }
                 else
                 {
                     value = 0;
-
-
                 }
                 //value = (r.NextDouble() > 0.3 ? 1 : -1) * r.Next(0, 5); //need to bind to feature 
                 Application.Current.Dispatcher.Invoke(() =>
