@@ -75,19 +75,21 @@ namespace FlightSimulatorInspection.Models
                 List<List<float>> csvListOfLists = new List<List<float>>();   // handle info
                 string[] csvContentInString;
                 bool firstTime = true;
+                int i = 0;
                 foreach (string line in lines)
                 {
                     csvContentInString = line.Split(',');
-                    int i = 0;
+                    int j = 0;
                     foreach (var word in csvContentInString)
                     {
-                        if (firstTime)
+                        if (i == 0)
                         {
                             csvListOfLists.Add(new List<float>());
-                            firstTime = false;
                         }
-                        csvListOfLists[i].Add(float.Parse(word));
+                        csvListOfLists[j].Add(float.Parse(word));
+                    j++;
                     }
+                i++;
                 }
                 this.info = csvListOfLists;
                 this.numOfRows = csvListOfLists.Count();

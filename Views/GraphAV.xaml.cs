@@ -78,8 +78,6 @@ namespace FlightSimulatorInspection.Views
                 {
                     value = data[i];
                     i++;
-                    foreach (float f in this.data)
-                        Console.WriteLine(f);
 
                 }
                 else
