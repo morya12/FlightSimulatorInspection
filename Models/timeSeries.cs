@@ -15,9 +15,9 @@ namespace FlightSimulatorInspection.Models
         List<String> parameters;    // the parameters part of the table
         List<List<float>> info;     // the info part of the table
 
-        public timeSeries(string csvFileName)
+        private void setParameters()
         {
-            parameters = new List<string>()
+            this.parameters = new List<string>()
             { "Aileron",
             "Elevator",
             "Rudder",
@@ -60,45 +60,45 @@ namespace FlightSimulatorInspection.Models
             "Turn_indicator_indicated_turn_rate",
             "Vertical_speed_indicator_indicated_speed_fpm",
             "Engine_rpm"};
-            string path = Directory.GetCurrentDirectory();
-            System.Text.StringBuilder sb = new System.Text.StringBuilder(path);
-            sb.Append("/'").Append(csvFileName);
-
-            if (!File.Exists(path))
+        }
+        public timeSeries(string csvFileName)
+        {
+            setParameters();
+            if (!File.Exists(csvFileName))
             {
                 Console.WriteLine("file not found"); // need to print on screen 
             }
             else
             {   
-                string[] lines = File.ReadAllLines(path);
+                string[] lines = File.ReadAllLines(csvFileName);
                 this.numOfCols = parameters.Count();
-
-
                 List<List<float>> csvListOfLists = new List<List<float>>();   // handle info
-
-                List<float> csvContentInFloat = new List<float>();
                 string[] csvContentInString;
-                bool ifFirstLine = true;
+                bool firstTime = true;
+                int i = 0;
                 foreach (string line in lines)
                 {
                     csvContentInString = line.Split(',');
+                    int j = 0;
                     foreach (var word in csvContentInString)
                     {
-                        csvContentInFloat.Add(float.Parse(word));
-                    }
-                    if (ifFirstLine) 
-                    {
-                        ifFirstLine = false;
-                        if (csvContentInString[0] == "Aileron")
+                        if (i == 0)
                         {
-                            continue;   // skip adding to info
+                            csvListOfLists.Add(new List<float>());
                         }
+                        csvListOfLists[j].Add(float.Parse(word));
+                    j++;
                     }
-                    csvListOfLists.Add(csvContentInFloat);
+                i++;
                 }
                 this.info = csvListOfLists;
                 this.numOfRows = csvListOfLists.Count();
             }
+
+        }
+        public timeSeries()
+        {
+            setParameters();
 
         }
         public int NumOfRows()
@@ -127,10 +127,10 @@ namespace FlightSimulatorInspection.Models
         }
         public List<float> getFeatureDataCol(string feature)
         {
-            int i = 0;
-            foreach (string a in parameters)
+            int len = this.parameters.Count();
+            for (int i = 0; i<len; i++)
             {
-                if (a==feature) {
+                if (this.parameters[i] == feature) {
                     return info[i];
                 }
                 i++;

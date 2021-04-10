@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using System.Threading;
+using System;
 
 namespace FlightSimulatorInspection.Models
 {
@@ -7,13 +8,14 @@ namespace FlightSimulatorInspection.Models
     {
         public static void readCSV(string csvPath)
         {
-            //clientFG c = new clientFG();
-            //c.CsvFilePath=csvPath;
+            clientFG c = new clientFG();
+            c.CsvFilePath=csvPath;
 
 
          //     var lines = File.ReadAllLines("C:\\Users\\97254\\source\\repos\\morya12\\FlightSimulatorInspection\\Resources\\reg_flight.csv");
             // var lines = File.ReadAllLines("C:\\Users\\97205\\source\\repos\\FlightSimulatorInspection\\Resources\\reg_flight.csv");
-            //var lines = File.ReadAllLines(csvPath);
+            var lines = File.ReadAllLines(csvPath);
+            Console.WriteLine(csvPath);
             
  //           new Thread(
  //               delegate ()

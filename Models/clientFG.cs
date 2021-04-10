@@ -77,15 +77,12 @@ namespace FlightSimulatorInspection.Models
             IPEndPoint remoteEP = new IPEndPoint(ipAddress, this.host);
             Console.WriteLine(remoteEP.ToString());
             s.Connect(remoteEP);
-            //int i = 0;
             try
             {
                 string[] lines = File.ReadAllLines(CsvFilePath);
                 byte[] bytes;
                 foreach (string line in lines)
                 {
-                    //Console.WriteLine(line);
-                    //Console.WriteLine();
                     bytes = Encoding.ASCII.GetBytes(line);
                     s.Send(bytes);
                     Thread.Sleep(100 / Speed);

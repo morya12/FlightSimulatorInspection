@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace FlightSimulatorInspection.Models
 {
     //for mor- watch 4.2 11 minute
-    class Point
+    public class Point
     {
         float x { get; set; }
         float y { get; set; }
@@ -23,18 +23,19 @@ namespace FlightSimulatorInspection.Models
         private DataBase db;
         float featureAValue;
         float featureBValue;
-        string featureA;
-        string featureB;
+        string userChoise;
+        string correlatedFeatureA;
+        string correlatedFeatureB;
         List<float> featureACol;
         List<float> featureBCol;
         List<float> dataByFeature; // to do list of float
-        timeSeries ts;
         public event PropertyChangedEventHandler PropertyChanged;
         public List<string> parameters;
 
 
         public Graph()
         {
+            //this.db = this.
         }
         public DataBase DB
         {
@@ -55,32 +56,44 @@ namespace FlightSimulatorInspection.Models
         {
             get { return this.featureBValue; }
         }
-        public string FeatureA
+        public string UserChoise
         {
-            get { return this.featureA; }
+            get { return this.userChoise; }
             set
             {
-                if (this.featureA != value)
+                if (this.userChoise != value)
                 {
-                    this.featureA = value;
-                    Console.WriteLine(FeatureA);
-                    NotifyPropertyChanged("featureA");
-                    this.featureACol = this.ts.getFeatureDataCol(this.featureA);
+                    this.userChoise = value;
+                    Console.WriteLine(UserChoise);
+                    NotifyPropertyChanged("user choise");
+                    this.featureACol = this.db.TimeSeries.getFeatureDataCol(this.userChoise);
 
                 }
             }
         }
-        public string FeatureB
+        public string CorrelatedFeatureA
         {
-            get { return this.featureB; }
+            get { return this.correlatedFeatureA; }
             set
             {
-                if (this.featureB != value)
+                if (this.correlatedFeatureA != value)
                 {
-                    this.featureB = value;
+                    this.correlatedFeatureA = value;
+                    NotifyPropertyChanged("featureA");
+                    this.featureACol = this.db.TimeSeries.getFeatureDataCol(this.correlatedFeatureA);
+                }
+            }
+        }
+        public string CorrelatedFeatureB
+        {
+            get { return this.correlatedFeatureB; }
+            set
+            {
+                if (this.correlatedFeatureB != value)
+                {
+                    this.correlatedFeatureB = value;
                     NotifyPropertyChanged("featureB"); 
-                    this.featureBCol = this.ts.getFeatureDataCol(this.featureB);
-
+                    this.featureBCol = this.db.TimeSeries.getFeatureDataCol(this.correlatedFeatureB);
                 }
             }
         }
@@ -96,14 +109,46 @@ namespace FlightSimulatorInspection.Models
             }
            
         }
-      
-
+        public List<float> dataCol()
+        {
+            return this.db.TimeSeries.getFeatureDataCol(UserChoise);
+        }
         public void NotifyPropertyChanged(string propName)
         {
             this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propName));
         }
 
-        
+        public Point getRange(char c)
+        {
+            List<float> dataCol = this.featureACol;
+            if (c == 'B')
+            {
+                dataCol = this.featureBCol;
+            }
+            float max = float.MinValue;
+            float min = float.MaxValue;
+            int index = 0;
+            int maxIndex = -1;
+            int minIndex = -1;
+            foreach (float f in dataCol)
+            {
+                if (f > max)
+                {
+                    max = f;
+                    maxIndex = index;
+                }
+                if (f < min)
+                {
+                    min = f;
+                    minIndex = index;
+                }
+
+                index++;
+            }
+            return new Point(dataCol[minIndex], dataCol[maxIndex]);
+        }
+
+
     }
 }
 

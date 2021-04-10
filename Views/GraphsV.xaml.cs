@@ -27,35 +27,32 @@ namespace FlightSimulatorInspection.Views
         GraphAV a;
         GraphBV b;
         GraphVM graphVM;
-        public GraphsV()
+        public GraphsV(DataBase db)
         {
             InitializeComponent();
-            graphVM = new GraphVM(new Graph());
+            graphVM = new GraphVM(new Graph(), db);
             GraphABorder.Child = new GraphAV(graphVM);
-
+           
+            List<string> features = this.graphVM.getParameters();
             // here need to get list of graph
-            for (int i = 0; i < 10; ++i)
+           foreach (string a in features)
             {
                 ListBoxItem newItem = new ListBoxItem();
-                newItem.Content = "Item " + i;
+                newItem.Content = a;
                 featureListBox.Items.Add(newItem);
+
             }
+           
         }
 
         private void featureListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            // selectedItem. 
-            //ListBoxItem c = e.Source as ListBoxItem;
-            //if (c != null)
+            
             if (featureListBox.SelectedItem != null)
             {
                 Console.WriteLine((featureListBox.SelectedItem as ListBoxItem).Content.ToString());
                 graphVM.VM_FeatureA = (featureListBox.SelectedItem as ListBoxItem).Content.ToString();
-               // a.tb1.Text = (featureListBox.SelectedItem as ListBoxItem).Content.ToString();
             }
-
         }
-
-
     }
 }

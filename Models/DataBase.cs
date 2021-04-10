@@ -165,6 +165,11 @@ namespace FlightSimulatorInspection.Models
         {
             anomalyDetection.detectAnomalies(ref correlatedFeaturesList, ref anomalyReportList);
         }
+        public DataBase()
+        {
+            this.timeSeries = new timeSeries();
+        }
+        
 
         public void start()
         {

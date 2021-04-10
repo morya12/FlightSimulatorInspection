@@ -13,41 +13,73 @@ namespace FlightSimulatorInspection.ViewModels
     public class GraphVM : BaseViewModel
     {
         Graph graphModel;
+        Point xRange;
+        Point yRange;
       
 
         public string VM_FeatureA
         {
-            get { return graphModel.FeatureA; }
+            get { return graphModel.UserChoise; }
             set
             {
-                if (graphModel.FeatureA != value)
-                    graphModel.FeatureA = value;
+                if (graphModel.UserChoise != value)
+                    graphModel.UserChoise = value;
             }
         }
         public float VM_FeatureAValue
         {
             get { return graphModel.FeatureAValue; }
         }
-
         public string VM_FeatureB
         {
-            get { return graphModel.FeatureB; }
+            get { return graphModel.CorrelatedFeatureB; }
             set
             {
-                if (graphModel.FeatureB != value)
-                    graphModel.FeatureB = value;
+                if (graphModel.CorrelatedFeatureB != value)
+                    graphModel.CorrelatedFeatureB = value;
             }
         }
         public float VM_FeatureBValue
         {
             get { return graphModel.FeatureBValue; }
         }
-        public GraphVM(Graph model)
+        public GraphVM(Graph model, DataBase db)
         {
             this.graphModel = model;
+            this.graphModel.DB = db;
             graphModel.PropertyChanged += delegate (object sender, PropertyChangedEventArgs e) {
                 NotifyPropertyChanged("VM_" + e.PropertyName);
             };
+        }
+        public List<string> getParameters()
+        {
+            return this.graphModel.Parameters;
+        }
+        public List<float> getDataCol()
+        {
+            return this.graphModel.dataCol();
+        }
+        
+        public Point XRange
+        {
+            get
+            {
+                if (this.xRange == null) {
+                    xRange = this.graphModel.getRange('A');
+                }
+                return xRange;
+            }
+        }
+        public Point YRange
+        {
+            get
+            {
+                if (this.yRange == null)
+                {
+                    yRange = this.graphModel.getRange('B');
+                }
+                return yRange;
+            }
         }
 
     }
