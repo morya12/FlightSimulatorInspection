@@ -89,6 +89,9 @@
     <Compile Include="Views\PlayerV.xaml.cs">
       <DependentUpon>PlayerV.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\RegressionGraphV.xaml.cs">
+      <DependentUpon>RegressionGraphV.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\VideoV.xaml.cs">
       <DependentUpon>VideoV.xaml</DependentUpon>
     </Compile>
@@ -125,6 +128,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\PlayerV.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\RegressionGraphV.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

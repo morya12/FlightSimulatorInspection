@@ -24,6 +24,7 @@ namespace FlightSimulatorInspection.ViewModels
             {
                 if (graphModel.UserChoise != value)
                     graphModel.UserChoise = value;
+               // Console.WriteLine(graphModel.UserChoise);
             }
         }
         public float VM_FeatureAValue

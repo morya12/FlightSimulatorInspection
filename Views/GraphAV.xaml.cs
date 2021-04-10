@@ -35,6 +35,7 @@ namespace FlightSimulatorInspection.Views
     {
         InitializeComponent();
         this.vm = g;
+
         FeaturASeries = new SeriesCollection
             {
                 new LineSeries
@@ -96,9 +97,11 @@ namespace FlightSimulatorInspection.Views
             }
         });
         DataContext = this;
-    }
-        
-    public SeriesCollection FeaturASeries { get; set; }
+        //tb1.DataContext = g;
+
+        }
+
+        public SeriesCollection FeaturASeries { get; set; }
 
     public double LastValue
     {
