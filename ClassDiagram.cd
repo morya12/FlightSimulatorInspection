@@ -68,7 +68,7 @@
   <Class Name="FlightSimulatorInspection.Models.DataBase" Collapsed="true">
     <Position X="7.5" Y="2.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AEAFAAAAAQYACQYgCAACACggAAAAAAQAAAAQEgAIABA=</HashCode>
+      <HashCode>AEAFAAAAAQYACQYgCAACACghAAAAAQQAAAAQEgAIABA=</HashCode>
       <FileName>Models\DataBase.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -154,6 +154,7 @@
       <HashCode>AAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAIAAA=</HashCode>
       <FileName>ViewModels\PlayerVM.cs</FileName>
     </TypeIdentifier>
+    <Lollipop Position="0.2" />
   </Class>
   <Class Name="FlightSimulatorInspection.ViewModels.VideoVM" Collapsed="true">
     <Position X="11.75" Y="9.75" Width="1.5" />

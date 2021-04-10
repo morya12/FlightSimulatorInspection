@@ -43,6 +43,7 @@ namespace FlightSimulatorInspection.Models
         private bool regAlgo = false;
         private bool circleAlgo = false;
         private int timeStep;
+        private int speed;
 
         #endregion
 
@@ -153,6 +154,18 @@ namespace FlightSimulatorInspection.Models
             set
             {
                 this.timeStep = value;
+            }
+        }
+
+        public int Speed
+        {
+            get
+            {
+                return this.speed;
+            }
+            set
+            {
+                this.speed = value;
             }
         }
 

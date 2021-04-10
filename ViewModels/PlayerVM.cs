@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace FlightSimulatorInspection.ViewModels
 {
-    public class PlayerVM : BaseViewModel
+    public class PlayerVM : BaseViewModel, INotifyPropertyChanged
     {
         private BaseModel model;
         public PlayerVM()
