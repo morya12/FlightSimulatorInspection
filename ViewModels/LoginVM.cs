@@ -33,6 +33,10 @@ namespace FlightSimulatorInspection.ViewModels
         }
         public string VM_CsvPath
         {
+            get
+            {
+                return csvPath;
+            }
             set
             {
                 csvPath = value;
