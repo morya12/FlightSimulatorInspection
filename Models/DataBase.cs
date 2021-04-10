@@ -167,11 +167,18 @@ namespace FlightSimulatorInspection.Models
         {
             this.timeSeries = new TimeSeries();
         }
-        
 
         public void start()
         {
             detectAnomalies();
+        }
+
+        public List<CorrelatedFeatures> CorrelatedFeatures
+        {
+            get
+            {
+                return this.correlatedFeaturesList;
+            }
         }
         #endregion
 

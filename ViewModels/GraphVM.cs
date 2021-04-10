@@ -19,11 +19,11 @@ namespace FlightSimulatorInspection.ViewModels
 
         public string VM_FeatureA
         {
-            get { return graphModel.UserChoise; }
+            get { return graphModel.CorrelatedFeatureA; }
             set
             {
-                if (graphModel.UserChoise != value)
-                    graphModel.UserChoise = value;
+                if (graphModel.CorrelatedFeatureA != value)
+                    graphModel.CorrelatedFeatureA = value;
                // Console.WriteLine(graphModel.UserChoise);
             }
         }

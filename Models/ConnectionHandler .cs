@@ -12,7 +12,7 @@ namespace FlightSimulatorInspection.Models
             c.CsvFilePath=csvPath;
 
 
-              var lines = File.ReadAllLines("C:\\Users\\97254\\source\\repos\\morya12\\FlightSimulatorInspection\\Resources\\reg_flight.csv");
+              //var lines = File.ReadAllLines("C:\\Users\\97254\\source\\repos\\morya12\\FlightSimulatorInspection\\Resources\\reg_flight.csv");
             // var lines = File.ReadAllLines("C:\\Users\\97205\\source\\repos\\FlightSimulatorInspection\\Resources\\reg_flight.csv");
            // var lines = File.ReadAllLines(csvPath);
             Console.WriteLine(csvPath);
