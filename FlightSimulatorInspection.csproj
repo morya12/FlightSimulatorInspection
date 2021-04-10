@@ -58,11 +58,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Models\AnomalyDetection.cs" />
     <Compile Include="Models\DataBase.cs" />
     <Compile Include="Models\FlightStats.cs" />
     <Compile Include="Models\ConnectionHandler .cs" />
     <Compile Include="Models\clientFG.cs" />
     <Compile Include="Models\Graph.cs" />
+    <Compile Include="Models\IAnomalyDetection.cs" />
     <Compile Include="Models\timeSeries.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\FlightControlsVM.cs" />
@@ -187,6 +189,10 @@
     <PackageReference Include="LiveCharts.Wpf">
       <Version>0.9.7</Version>
     </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\MinCircleDetectorDLL.dll" />
+    <Content Include="Resources\SimpleAnomalyDetectorDLL.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

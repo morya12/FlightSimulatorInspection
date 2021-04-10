@@ -68,18 +68,12 @@ namespace FlightSimulatorInspection.Views
         {
             //check which algotithm selected
             if ((bool)regressionAlgo.IsChecked)
-            {
-                //vm.RegAlgo = true;
-            }
+                vm.VM_RegAlgo = true;
             else
-            {
-                //vm.CircleAlgo = true;
-            }
-            string path = b1.Content.ToString();
-            //this.vm.
-            this.vm.VM_CsvPath = path;
-            ConnectionHandler.readCSV(path);
+                vm.VM_CircleAlgo = true;
+            ConnectionHandler.readCSV(vm.VM_CsvPath);
             (this.Parent as Border).Visibility = Visibility.Collapsed;
+            vm.start();
 
 
         }
