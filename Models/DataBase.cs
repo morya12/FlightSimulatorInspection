@@ -59,7 +59,7 @@ namespace FlightSimulatorInspection.Models
         AnomalyDetection anomalyDetection = new AnomalyDetection();
         List<CorrelatedFeatures> correlatedFeaturesList = new List<CorrelatedFeatures>();
         List<AnomalyReport> anomalyReportList = new List<AnomalyReport>();
-        private timeSeries timeSeries;
+        private TimeSeries timeSeries;
 
         #endregion
 
@@ -85,7 +85,7 @@ namespace FlightSimulatorInspection.Models
             set
             {
                 this.csvPath = value;
-                this.timeSeries = new timeSeries(csvPath);
+                this.timeSeries = new TimeSeries(csvPath);
                 this.anomalyDetection.CsvLearnPath = csvLearnPath;
                 this.anomalyDetection.CsvPath = csvPath;
                 NotifyPropertyChanged(nameof(CsvPath));
@@ -132,7 +132,7 @@ namespace FlightSimulatorInspection.Models
 
             }
         }
-        public timeSeries TimeSeries
+        public TimeSeries TimeSeries
         {
             get
             {
@@ -156,9 +156,7 @@ namespace FlightSimulatorInspection.Models
             }
         }
 
-        #endregion
-        
-        
+        #endregion       
 
         #region Methods
         private void detectAnomalies()
@@ -167,7 +165,7 @@ namespace FlightSimulatorInspection.Models
         }
         public DataBase()
         {
-            this.timeSeries = new timeSeries();
+            this.timeSeries = new TimeSeries();
         }
         
 

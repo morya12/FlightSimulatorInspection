@@ -17,29 +17,29 @@ using System.Windows.Shapes;
 using LiveCharts;
 using LiveCharts.Defaults;
 using LiveCharts.Wpf;
+using FlightSimulatorInspection.ViewModels;
 
 
 namespace FlightSimulatorInspection.Views
 {
     public partial class RegressionGraphV : UserControl
-        {
+    {
         public double x = 3.5;
         public double y = 0;
         int counter = 0;
+        private GraphVM vm;
+        public RegressionGraphV(GraphVM g)
+        {
+            InitializeComponent();
+            this.vm = g;
 
-        public RegressionGraphV()
-            {
-                InitializeComponent();
-            
-        
-        SeriesCollection = new SeriesCollection
+            SeriesCollection = new SeriesCollection
             {
                 new ScatterSeries //blue
                 {
                     Values = new ChartValues<ScatterPoint>
                     {
                      //   new ScatterPoint(2.6, 5, 5),
-
                     },
                     Title = "old",
                     Fill = Brushes.Gray,
@@ -50,8 +50,7 @@ namespace FlightSimulatorInspection.Views
                 {
                     Values = new ChartValues<ScatterPoint>
                     {
-                       new ScatterPoint( x, y, 5),
-
+                      // new ScatterPoint( x, y, 5),
                     },
                     //PointGeometry = DefaultGeometries.Diamond,
                    // DataLabels = true,
@@ -59,15 +58,14 @@ namespace FlightSimulatorInspection.Views
                     Fill = Brushes.CornflowerBlue,
                     //ScalesXAt = 100, only for acxes
                    // PointGeometry = Defa
-
                     MinPointShapeDiameter = 5,
                     MaxPointShapeDiameter = 5
                 },
-                                new ScatterSeries //red
+                new ScatterSeries //red
                 {
                     Values = new ChartValues<ScatterPoint>
                     {
-                       new ScatterPoint( x, y, 7),
+                     //  new ScatterPoint( x, y, 7),
 
                     },
                     PointGeometry = DefaultGeometries.Diamond,
@@ -87,7 +85,7 @@ namespace FlightSimulatorInspection.Views
                     Values = new ChartValues<ObservablePoint> {
                         new ObservablePoint(x,y),
                         new ObservablePoint(62, 117),
-                      
+
                     },
                     PointGeometry = null,
                     Stroke = Brushes.Black,
@@ -95,12 +93,20 @@ namespace FlightSimulatorInspection.Views
                 },
             };
 
-                DataContext = this;
-            }
-            public SeriesCollection SeriesCollection { get; set; }
+            DataContext = this;
+        }
+        public SeriesCollection SeriesCollection { get; set; }
 
-        
 
+        private void clear()
+        {
+                SeriesCollection[0].Values.Clear();
+                SeriesCollection[1].Values.Clear();
+                SeriesCollection[2].Values.Clear();
+                SeriesCollection[3].Values.Clear();
+                counter = 0;
+
+        }
         private void UpdateAllOnClick(object sender, RoutedEventArgs e)
         {
             Task.Run(() =>
@@ -109,10 +115,9 @@ namespace FlightSimulatorInspection.Views
                 while (true)
                 {
                     Thread.Sleep(500);
-                    var series = SeriesCollection[1]; //red 
+                    var series = SeriesCollection[1]; //blue 
 
-                    //foreach (var bubble in series.Values.Cast<ScatterPoint>())
-                    //{
+  
                     x += r.NextDouble();
                     y += r.NextDouble() + 0.5;
 
@@ -129,12 +134,7 @@ namespace FlightSimulatorInspection.Views
                         SeriesCollection[2].Values.Add(new ScatterPoint(x+2, y+2,7));
                         //SeriesCollection[1].Values.RemoveAt(0);
                     }
-                    //if (counter == 50) //clear
-                    //{
-                    //    SeriesCollection[0].Values.Clear();
-                    //    SeriesCollection[1].Values.Clear();
-                    //    SeriesCollection[2].Values.Clear();
-                    //}
+
                 }
             });
         }

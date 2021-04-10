@@ -8,7 +8,7 @@ namespace FlightSimulatorInspection.Models
     {
         public static void readCSV(string csvPath)
         {
-            clientFG c = new clientFG();
+            ClientFG c = new ClientFG();
             c.CsvFilePath=csvPath;
 
 

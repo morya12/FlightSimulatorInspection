@@ -10,7 +10,7 @@ using System.Threading;
 
 namespace FlightSimulatorInspection.Models
 {
-    class clientFG
+    class ClientFG
     {
         private string csvFilePath;
         private string xmlFilePath;
@@ -58,13 +58,13 @@ namespace FlightSimulatorInspection.Models
         }
         public int host = 6400;
 
-        public clientFG(string xmlFile, string csvFile)
+        public ClientFG(string xmlFile, string csvFile)
         {
             this.xmlFilePath = xmlFile;
             this.csvFilePath = csvFile;
         }
 
-        public clientFG()
+        public ClientFG()
         {
 
         }
