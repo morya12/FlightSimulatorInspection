@@ -32,7 +32,7 @@ namespace FlightSimulatorInspection.Views
             if (result == true)
             {
                 b1.Content = openFileDlg.FileName;
-                this.csvPath = openFileDlg.FileName;
+                vm.VM_CsvPath = openFileDlg.FileName;
             }
         }
         private void b2Click(object sender, RoutedEventArgs e)
@@ -69,15 +69,12 @@ namespace FlightSimulatorInspection.Views
         {
             //check which algotithm selected
             if ((bool)regressionAlgo.IsChecked)
-            {
-                //vm.RegAlgo = true;
-            }
+                vm.VM_RegAlgo = true;
             else
-            {
-                //vm.CircleAlgo = true;
-            }
-            ConnectionHandler.readCSV("da");
+                vm.VM_CircleAlgo = true;
+            //ConnectionHandler.readCSV("da");
             (this.Parent as Border).Visibility = Visibility.Collapsed;
+            vm.start();
 
 
         }

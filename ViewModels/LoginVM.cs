@@ -19,7 +19,10 @@ namespace FlightSimulatorInspection.ViewModels
             this.model = model;
             model.PropertyChanged += (object sender, PropertyChangedEventArgs e) => NotifyPropertyChanged("VM_" + e.PropertyName);
         }
-
+        public void start()
+        {
+            model.start();
+        }
         public string VM_FGPath
         {
             set
@@ -34,6 +37,20 @@ namespace FlightSimulatorInspection.ViewModels
             {
                 csvPath = value;
                 model.CsvPath = csvPath;
+            }
+        }
+        public bool VM_RegAlgo
+        {
+            set
+            {
+                model.RegAlgo = value;
+            }
+        }
+        public bool VM_CircleAlgo
+        {
+            set
+            {
+                model.CircleAlgo = value;
             }
         }
 
