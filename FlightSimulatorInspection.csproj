@@ -64,7 +64,6 @@
     <Compile Include="Models\ConnectionHandler .cs" />
     <Compile Include="Models\clientFG.cs" />
     <Compile Include="Models\Graph.cs" />
-    <Compile Include="Models\IAnomalyDetection.cs" />
     <Compile Include="Models\timeSeries.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\FlightControlsVM.cs" />
