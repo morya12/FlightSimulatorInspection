@@ -17,6 +17,7 @@ using System.Windows.Shapes;
 using LiveCharts;
 using LiveCharts.Defaults;
 using LiveCharts.Wpf;
+using FlightSimulatorInspection.ViewModels;
 
 namespace FlightSimulatorInspection.Views
 {
@@ -27,10 +28,13 @@ namespace FlightSimulatorInspection.Views
     {
         private double lastvalue;
         private double value;
+        private List<float> data;
+        private GraphVM vm;
 
-        public GraphBV()
+        public GraphBV(GraphVM g)
         {
             InitializeComponent();
+            this.vm = g;
 
             FeaturASeries = new SeriesCollection
             {
@@ -64,17 +68,29 @@ namespace FlightSimulatorInspection.Views
 
             Task.Run(() =>
             {
-                var r = new Random();
-                while (true)
+                int i = 0;
+                while (true)  // currently not in sync with simulator
                 {
+                    this.data = this.vm.getDataCol('B');
                     Thread.Sleep(500);
-                    value = (r.NextDouble() > 0.3 ? 1 : -1) * r.Next(0, 5); //need to bind to featire 
+                    if (this.data != null && this.data.Any())
+                    {
+                        value = data[i];
+                        i++;
+                    }
+                    else
+                    {
+                        value = 0;
+                    }
+                    //value = (r.NextDouble() > 0.3 ? 1 : -1) * r.Next(0, 5); //need to bind to feature 
                     Application.Current.Dispatcher.Invoke(() =>
                     {
                         FeaturASeries[0].Values.Add(new ObservableValue(value));
                         FeaturASeries[0].Values.RemoveAt(0);
                         SetLecture();
+
                     });
+
                 }
             });
 

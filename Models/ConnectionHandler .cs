@@ -56,19 +56,17 @@ namespace FlightSimulatorInspection.Models
 
             string[] lines = File.ReadAllLines(csvPath);
             byte[] bytes;
-            int i = 0;
             new Thread(delegate ()
             {
-                foreach (string line in lines)
+                for (int i = 1; i<lines.Length; i++)
                 {
                     if (Iterate)
                     {
-                        Console.WriteLine("here");
                         bytes = Encoding.ASCII.GetBytes(lines[i]);
                         s.Send(bytes);
                         FlightStats.Instance.updateStatsTable(lines[i], i);
                         Thread.Sleep(100 / 1);
-                        i++;
+
                     }
                 }
 
