@@ -29,7 +29,7 @@
         </Grid.RowDefinitions>
         <Border x:Name="Border1" Grid.Row="0" Grid.RowSpan="3" CornerRadius="5" Background="White" Margin="0,0,0.333,2" />
         <Border Grid.Row="0" Grid.RowSpan="3" Background="#FF3678B7" ></Border>
-        <TextBlock x:Name="tb1" Grid.Row="0" TextAlignment="Center" Padding="10, 0, 0, 5" Foreground="White" FontSize="18" Text="Feature A"/>
+        <TextBlock x:Name="tb1" Grid.Row="0" TextAlignment="Center" Padding="10, 0, 0, 5" Foreground="White" FontSize="18" Text="{Binding Path=Feature1}"/>
         <TextBlock Grid.Row="1" TextAlignment="Center" Foreground="#59FFFFFF"  Padding="10, 0, 0, 5"> </TextBlock>
         <lvc:CartesianChart Grid.Row="2" Margin="0, 0, 0, 0" Series="{Binding FeaturASeries}" Hoverable="False" DataTooltip="{x:Null}">
             <lvc:CartesianChart.AxisX>

@@ -39,7 +39,7 @@ namespace FlightSimulatorInspection.Views
                 {
                     Values = new ChartValues<ScatterPoint>
                     {
-                     //   new ScatterPoint(2.6, 5, 5),
+                     //   new ScatterPoint(2.6, 5, 5), //xP,yP,r
                     },
                     Title = "old",
                     Fill = Brushes.Gray,
@@ -78,7 +78,7 @@ namespace FlightSimulatorInspection.Views
                 },
                 new LineSeries
                 {
-                    Title = "Liner regrssion",
+                    Title = "Liner regrssion", // need to calc two range points and draw a line between
                     Values = new ChartValues<ObservablePoint> {
                         new ObservablePoint(10,10),
                         //new ObservablePoint(62, 117),

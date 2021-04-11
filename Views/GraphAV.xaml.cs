@@ -28,13 +28,31 @@ namespace FlightSimulatorInspection.Views
         private double value;
         private List<float> data;
         private GraphVM vm;
+        private string feature1;
+
+        public string Feature1
+        {
+            get
+            {
+                return this.feature1;
+            }
+            set
+            {
+                this.feature1 = value;
+                Console.WriteLine("here1");
+                OnPropertyChanged("Feature1");
+            }
+        }
 
     public GraphAV(GraphVM g)
     {
         InitializeComponent();
         this.vm = g;
+        this.feature1 = "Feature A";
+        this.DataContext = this;
 
-        FeaturASeries = new SeriesCollection
+
+            FeaturASeries = new SeriesCollection
             {
                 new LineSeries
                 {
@@ -70,6 +88,7 @@ namespace FlightSimulatorInspection.Views
             while (true)  // currently not in sync with simulator
             {
                 this.data = this.vm.getDataCol('A');
+                this.Feature1 = this.vm.VM_FeatureA;
                 Thread.Sleep(500);
                 if (this.data != null && this.data.Any())
                 {
@@ -85,17 +104,14 @@ namespace FlightSimulatorInspection.Views
                     FeaturASeries[0].Values.Add(new ObservableValue(value));
                     FeaturASeries[0].Values.RemoveAt(0);
                     SetLecture();
-
                 });
                 
             }
         });
-        DataContext = this;
-        //tb1.DataContext = g;
 
         }
 
-        public SeriesCollection FeaturASeries { get; set; }
+    public SeriesCollection FeaturASeries { get; set; }
 
     public double LastValue
     {
@@ -118,14 +134,16 @@ namespace FlightSimulatorInspection.Views
 
     }
 
-    public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler PropertyChanged;
 
-    protected virtual void OnPropertyChanged(string propertyName = null)
-    {
-        var handler = PropertyChanged;
-        if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
+        protected virtual void OnPropertyChanged(string propertyName = null)
+        {
+            var handler = PropertyChanged;
+            if (propertyName != null)
+                Console.WriteLine(propertyName);
+            if (handler != null)
+                handler(this, new PropertyChangedEventArgs(propertyName));
+        }
     }
 
-
-}
 }
