@@ -69,8 +69,8 @@ namespace FlightSimulatorInspection.Models
                 Console.WriteLine("file not found"); // need to print on screen 
             }
             else
-            {   
-                string[] lines = File.ReadAllLines(csvFileName);
+            {
+                string[] lines = File.ReadAllLines(csvFileName).Skip(1).ToArray();
                 this.numOfCols = parameters.Count();
                 List<List<float>> csvListOfLists = new List<List<float>>();   // handle info
                 string[] csvContentInString;
