@@ -167,6 +167,7 @@ namespace FlightSimulatorInspection.Models
         private void detectAnomalies()
         {
             anomalyDetection.detectAnomalies(ref correlatedFeaturesList, ref anomalyReportList);
+            
         }
         public DataBase()
         {

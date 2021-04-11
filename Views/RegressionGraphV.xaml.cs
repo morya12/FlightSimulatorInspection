@@ -27,7 +27,8 @@ namespace FlightSimulatorInspection.Views
         public double x = 3.5;
         public double y = 0;
         int counter = 0;
-        private GraphVM vm;
+        private GraphVM vm;  
+
         public RegressionGraphV(GraphVM g)
         {
             InitializeComponent();
@@ -73,9 +74,8 @@ namespace FlightSimulatorInspection.Views
                     Title = "annomly",
                     Fill = Brushes.Red,
                     //ScalesXAt = 100, only for acxes
-                   // PointGeometry = Defa
-                    //
-                    
+
+
                     MinPointShapeDiameter = 7,
                     MaxPointShapeDiameter = 7
                 },
@@ -89,8 +89,24 @@ namespace FlightSimulatorInspection.Views
                     },
                     PointGeometry = null,
                     //StartSegment(3,5),
-                    Stroke = Brushes.Black,
+                    //Visibility = Visibility.Collapsed,
+                    Stroke = Brushes.Transparent,
                     Fill = Brushes.Transparent
+                },
+
+                new ScatterSeries //red
+                {
+                    Values = new ChartValues<ScatterPoint>
+                    {
+                       new ScatterPoint( x, y, 30),
+
+                    },
+                    Fill = Brushes.Transparent,
+                    StrokeThickness = 1,
+                    Stroke = Brushes.Transparent,
+                    PointGeometry = DefaultGeometries.Circle,
+                    //ScalesXAt = 100, only for acxes
+
                 },
 
             };
@@ -106,11 +122,23 @@ namespace FlightSimulatorInspection.Views
                 SeriesCollection[1].Values.Clear();
                 SeriesCollection[2].Values.Clear();
                 SeriesCollection[3].Values.Clear();
+
                 counter = 0;
         }
         private void UpdateAllOnClick(object sender, RoutedEventArgs e)
         {
-            Task.Run(() =>
+            if (vm.VM_CircleAlgo)
+            {
+                ScatterSeries circle = (ScatterSeries)SeriesCollection[4];
+                circle.Stroke = Brushes.Black;
+
+            }
+            else
+            {
+                LineSeries l = (LineSeries)SeriesCollection[3];
+                l.Stroke = Brushes.Black;
+            }
+                Task.Run(() =>
             {
                 var r = new Random();
                 while (true)

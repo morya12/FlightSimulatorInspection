@@ -18,8 +18,6 @@ namespace FlightSimulatorInspection
             VideoBorder.Child = new VideoV(new VideoVM(db));
             PlayerBorder.Child = new PlayerV();
             GraphsVBorder.Child = new GraphsV(db);
-            //GraphAVBorder.child = new GraphAV();
-
             FlightControlsVBorder.Child = new FlightControlsV();
 
         }
