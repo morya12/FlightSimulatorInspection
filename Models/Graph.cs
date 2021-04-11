@@ -131,7 +131,6 @@ namespace FlightSimulatorInspection.Models
             }
             return new Point(dataCol[minIndex], dataCol[maxIndex]);
         }
-
         float avg(List<float> x, int size)
         {
             float sum = 0;
