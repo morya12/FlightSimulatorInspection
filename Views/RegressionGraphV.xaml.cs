@@ -24,10 +24,9 @@ namespace FlightSimulatorInspection.Views
 {
     public partial class RegressionGraphV : UserControl
     {
-        public double x = 3.5;
-        public double y = 0;
         int counter = 0;
-        private GraphVM vm;  
+        private GraphVM vm;
+
 
         public RegressionGraphV(GraphVM g)
         {
@@ -74,22 +73,19 @@ namespace FlightSimulatorInspection.Views
                     Title = "annomly",
                     Fill = Brushes.Red,
                     //ScalesXAt = 100, only for acxes
-
-
                     MinPointShapeDiameter = 7,
                     MaxPointShapeDiameter = 7
                 },
                 new LineSeries
                 {
-                    Title = "liner regrssion",
+                    Title = "Liner regrssion",
                     Values = new ChartValues<ObservablePoint> {
-                        new ObservablePoint(x,y),
-                        new ObservablePoint(62, 117),
+                        new ObservablePoint(10,10),
+                        //new ObservablePoint(62, 117),
 
                     },
                     PointGeometry = null,
-                    //StartSegment(3,5),
-                    //Visibility = Visibility.Collapsed,
+
                     Stroke = Brushes.Transparent,
                     Fill = Brushes.Transparent
                 },
@@ -98,7 +94,7 @@ namespace FlightSimulatorInspection.Views
                 {
                     Values = new ChartValues<ScatterPoint>
                     {
-                       new ScatterPoint( x, y, 30),
+                       new ScatterPoint( 50, 50, 100),// x,y,radius
 
                     },
                     Fill = Brushes.Transparent,
@@ -106,7 +102,9 @@ namespace FlightSimulatorInspection.Views
                     Stroke = Brushes.Transparent,
                     PointGeometry = DefaultGeometries.Circle,
                     //ScalesXAt = 100, only for acxes
-
+                    Title = "Minimal Circle",
+                    MinPointShapeDiameter = 100,
+                    MaxPointShapeDiameter = 100
                 },
 
             };
@@ -122,7 +120,7 @@ namespace FlightSimulatorInspection.Views
                 SeriesCollection[1].Values.Clear();
                 SeriesCollection[2].Values.Clear();
                 SeriesCollection[3].Values.Clear();
-
+                SeriesCollection[4].Values.Clear();
                 counter = 0;
         }
         private void UpdateAllOnClick(object sender, RoutedEventArgs e)
@@ -131,6 +129,7 @@ namespace FlightSimulatorInspection.Views
             {
                 ScatterSeries circle = (ScatterSeries)SeriesCollection[4];
                 circle.Stroke = Brushes.Black;
+                circle.Values.Add(new ScatterPoint(50, 50, 100));//x,y,radius
 
             }
             else
@@ -138,30 +137,31 @@ namespace FlightSimulatorInspection.Views
                 LineSeries l = (LineSeries)SeriesCollection[3];
                 l.Stroke = Brushes.Black;
             }
+            double i = 10;
+
                 Task.Run(() =>
-            {
+           {
                 var r = new Random();
                 while (true)
                 {
                     Thread.Sleep(500);
                     var series = SeriesCollection[1]; //blue 
 
-  
-                    x += r.NextDouble();
-                    y += r.NextDouble() + 0.5;
+                    i += r.NextDouble();
+                    i += r.NextDouble() + 0.5;//only for checking
 
                     counter++;
-                    series.Values.Add(new ScatterPoint(x, y));
+                    series.Values.Add(new ScatterPoint(i, i));
                     if (counter > 30)
                     {
                         SeriesCollection[0].Values.Add(SeriesCollection[1].Values[0]);
                         SeriesCollection[1].Values.RemoveAt(0);
                     }
 
-                    if (counter % 10 == 1)
+                    if (counter == 50)
                     {
-                        SeriesCollection[2].Values.Add(new ScatterPoint(x+2, y+2,7));
-                        //SeriesCollection[1].Values.RemoveAt(0);
+                       //  SeriesCollection[2].Values.Add(new ScatterPoint(i+2, i+2,7));
+                       
                     }
 
                 }
