@@ -129,7 +129,6 @@ namespace FlightSimulatorInspection.Models
                 this.circleAlgo = value;
                 this.anomalyDetection.DllPath = minCircleAnomalyDetectionDLLPath;
                 NotifyPropertyChanged(nameof(CircleAlgo));
-
             }
         }
         public TimeSeries TimeSeries

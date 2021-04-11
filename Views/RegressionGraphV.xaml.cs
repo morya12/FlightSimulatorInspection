@@ -88,9 +88,11 @@ namespace FlightSimulatorInspection.Views
 
                     },
                     PointGeometry = null,
+                    //StartSegment(3,5),
                     Stroke = Brushes.Black,
                     Fill = Brushes.Transparent
                 },
+
             };
 
             DataContext = this;
@@ -105,7 +107,6 @@ namespace FlightSimulatorInspection.Views
                 SeriesCollection[2].Values.Clear();
                 SeriesCollection[3].Values.Clear();
                 counter = 0;
-
         }
         private void UpdateAllOnClick(object sender, RoutedEventArgs e)
         {

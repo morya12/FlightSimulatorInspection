@@ -55,6 +55,20 @@ namespace FlightSimulatorInspection.Models
         {
             get { return this.featureBValue; }
         }
+        public bool RegAlgo
+        {
+            get
+            {
+                return db.RegAlgo;
+            }
+        }
+        public bool CircleAlgo
+        {
+            get
+            {
+                return db.CircleAlgo;
+            }
+        }
         public string CorrelatedFeatureA
         {
             get { return this.correlatedFeatureA; }
