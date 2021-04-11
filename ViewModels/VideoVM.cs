@@ -47,7 +47,7 @@ namespace FlightSimulatorInspection.ViewModels
                 if (e.PropertyName == nameof(dbModel.FGPath))
                 {
                     runEXE();
-                    ConnectionHandler.readCSV("DAS");
+                    //ConnectionHandler.readCSV("DAS");
                 }
             };
         }
