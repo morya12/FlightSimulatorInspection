@@ -69,23 +69,28 @@ namespace FlightSimulatorInspection.Models
 
         }
 
-        public void connect()
+        public Socket connect()
         {
-
             Socket s = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             IPAddress ipAddress = System.Net.IPAddress.Parse("127.0.0.1");
             IPEndPoint remoteEP = new IPEndPoint(ipAddress, this.host);
             Console.WriteLine(remoteEP.ToString());
             s.Connect(remoteEP);
+            return s;
+            /*
             try
-            {
+            {   
                 string[] lines = File.ReadAllLines(CsvFilePath);
                 byte[] bytes;
+                int i = 0;
+
                 foreach (string line in lines)
                 {
-                    bytes = Encoding.ASCII.GetBytes(line);
+                    bytes = Encoding.ASCII.GetBytes(lines[i]);
                     s.Send(bytes);
+                    FlightStats.Instance.updateStatsTable(lines[i], i);
                     Thread.Sleep(100 / Speed);
+                    i++;
                 }
             }
             catch
@@ -95,6 +100,7 @@ namespace FlightSimulatorInspection.Models
             {
                 s.Disconnect(true);
             }
+            */
         }
     }
 }
