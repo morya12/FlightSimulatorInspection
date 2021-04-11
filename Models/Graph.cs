@@ -23,7 +23,6 @@ namespace FlightSimulatorInspection.Models
     {
         private DataBase db;
         float featureAValue;
-        float featureBValue;
         string correlatedFeatureA;
         string correlatedFeatureB;
         List<float> featureACol;
@@ -51,10 +50,6 @@ namespace FlightSimulatorInspection.Models
         {
             get { return this.featureAValue; }
         } 
-        public float FeatureBValue
-        {
-            get { return this.featureBValue; }
-        }
         public bool RegAlgo
         {
             get
@@ -77,8 +72,11 @@ namespace FlightSimulatorInspection.Models
                 if (this.correlatedFeatureA != value)
                 {
                     this.correlatedFeatureA = value;
+                    Console.WriteLine(correlatedFeatureA);
                     NotifyPropertyChanged("FeatureA");
+
                     this.featureACol = this.db.TimeSeries.getFeatureDataCol(this.correlatedFeatureA);
+                    findMaxCorrelation();
                 }
             }
 
@@ -108,9 +106,13 @@ namespace FlightSimulatorInspection.Models
             }
            
         }
-        public List<float> dataCol()
+        public List<float> dataCol(char c)
         {
-            return this.db.TimeSeries.getFeatureDataCol(CorrelatedFeatureA);
+            if (c == 'A')
+            {
+                return this.db.TimeSeries.getFeatureDataCol(CorrelatedFeatureA);
+            }
+            return this.db.TimeSeries.getFeatureDataCol(CorrelatedFeatureB);
         }
         public void NotifyPropertyChanged(string propName)
         {
@@ -176,9 +178,10 @@ namespace FlightSimulatorInspection.Models
             float aveX = calculateAverage(x, size);
             float aveY = calculateAverage(y, size);
             List<float> xy = new List<float>(size);
+            Console.WriteLine(size);
             for (int i = 0; i < size; i++)
             {
-                xy[i] = x[i] * y[i];
+                xy.Add(x[i] * y[i]);
             }
             float aveXY = calculateAverage(xy, size);
 
@@ -186,8 +189,9 @@ namespace FlightSimulatorInspection.Models
 
             return aveXY - avgMul;
         }
-        float pearson(List<float> x, List<float> y,int size)
+        float pearson(List<float> x, List<float> y)
         {
+            int size = x.Count();
             float f = (float)(cov(x, y, size) / (Math.Sqrt(var(x, size)) * Math.Sqrt(var(y, size))));
             return f;
         }
@@ -204,13 +208,16 @@ namespace FlightSimulatorInspection.Models
             int size = featureACol.Count();
             foreach (CorrelatedFeatures f in list)
             {
+                Console.Write(f.Feature1);
+                Console.Write(" , ");
+                Console.WriteLine(f.Feature2);
                 if ((f.Feature1 == this.CorrelatedFeatureA) || (f.Feature2 == this.CorrelatedFeatureA))
                 {
                     correlations.Add(f);
                     List<float> a = this.db.TimeSeries.getFeatureDataCol(f.Feature1);
                     List<float> b = this.db.TimeSeries.getFeatureDataCol(f.Feature2);
 
-                    float res = pearson(a, b, size);
+                    float res = pearson(a, b);
                     if (maxCorr < res)
                     {
                         maxCorr = res;
@@ -229,7 +236,7 @@ namespace FlightSimulatorInspection.Models
                 this.CorrelatedFeatureB = maxCorNameA;
             } else
             {
-                // didnt find match
+                Console.WriteLine("didnt fins match");
             }
             this.featureBCol = this.db.TimeSeries.getFeatureDataCol(CorrelatedFeatureB);
         }

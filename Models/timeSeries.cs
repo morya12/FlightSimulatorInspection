@@ -18,48 +18,48 @@ namespace FlightSimulatorInspection.Models
         private void setParameters()
         {
             this.parameters = new List<string>()
-            { "Aileron",
-            "Elevator",
-            "Rudder",
-            "Flaps",
-            "Slats",
-            "Speedbrake",
-            "Throttle",
-            "Throttle2",
-            "Engine_pump1",
-            "Engine_pump2",
-            "Electric_pump1",
-            "Electric_pump2",
-            "External_power",
+            { "aileron",
+            "elevator",
+            "rudder",
+            "flaps",
+            "slats",
+            "speedbrake",
+            "throttle1",
+            "throttle2",
+            "engine_pump1",
+            "engine_pump2",
+            "electric_pump1",
+            "electric_pump2",
+            "external_power",
             "APU_generator",
-            "Latitude",
-            "Longitude",
-            "Altitude",
-            "Roll",
-            "Pitch",
-            "Heading",
-            "SideSlip",
-            "Airspeed",
-            "Glideslope",
-            "Vertical_speed_fps",
-            "Airspeed_indicator_indicated_speed_kt",
-            "Altimeter_indicated_altitude_ft",
-            "Altimeter_pressure_alt_ft",
-            "Attitude_indicator_indicated_pitch_deg",
-            "Attitude_indicator_indicated_roll_deg",
-            "Attitude_indicator_internal_pitch_deg",
-            "Attitude_indicator_internal_roll_deg",
-            "Encoder_indicated_altitude_ft",
-            "Encoder_pressure_alt_ft",
-            "Gps_indicated_altitude_ft",
-            "Gps_indicated_ground_speed_kt",
-            "Gps_indicated_vertical_speed",
-            "Indicated_heading_deg",
-            "Magnetic_compass_indicated_heading_deg",
-            "Slip_skid_ball_indicated_slip_skid",
-            "Turn_indicator_indicated_turn_rate",
-            "Vertical_speed_indicator_indicated_speed_fpm",
-            "Engine_rpm"};
+            "latitude",
+            "longitude",
+            "altitude",
+            "roll",
+            "pitch",
+            "heading",
+            "sideSlip",
+            "airspeed",
+            "glideslope",
+            "vertical_speed_fps",
+            "airspeed_indicator_indicated_speed_kt",
+            "altimeter_indicated_altitude_ft",
+            "altimeter_pressure_alt_ft",
+            "attitude_indicator_indicated_pitch_deg",
+            "attitude_indicator_indicated_roll_deg",
+            "attitude_indicator_internal_pitch_deg",
+            "attitude_indicator_internal_roll_deg",
+            "encoder_indicated_altitude_ft",
+            "encoder_pressure_alt_ft",
+            "gps_indicated_altitude_ft",
+            "gps_indicated_ground_speed_kt",
+            "gps_indicated_vertical_speed",
+            "indicated_heading_deg",
+            "magnetic_compass_indicated_heading_deg",
+            "slip_skid_ball_indicated_slip_skid",
+            "turn_indicator_indicated_turn_rate",
+            "vertical_speed_indicator_indicated_speed_fpm",
+            "engine_rpm"};
         }
         public TimeSeries(string csvFileName)
         {
@@ -74,7 +74,6 @@ namespace FlightSimulatorInspection.Models
                 this.numOfCols = parameters.Count();
                 List<List<float>> csvListOfLists = new List<List<float>>();   // handle info
                 string[] csvContentInString;
-                bool firstTime = true;
                 int i = 0;
                 foreach (string line in lines)
                 {
@@ -133,7 +132,7 @@ namespace FlightSimulatorInspection.Models
                 if (this.parameters[i] == feature) {
                     return info[i];
                 }
-                i++;
+                //Console.WriteLine(parameters[i]);
             }
             return null;
         }

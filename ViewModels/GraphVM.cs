@@ -24,26 +24,9 @@ namespace FlightSimulatorInspection.ViewModels
             {
                 if (graphModel.CorrelatedFeatureA != value)
                     graphModel.CorrelatedFeatureA = value;
-               // Console.WriteLine(graphModel.UserChoise);
             }
         }
-        public float VM_FeatureAValue
-        {
-            get { return graphModel.FeatureAValue; }
-        }
-        public string VM_FeatureB
-        {
-            get { return graphModel.CorrelatedFeatureB; }
-            set
-            {
-                if (graphModel.CorrelatedFeatureB != value)
-                    graphModel.CorrelatedFeatureB = value;
-            }
-        }
-        public float VM_FeatureBValue
-        {
-            get { return graphModel.FeatureBValue; }
-        }
+
         public bool VM_RegAlgo
         {
             get
@@ -71,9 +54,9 @@ namespace FlightSimulatorInspection.ViewModels
         {
             return this.graphModel.Parameters;
         }
-        public List<float> getDataCol()
+        public List<float> getDataCol(char c)
         {
-            return this.graphModel.dataCol();
+            return this.graphModel.dataCol(c);
         }
         
         public Point XRange

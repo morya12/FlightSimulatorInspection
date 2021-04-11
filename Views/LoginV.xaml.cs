@@ -71,10 +71,8 @@ namespace FlightSimulatorInspection.Views
                 vm.VM_RegAlgo = true;
             else
                 vm.VM_CircleAlgo = true;
-            ConnectionHandler.readCSV(vm.VM_CsvPath);
-            //ClientFG fg = new ClientFG();
-            //fg.CsvFilePath = vm.VM_CsvPath;
-            //fg.connect();
+            ConnectionHandler h = new ConnectionHandler();
+            h.readCSV(vm.VM_CsvPath);
             (this.Parent as Border).Visibility = Visibility.Collapsed;
             vm.start();
 
