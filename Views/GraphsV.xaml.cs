@@ -24,15 +24,15 @@ namespace FlightSimulatorInspection.Views
     /// </summary>
     public partial class GraphsV : UserControl
     {
-        GraphAV a;
-        GraphBV b;
+
         GraphVM graphVM;
         public GraphsV(DataBase db)
         {
             InitializeComponent();
             graphVM = new GraphVM(new Graph(), db);
             GraphABorder.Child = new GraphAV(graphVM);
-           
+            GraphBBorder.Child = new GraphBV(); //need to add graphVM to constrctor 
+            RegressionGraphBorder.Child = new RegressionGraphV(graphVM);
             List<string> features = this.graphVM.getParameters();
             // here need to get list of graph
            foreach (string a in features)

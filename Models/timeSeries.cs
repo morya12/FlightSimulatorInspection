@@ -8,7 +8,7 @@ using System.IO;
 
 namespace FlightSimulatorInspection.Models
 {
-    public class timeSeries
+    public class TimeSeries
     {
         private int numOfRows;
 	    private int numOfCols;
@@ -61,7 +61,7 @@ namespace FlightSimulatorInspection.Models
             "Vertical_speed_indicator_indicated_speed_fpm",
             "Engine_rpm"};
         }
-        public timeSeries(string csvFileName)
+        public TimeSeries(string csvFileName)
         {
             setParameters();
             if (!File.Exists(csvFileName))
@@ -96,7 +96,7 @@ namespace FlightSimulatorInspection.Models
             }
 
         }
-        public timeSeries()
+        public TimeSeries()
         {
             setParameters();
 

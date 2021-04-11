@@ -21,9 +21,7 @@ using FlightSimulatorInspection.ViewModels;
 
 namespace FlightSimulatorInspection.Views
 {
-    /// <summary>
-    /// Interaction logic for MaterialCards.xaml
-    /// </summary>
+
     public partial class GraphAV : UserControl, INotifyPropertyChanged
     {
         private double lastvalue;
@@ -35,6 +33,7 @@ namespace FlightSimulatorInspection.Views
     {
         InitializeComponent();
         this.vm = g;
+
         FeaturASeries = new SeriesCollection
             {
                 new LineSeries
@@ -87,7 +86,6 @@ namespace FlightSimulatorInspection.Views
                 Application.Current.Dispatcher.Invoke(() =>
                 {
                     FeaturASeries[0].Values.Add(new ObservableValue(value));
-
                     FeaturASeries[0].Values.RemoveAt(0);
                     SetLecture();
 
@@ -96,9 +94,11 @@ namespace FlightSimulatorInspection.Views
             }
         });
         DataContext = this;
-    }
-        
-    public SeriesCollection FeaturASeries { get; set; }
+        //tb1.DataContext = g;
+
+        }
+
+        public SeriesCollection FeaturASeries { get; set; }
 
     public double LastValue
     {
