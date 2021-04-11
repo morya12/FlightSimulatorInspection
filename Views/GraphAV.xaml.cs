@@ -139,8 +139,6 @@ namespace FlightSimulatorInspection.Views
         protected virtual void OnPropertyChanged(string propertyName = null)
         {
             var handler = PropertyChanged;
-            if (propertyName != null)
-                Console.WriteLine(propertyName);
             if (handler != null)
                 handler(this, new PropertyChangedEventArgs(propertyName));
         }

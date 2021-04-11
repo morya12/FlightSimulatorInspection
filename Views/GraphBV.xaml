@@ -29,8 +29,8 @@
     </Grid.RowDefinitions>
     <Border x:Name="Border1" Grid.Row="0" Grid.RowSpan="3" CornerRadius="5" Background="White" Margin="0,0,0.333,2" />
     <Border Grid.Row="0" Grid.RowSpan="3" Background="#FF7235B7" ></Border>
-    <TextBlock Grid.Row="0" TextAlignment="Center" Padding="10, 0, 0, 5" Foreground="White" FontSize="18">
-      Feature B
+        <TextBlock Grid.Row="0" TextAlignment="Center" Padding="10, 0, 0, 5" Foreground="White" FontSize="18" Text="{Binding Path=Feature2}">
+    
     </TextBlock>
     <lvc:CartesianChart Grid.Row="2" Margin="0, 0, 0, 0" Series="{Binding FeaturASeries}" Hoverable="False" DataTooltip="{x:Null}">
       <lvc:CartesianChart.AxisX>

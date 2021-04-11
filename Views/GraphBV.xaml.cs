@@ -30,11 +30,28 @@ namespace FlightSimulatorInspection.Views
         private double value;
         private List<float> data;
         private GraphVM vm;
+        private string feature2;
+
+        public string Feature2
+        {
+            get
+            {
+                return this.feature2;
+            }
+            set
+            {
+                this.feature2 = value;
+                OnPropertyChanged("Feature2");
+            }
+        }
+
 
         public GraphBV(GraphVM g)
         {
             InitializeComponent();
             this.vm = g;
+            this.feature2 = "Feature B";
+            this.DataContext = this;
 
             FeaturASeries = new SeriesCollection
             {
@@ -72,6 +89,7 @@ namespace FlightSimulatorInspection.Views
                 while (true)  // currently not in sync with simulator
                 {
                     this.data = this.vm.getDataCol('B');
+                    this.Feature2 = this.vm.VM_FeatureB;
                     Thread.Sleep(500);
                     if (this.data != null && this.data.Any())
                     {
@@ -82,7 +100,6 @@ namespace FlightSimulatorInspection.Views
                     {
                         value = 0;
                     }
-                    //value = (r.NextDouble() > 0.3 ? 1 : -1) * r.Next(0, 5); //need to bind to feature 
                     Application.Current.Dispatcher.Invoke(() =>
                     {
                         FeaturASeries[0].Values.Add(new ObservableValue(value));
@@ -93,9 +110,6 @@ namespace FlightSimulatorInspection.Views
 
                 }
             });
-
-
-            DataContext = this;
         }
 
         public SeriesCollection FeaturASeries { get; set; }
