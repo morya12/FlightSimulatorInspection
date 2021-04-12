@@ -167,32 +167,35 @@ namespace FlightSimulatorInspection.Views
                FeatureACol= null;
                FeatureBCol = null;
 
-                while (true)
-                {
-                    Thread.Sleep(500);
-                    var series = SeriesCollection[1]; //blue 
+               while (true)
+               {
+                   Thread.Sleep(500);
+                   if (System.Windows.Application.Current != null)
+                   {
+                       var series = SeriesCollection[1]; //blue 
 
-                   float x = this.featureACol[i];
-                   float y = this.featureBCol[i];
-                   //i += r.NextDouble();
-                   //i += r.NextDouble() + 0.5;//only for checking
+                       float x = this.featureACol[i];
+                       float y = this.featureBCol[i];
+                       //i += r.NextDouble();
+                       //i += r.NextDouble() + 0.5;//only for checking
 
-                    counter++;
-                    series.Values.Add(new ScatterPoint(x, y));
-                    if (counter > 30)
-                    {
-                        SeriesCollection[0].Values.Add(SeriesCollection[1].Values[0]);
-                        SeriesCollection[1].Values.RemoveAt(0);
-                    }
+                       counter++;
+                       series.Values.Add(new ScatterPoint(x, y));
+                       if (counter > 30)
+                       {
+                           SeriesCollection[0].Values.Add(SeriesCollection[1].Values[0]);
+                           SeriesCollection[1].Values.RemoveAt(0);
+                       }
 
-                    if (counter == 50)
-                    {
-                       //  SeriesCollection[2].Values.Add(new ScatterPoint(i+2, i+2,7));
-                       
-                    }
-                   i++;
+                       if (counter == 50)
+                       {
+                           //  SeriesCollection[2].Values.Add(new ScatterPoint(i+2, i+2,7));
 
-                }
+                       }
+                       i++;
+
+                   }
+               }
             });
         }
     }
