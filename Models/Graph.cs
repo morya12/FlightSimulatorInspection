@@ -275,6 +275,10 @@ namespace FlightSimulatorInspection.Models
             } else
             {
                 Console.WriteLine("didnt find match");
+                this.featureBCol = new List<float>();
+                this.correlatedFeatureB = null;
+                this.lineData = null;
+                return;
             }
             this.lineData = dataOfLine;
             this.featureBCol = this.db.TimeSeries.getFeatureDataCol(CorrelatedFeatureB);

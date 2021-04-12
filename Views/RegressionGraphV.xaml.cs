@@ -162,6 +162,11 @@ namespace FlightSimulatorInspection.Views
         }
         private void UpdateAllOnClick(object sender, RoutedEventArgs e)
         {
+            FeatureACol = null;
+            FeatureBCol = null;
+            if (FeatureACol == null) {
+                return;
+            }
             if (vm.VM_CircleAlgo)
             {
                 ScatterSeries circle = (ScatterSeries)SeriesCollection[4];
@@ -173,6 +178,11 @@ namespace FlightSimulatorInspection.Views
             {
                 FeatureACol = null;
                 FeatureBCol = null;
+                if (featureBCol == null)
+                {
+                    clear();
+                    return;
+                }
                 float XValOfStart = this.vm.XRange.X;
                 float XValOfEnd = this.vm.XRange.Y;
                 Point lineData = new Point(this.vm.lineData().X, this.vm.lineData().Y);
@@ -204,6 +214,10 @@ namespace FlightSimulatorInspection.Views
                        var series = SeriesCollection[1]; //blue 
 
                    float x = this.featureACol[i];
+                       if (featureBCol == null)
+                       {
+                           continue;
+                       }
                    float y = this.featureBCol[i];
 
                        counter++;
