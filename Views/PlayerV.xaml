@@ -22,15 +22,15 @@
       </Grid.ColumnDefinitions>
       <!--Play Button-->
       <StackPanel HorizontalAlignment="Center" Orientation="Vertical" Grid.Column="0" Margin="0 10 0 0">
-        <Button Content="Play" FontWeight="UltraBlack" Background="Orange" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
+        <Button Content="Play" FontWeight="UltraBlack" Background="Orange" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Click="Button_Play"/>
       </StackPanel>
       <!--Pause Button-->
       <StackPanel HorizontalAlignment="Center" Orientation="Vertical" Grid.Column="1" Margin="0 10 0 0">
-        <Button Content="Pause" FontWeight="UltraBlack"  Background="Orange" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Click="Button_Click_1"/>
+        <Button Content="Pause" FontWeight="UltraBlack"  Background="Orange" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Click="Button_Pause"/>
       </StackPanel>
       <!--Stop Button-->
       <StackPanel HorizontalAlignment="Center" Grid.Column="2" Margin="0 10 0 0">
-        <Button Content="Stop" FontWeight="UltraBlack" Background="Orange" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Click="Button_Click_2"/>
+        <Button Content="Stop" FontWeight="UltraBlack" Background="Orange" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Click="Button_Stop"/>
       </StackPanel>
       <!--SpeedRatio Slider-->
       <StackPanel Grid.Column="3" HorizontalAlignment="Center" Margin="0 10 0 0">
@@ -42,7 +42,7 @@
         <ColumnDefinition Width="*"/>
       </Grid.ColumnDefinitions>
       <StackPanel Grid.Column="0" HorizontalAlignment="Center" Margin="0 10 0 0">
-        <Slider HorizontalAlignment="Left" TickFrequency="5" Name="slider_seek" VerticalAlignment="Top" Height="36" Width="600" ValueChanged="Slider_seek_ValueChanged"/>
+        <Slider Value="{Binding VM_TimeStep}" Minimum="1" Maximum="{Binding VM_CsvSize}" HorizontalAlignment="Left" TickFrequency="1" Name="slider_seek" VerticalAlignment="Top" Height="36" Width="600" ValueChanged="Slider_seek_ValueChanged"/>
       </StackPanel>
     </Grid>
 

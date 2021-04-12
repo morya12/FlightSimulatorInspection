@@ -10,10 +10,34 @@ using System.Threading.Tasks;
 
 namespace FlightSimulatorInspection.Models
 {
-    public class ConnectionHandler
+    public class ConnectionHandler : BaseModel
     {
-        public bool iterate;
+        public bool running;
         public int speed;
+        private int timeStep;
+        //Thread handlingThread = new Thread(new ThreadStart(this));
+        /*public Thread HandlingThread
+        {
+            get
+            {
+                return handlingThread;
+            }
+        }*/
+        public int TimeStep
+        {
+            get
+            {
+                return timeStep;
+            }
+            set
+            {
+                if (timeStep != value)
+                {
+                    timeStep = value;
+                    NotifyPropertyChanged(nameof(TimeStep));
+                }
+            }
+        }
         public int Speed
         {
             get
@@ -35,42 +59,44 @@ namespace FlightSimulatorInspection.Models
         }
         public ConnectionHandler()
         {
-            iterate = true;
+            running = false;
         }
-        public bool Iterate
+        public bool Running
         {
             get
             {
-                return iterate;
+                return running;
             }
             set
             {
-                iterate = value;
+                running = value;
             }
         }
-        public void readCSV(string csvPath)
+        //socket not working.. need to fix it than we can change function signature
+        //public void handle(string[] csvLines, Socket socket)
+        public void handle(string[] csvLines)
         {
-            ClientFG c = new ClientFG();
-            c.CsvFilePath=csvPath;
-            Socket s = c.connect();
-
-            string[] lines = File.ReadAllLines(csvPath);
             byte[] bytes;
+            //ThreadStart start = delegate () { };
+            //Thread t = new Thread((){ }).Start();
+
             new Thread(delegate ()
             {
-                for (int i = 1; i<lines.Length; i++)
+                if (!Running)
+                    Thread.Sleep(Timeout.Infinite);
+                for (TimeStep = 1; TimeStep < csvLines.Length; TimeStep++)
                 {
-                    if (Iterate)
+                    if (Running)
                     {
-                        bytes = Encoding.ASCII.GetBytes(lines[i]);
-                        s.Send(bytes);
-                        FlightStats.Instance.updateStatsTable(lines[i], i);
-                        Thread.Sleep(100 / 1);
+                        bytes = Encoding.ASCII.GetBytes(csvLines[TimeStep]);
+                        //socket.Send(bytes);
+                        FlightStats.Instance.updateStatsTable(csvLines[TimeStep]);
+                        Thread.Sleep(10 / 1);
 
                     }
                 }
 
-                s.Disconnect(true);
+                //socket.Disconnect(true);
 
             }).Start();
         }
