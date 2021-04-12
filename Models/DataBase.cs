@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
+using System.Net.Sockets;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -70,7 +71,7 @@ namespace FlightSimulatorInspection.Models
         private List<CorrelatedFeatures> correlatedFeaturesList;
         private List<AnomalyReport> anomalyReportList;
         private TimeSeries timeSeries;
-        private ClientFG cliet;
+        private Socket fgSocket;
         private ConnectionHandler aConnection;
         private Thread handlingThread;
 
@@ -90,22 +91,28 @@ namespace FlightSimulatorInspection.Models
         #endregion
 
         #region Methods
+        public void OnClosing()
+        {
+            //don't forget to close resources
+            if (fgSocket != null)
+                fgSocket.Disconnect(true);
+        }
         private void detectAnomalies()
         {
             anomalyDetection.detectAnomalies(ref correlatedFeaturesList, ref anomalyReportList);
 
         }
-        private void startHandling(string[] csvLines)
+        private void startHandling(string[] csvLines, Socket socket)
         {
-            handlingThread = new Thread(() => aConnection.handle(csvLines));
+            handlingThread = new Thread(() => aConnection.handle(csvLines, socket));
             handlingThread.Start();
         }
 
         public void start()
         {
             detectAnomalies();
-            //aConnection.handle(csvLines, new ClientFG().connect());
-            startHandling(csvLines);
+            fgSocket = new ClientFG().connect();
+            startHandling(csvLines, fgSocket);
         }
 
         #endregion
@@ -125,7 +132,7 @@ namespace FlightSimulatorInspection.Models
                 //when simulation finishes, the thread stops. if user want to start again we need to startHandling again.
                 if (handlingThread != null && !handlingThread.IsAlive)
                 {
-                    startHandling(csvLines);
+                    startHandling(csvLines, fgSocket);
                 }
                 if (aConnection.Running != value)
                 {
