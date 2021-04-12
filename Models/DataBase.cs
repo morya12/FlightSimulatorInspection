@@ -56,13 +56,10 @@ namespace FlightSimulatorInspection.Models
         #region Static resources
 
         private static string path = Directory.GetCurrentDirectory();
-        private string csvLearnPath = path + "\\..\\..\\Resources\\reg_flight.csv";
+        private static string csvLearnPath = path + "\\..\\..\\Resources\\reg_flight.csv";
+        private string newCsvLearnPath = csvLearnPath.Remove(csvLearnPath.Length - 4) + "_with_headers.csv";
         private string simplyAnomalyDetectionDLLPath = path + "\\..\\..\\Resources\\SimpleAnomalyDetectorDLL.dll";
         private string minCircleAnomalyDetectionDLLPath = path + "\\..\\..\\Resources\\MinCircleDetectorDLL.dll";
-
-        //private string csvLearnPath = @"C:\Users\97205\source\repos\FlightSimulatorInspection\Resources\reg_flight.csv";
-        //private string simplyAnomalyDetectionDLLPath = @"C:\Users\97205\source\repos\FlightSimulatorInspection\Resources\SimpleAnomalyDetectorDLL.dll";
-        //private string minCircleAnomalyDetectionDLLPath = @"C:\Users\97205\source\repos\FlightSimulatorInspection\Resources\MinCircleDetectorDLL.dll";
 
         #endregion
 
@@ -75,6 +72,8 @@ namespace FlightSimulatorInspection.Models
         private Socket fgSocket;
         private ConnectionHandler aConnection;
         private Thread handlingThread;
+        private StringBuilder csvHeaders;
+        private string newAnomalyCsvPath;
 
         #endregion
 
@@ -92,6 +91,47 @@ namespace FlightSimulatorInspection.Models
         #endregion
 
         #region Methods
+
+        //method to create a new csv with headers, withput destroying the old csv
+        private void CreateCsvWithHeaders(string oldCsvPath, string newCsvPath)
+        {
+            //if we havn't read XML yet
+            if (csvHeaders == null)
+            {
+                XmlDocument xmlDocument = new XmlDocument();
+                xmlDocument.Load(XmlPath);
+                XmlNodeList name = xmlDocument.GetElementsByTagName("name");
+                csvHeaders = new StringBuilder();
+                string newLine = Environment.NewLine;
+
+                //get headers from XML
+                for (int i = 0; i < (name.Count) / 2; i++)
+                {
+                    //if there are headers next to eachother with the same name - tag them with numbers
+                    if (name[i].InnerXml == name[i + 1].InnerXml)
+                    {
+                        int j = 1;
+                        while (name[i].InnerXml == name[i + 1].InnerXml)
+                        {
+                            csvHeaders.Append(name[i].InnerXml + j.ToString() + ",");
+                            j++;
+                            i++;
+                        }
+                        csvHeaders.Append(name[i].InnerXml + j.ToString() + ",");
+                        continue;
+                    }
+                    else
+                        csvHeaders.Append(name[i].InnerXml + ",");
+                }
+                //remove last comma
+                csvHeaders.Remove(csvHeaders.Length - 1, 1);
+                csvHeaders.Append(newLine);
+            }
+            
+            string CsvWithHeaders = csvHeaders.ToString() + File.ReadAllText(oldCsvPath);
+            //Create a new csv
+            File.WriteAllText(newCsvPath, CsvWithHeaders);
+        }
         public void OnClosing()
         {
             //don't forget to close resources
@@ -111,6 +151,8 @@ namespace FlightSimulatorInspection.Models
 
         public void start()
         {
+            CreateCsvWithHeaders(csvLearnPath, newCsvLearnPath);
+            CreateCsvWithHeaders(CsvPath, newAnomalyCsvPath);
             detectAnomalies();
             fgSocket = new ClientFG().connect();
             startHandling(csvLines, fgSocket);
@@ -119,6 +161,13 @@ namespace FlightSimulatorInspection.Models
         #endregion
 
         #region Properties
+        public string CsvHeaders
+        {
+            get
+            {
+                return csvHeaders.ToString();
+            }
+        }
         public List<CorrelatedFeatures> CorrelatedFeatures
         {
             get
@@ -177,13 +226,13 @@ namespace FlightSimulatorInspection.Models
             }
             set
             {
-                InsertCsvHeader();
                 this.csvPath = value;
+                newAnomalyCsvPath = csvPath.Remove(csvPath.Length - 4) + "_with_headers.csv";
                 this.csvLines = File.ReadAllLines(csvPath);
                 CsvSize = csvLines.Length - 1;
                 this.timeSeries = new TimeSeries(csvPath);
-                this.anomalyDetection.CsvLearnPath = csvLearnPath;
-                this.anomalyDetection.CsvPath = csvPath;
+                this.anomalyDetection.CsvLearnPath = newCsvLearnPath;
+                this.anomalyDetection.CsvPath = newAnomalyCsvPath;
                 NotifyPropertyChanged(nameof(CsvPath));
             }
         }

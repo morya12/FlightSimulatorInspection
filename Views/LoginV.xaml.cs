@@ -50,6 +50,7 @@ namespace FlightSimulatorInspection.Views
             if (result == true)
             {
                 b2.Content = openFileDlg.FileName;
+                vm.VM_XmlPath = openFileDlg.FileName;
             }
         }
 
