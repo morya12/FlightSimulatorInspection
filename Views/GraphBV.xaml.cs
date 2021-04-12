@@ -85,6 +85,7 @@ namespace FlightSimulatorInspection.Views
 
             Task.Run(() =>
             {
+                int csvSize = vm.VM_CsvSize;
                 while (true)  // currently not in sync with simulator
                 {
                     int time = vm.VM_TimeStep;
@@ -93,10 +94,9 @@ namespace FlightSimulatorInspection.Views
                     Thread.Sleep(500);
                     if (this.data != null)
                     {
-                        if (this.data != null && this.data.Any())
+                        if (this.data != null && time < csvSize)
                         {
                             value = data[time];
-                            
                         }
                         else
                         {
