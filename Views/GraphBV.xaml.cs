@@ -127,17 +127,8 @@ namespace FlightSimulatorInspection.Views
         private void SetLecture()
         {
             var target = ((ChartValues<ObservableValue>)FeaturASeries[0].Values).Last().Value;
-            // var step = (target - _lastLecture) / 4; // makes it look smooth
-
-
-
             Task.Run(() =>
             {
-                //for (var i = 0; i < 4; i++)
-                //{
-                //    Thread.Sleep(100);
-                //    LastLecture += step;
-                //}
                 LastValue = target;
             });
 

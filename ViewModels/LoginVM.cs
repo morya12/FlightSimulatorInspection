@@ -1,4 +1,5 @@
 ﻿using FlightSimulatorInspection.Models;
+using System;
 using System.ComponentModel;
 using System.Diagnostics;
 
@@ -41,6 +42,18 @@ namespace FlightSimulatorInspection.ViewModels
             {
                 csvPath = value;
                 model.CsvPath = csvPath;
+            }
+        }
+        public string VM_XmlPath
+        {
+            get
+            {
+                return xmlPath;
+            }
+            set
+            {
+                xmlPath = value;
+                model.XmlPath = xmlPath;
             }
         }
         public bool VM_RegAlgo
