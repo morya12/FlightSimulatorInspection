@@ -8,7 +8,7 @@
         xmlns:ViewModel="clr-namespace:FlightSimulatorInspection.ViewModels"
         xmlns:wf="clr-namespace:System.Windows.Forms;assembly=System.Windows.Forms"
         mc:Ignorable="d"
-        Title="MainWindow" Height="600" Width="1000">
+        Title="Flight Inspection" Height="600" Width="1100" Background="#1C2F3F">
 
     <Grid>
         <Grid x:Name="MainGrid">
@@ -24,27 +24,36 @@
             </Grid.Style>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="2*"/>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="6*"/>
+                <ColumnDefinition Width="3*"/>
             </Grid.ColumnDefinitions>
             <Grid Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <!-- FlightControls -->
+                <Image Source="/Images/plane.png" Width="40" Height="50" Margin="30" VerticalAlignment="Top" />
+
+                <Border x:Name="FlightControlsVBorder" Grid.Row="1"/>
+                <StackPanel VerticalAlignment="Center" >
+                    <TextBlock x:Name="textBlock" HorizontalAlignment="Center" VerticalAlignment="Center"  TextWrapping="Wrap"  FontFamily="Yu Gothic" FontSize="24" Foreground="#FFE8E8E8" Text="Welcome"/>
+                    <TextBlock x:Name="textBlock2" HorizontalAlignment="Center" VerticalAlignment="Center"  TextWrapping="Wrap"  FontFamily="Yu Gothic" FontSize="24" Foreground="#FFE8E8E8" Text="aboard!"/>
+                </StackPanel>
+            </Grid>
+            <Grid Grid.Column="1">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="6*"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <!-- Video -->
-                <Border x:Name="VideoBorder" Grid.Row="0"/>
+                <Border x:Name="VideoBorder"  Grid.Row="0"/>
                 <!-- Player -->
                 <Border x:Name="PlayerBorder" Grid.Row="1"/>
             </Grid>
-            <Grid Grid.Column="1">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
+            <Grid Grid.Column="2">
                 <!-- Graphs -->
-                <Border x:Name="GraphsVBorder" Grid.Row="0"/>
-                <!-- FlightControls -->
-                <Border x:Name="FlightControlsVBorder" Grid.Row="1"/>
+                <Border x:Name="GraphsVBorder" Grid.Column="2"/>
             </Grid>
         </Grid>
         <Border x:Name="LoginBorder">
