@@ -68,7 +68,6 @@
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\FlightControlsVM.cs" />
     <Compile Include="ViewModels\GraphVM.cs" />
-    <Compile Include="ViewModels\GraphsVM.cs" />
     <Compile Include="ViewModels\LoginVM.cs" />
     <Compile Include="ViewModels\PlayerVM.cs" />
     <Compile Include="ViewModels\VideoVM.cs" />

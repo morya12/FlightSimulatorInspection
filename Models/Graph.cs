@@ -132,6 +132,13 @@ namespace FlightSimulatorInspection.Models
                 return db.CircleAlgo;
             }
         }
+        public int TimeStep
+        {
+            get
+            {
+                return db.TimeStep;
+            }
+        }
         public List<string> Parameters
         {
             get

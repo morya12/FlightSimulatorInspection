@@ -150,6 +150,7 @@ namespace FlightSimulatorInspection.Views
         }
         private void UpdateAllOnClick(object sender, RoutedEventArgs e)
         {
+           
             FeatureACol = null;
             FeatureBCol = null;
             if (FeatureACol == null || FeatureBCol == null) {
