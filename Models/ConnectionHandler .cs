@@ -13,16 +13,8 @@ namespace FlightSimulatorInspection.Models
     public class ConnectionHandler : BaseModel
     {
         public bool running;
-        public int speed;
+        public double speed;
         private int timeStep;
-        //Thread handlingThread = new Thread(new ThreadStart(this));
-        /*public Thread HandlingThread
-        {
-            get
-            {
-                return handlingThread;
-            }
-        }*/
         public int TimeStep
         {
             get
@@ -38,22 +30,14 @@ namespace FlightSimulatorInspection.Models
                 }
             }
         }
-        public int Speed
+        public double Speed
         {
             get
             {
-                if (speed == 0)
-                {
-                    return 1;
-                }
                 return speed;
             }
             set
             {
-                if (value < 0)   //invalid speed. do not update
-                {
-                    return;
-                }
                 speed = value;
             }
         }
@@ -74,8 +58,8 @@ namespace FlightSimulatorInspection.Models
         }
 
         //socket not working.. need to fix it than we can change function signature
-        //public void handle(string[] csvLines, Socket socket)
-        public void handle(string[] csvLines)
+        public void handle(string[] csvLines, Socket socket)
+        //public void handle(string[] csvLines)
         {
             byte[] bytes;
             for (TimeStep = 1; TimeStep < csvLines.Length; TimeStep++)
@@ -83,13 +67,11 @@ namespace FlightSimulatorInspection.Models
                 if (!Running)
                     DataBase.mre.WaitOne();
                 bytes = Encoding.ASCII.GetBytes(csvLines[TimeStep]);
-                //socket.Send(bytes);
+                socket.Send(bytes);
                 FlightStats.Instance.updateStatsTable(csvLines[TimeStep]);
-                Thread.Sleep(10 / 1);
+                Thread.Sleep((int)Speed);
             }
             Running = false;
-            //socket.Disconnect(true);
-
         }
     }
 }
