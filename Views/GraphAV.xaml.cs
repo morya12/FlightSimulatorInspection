@@ -39,7 +39,6 @@ namespace FlightSimulatorInspection.Views
             set
             {
                 this.feature1 = value;
-                Console.WriteLine("here1");
                 OnPropertyChanged("Feature1");
             }
         }
