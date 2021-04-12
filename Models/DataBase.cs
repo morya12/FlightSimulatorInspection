@@ -72,7 +72,7 @@ namespace FlightSimulatorInspection.Models
         private Socket fgSocket;
         private ConnectionHandler aConnection;
         private Thread handlingThread;
-        private StringBuilder csvHeaders;
+        private string csvHeaders;
         private string newAnomalyCsvPath;
 
         #endregion
@@ -101,7 +101,7 @@ namespace FlightSimulatorInspection.Models
                 XmlDocument xmlDocument = new XmlDocument();
                 xmlDocument.Load(XmlPath);
                 XmlNodeList name = xmlDocument.GetElementsByTagName("name");
-                csvHeaders = new StringBuilder();
+                StringBuilder csvHeadersBuilder = new StringBuilder();
                 string newLine = Environment.NewLine;
 
                 //get headers from XML
@@ -113,22 +113,23 @@ namespace FlightSimulatorInspection.Models
                         int j = 1;
                         while (name[i].InnerXml == name[i + 1].InnerXml)
                         {
-                            csvHeaders.Append(name[i].InnerXml + j.ToString() + ",");
+                            csvHeadersBuilder.Append(name[i].InnerXml + j.ToString() + ",");
                             j++;
                             i++;
                         }
-                        csvHeaders.Append(name[i].InnerXml + j.ToString() + ",");
+                        csvHeadersBuilder.Append(name[i].InnerXml + j.ToString() + ",");
                         continue;
                     }
                     else
-                        csvHeaders.Append(name[i].InnerXml + ",");
+                        csvHeadersBuilder.Append(name[i].InnerXml + ",");
                 }
                 //remove last comma
-                csvHeaders.Remove(csvHeaders.Length - 1, 1);
-                csvHeaders.Append(newLine);
+                csvHeadersBuilder.Remove(csvHeadersBuilder.Length - 1, 1);
+                csvHeadersBuilder.Append(newLine);
+                CsvHeaders = csvHeadersBuilder.ToString();
             }
 
-            string CsvWithHeaders = csvHeaders.ToString() + File.ReadAllText(oldCsvPath);
+            string CsvWithHeaders = CsvHeaders + File.ReadAllText(oldCsvPath);
             //Create a new csv
             File.WriteAllText(newCsvPath, CsvWithHeaders);
         }
@@ -137,6 +138,10 @@ namespace FlightSimulatorInspection.Models
             //don't forget to close resources
             if (fgSocket != null)
                 fgSocket.Disconnect(true);
+            if(File.Exists(newAnomalyCsvPath))
+                File.Delete(newAnomalyCsvPath);
+            if (File.Exists(newCsvLearnPath))
+                File.Delete(newCsvLearnPath);
         }
         private void detectAnomalies()
         {
@@ -162,12 +167,30 @@ namespace FlightSimulatorInspection.Models
 
 
         #region Properties
-
+        
+        public string NewAnomalyCsvPath
+        {
+            get
+            {
+                return newAnomalyCsvPath;
+            }
+        }
+        public string NewCsvLearnPath
+        {
+            get
+            {
+                return newCsvLearnPath;
+            }
+        }
         public string CsvHeaders
         {
             get
             {
-                return csvHeaders.ToString();
+                return csvHeaders;
+            }
+            set
+            {
+                csvHeaders = value;
             }
         }
         public List<CorrelatedFeatures> CorrelatedFeatures
