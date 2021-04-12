@@ -16,7 +16,7 @@ namespace FlightSimulatorInspection
             DataBase db = new DataBase();
             LoginBorder.Child = new LoginV(new LoginVM(db));
             VideoBorder.Child = new VideoV(new VideoVM(db));
-            PlayerBorder.Child = new PlayerV();
+            PlayerBorder.Child = new PlayerV(db);
             GraphsVBorder.Child = new GraphsV(db);
             FlightControlsVBorder.Child = new FlightControlsV();
 

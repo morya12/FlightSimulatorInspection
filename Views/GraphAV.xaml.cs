@@ -89,22 +89,29 @@ namespace FlightSimulatorInspection.Views
                 this.data = this.vm.getDataCol('A');
                 this.Feature1 = this.vm.VM_FeatureA;
                 Thread.Sleep(500);
-                if (this.data != null && this.data.Any())
-                {
-                    value = data[i];
-                    i++;
-                }
-                else
-                {
-                    value = 0;
-                }
-                Application.Current.Dispatcher.Invoke(() =>
-                {
-                    FeaturASeries[0].Values.Add(new ObservableValue(value));
-                    FeaturASeries[0].Values.RemoveAt(0);
-                    SetLecture();
-                });
-                
+                    if (this.data != null && this.data.Any())
+                    {
+                        value = data[i];
+                        i++;
+                    }
+                    else
+                    {
+                        value = 0;
+                    }
+                    if (System.Windows.Application.Current != null)
+                    {
+                        Application.Current.Dispatcher.Invoke(() =>
+                        {
+                            FeaturASeries[0].Values.Add(new ObservableValue(value));
+                            FeaturASeries[0].Values.RemoveAt(0);
+                            SetLecture();
+                         });
+                    } 
+                    else
+                    {
+                        Environment.Exit(0);
+                    }
+                 
             }
         });
 

@@ -11,20 +11,41 @@ namespace FlightSimulatorInspection.ViewModels
 {
     public class PlayerVM : BaseViewModel
     {
-        private BaseModel model;
-        public PlayerVM()
+        private DataBase model;
+        private ConnectionHandler connectionModel;
+        public PlayerVM(DataBase db)
         {
             Trace.WriteLine("~~~~~~~~~~~~~~~~Player ViewModel CREATED~~~~~~~~~~~~~~~~~~~");
 
-            this.model = FlightStats.Instance;
+            this.model = db;
             model.PropertyChanged += (object sender, PropertyChangedEventArgs e) => NotifyPropertyChanged("VM_" + e.PropertyName);
         }
         //You may add Properties here
+
         public int VM_TimeStep
         {
             get
             {
-                return (model as FlightStats).TimeStep;
+                return model.TimeStep;
+            }
+            set
+            {
+                if(model.TimeStep != value)
+                    model.TimeStep = value;
+            }
+        }
+        public int VM_CsvSize
+        {
+            get
+            {
+                return model.CsvSize;
+            }
+        }
+        public bool VM_Running
+        {
+            set
+            {
+                model.Running = value;
             }
         }
     }

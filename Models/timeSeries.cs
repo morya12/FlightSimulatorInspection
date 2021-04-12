@@ -12,7 +12,7 @@ namespace FlightSimulatorInspection.Models
     {
         private int numOfRows;
 	    private int numOfCols;
-        List<String> parameters;    // the parameters part of the table
+        List<string> parameters;    // the parameters part of the table
         List<List<float>> info;     // the info part of the table
 
         private void setParameters()

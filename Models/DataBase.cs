@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using FlightSimulatorInspection.Models;
 
@@ -39,11 +41,12 @@ namespace FlightSimulatorInspection.Models
         #region UserInput members
 
         private string csvPath;
+        private string[] csvLines;
+        private int csvSize;
         private string xmlPath;
         private string fgPath;
         private bool regAlgo = false;
         private bool circleAlgo = false;
-        private int timeStep;
 
         #endregion
 
@@ -62,11 +65,49 @@ namespace FlightSimulatorInspection.Models
 
         #region General DataBase members
 
-        AnomalyDetection anomalyDetection = new AnomalyDetection();
-        List<CorrelatedFeatures> correlatedFeaturesList = new List<CorrelatedFeatures>();
-        List<AnomalyReport> anomalyReportList = new List<AnomalyReport>();
+        AnomalyDetection anomalyDetection;
+        List<CorrelatedFeatures> correlatedFeaturesList;
+        List<AnomalyReport> anomalyReportList;
         private TimeSeries timeSeries;
+        private ConnectionHandler aConnection;
 
+        #endregion
+
+        #region Constructor
+        public DataBase()
+        {
+            this.timeSeries = new TimeSeries();
+            anomalyDetection = new AnomalyDetection();
+            correlatedFeaturesList = new List<CorrelatedFeatures>();
+            anomalyReportList = new List<AnomalyReport>();
+            aConnection = new ConnectionHandler();
+            aConnection.PropertyChanged += (object sender, PropertyChangedEventArgs e) => NotifyPropertyChanged(e.PropertyName);
+        }
+
+        #endregion
+
+        #region Methods
+        private void detectAnomalies()
+        {
+            anomalyDetection.detectAnomalies(ref correlatedFeaturesList, ref anomalyReportList);
+
+        }
+
+        public void start()
+        {
+            detectAnomalies();
+            //aConnection.handle(csvLines, new ClientFG().connect());
+            aConnection.handle(csvLines);
+
+        }
+
+        public List<CorrelatedFeatures> CorrelatedFeatures
+        {
+            get
+            {
+                return this.correlatedFeaturesList;
+            }
+        }
         #endregion
 
         #region Properties
@@ -91,10 +132,28 @@ namespace FlightSimulatorInspection.Models
             set
             {
                 this.csvPath = value;
+                this.csvLines = File.ReadAllLines(csvPath);
+                CsvSize = csvLines.Length - 1;
                 this.timeSeries = new TimeSeries(csvPath);
                 this.anomalyDetection.CsvLearnPath = csvLearnPath;
                 this.anomalyDetection.CsvPath = csvPath;
                 NotifyPropertyChanged(nameof(CsvPath));
+            }
+        }
+        public int CsvSize
+        {
+            get
+            {
+                return this.csvSize;
+            }
+            set
+            {
+                if (csvSize != value)
+                {
+                    csvSize = value;
+                    NotifyPropertyChanged(nameof(CsvSize));
+                }
+
             }
         }
         public string XmlPath
@@ -152,41 +211,32 @@ namespace FlightSimulatorInspection.Models
         {
             get
             {
-                return this.timeStep;
-
+                return aConnection.TimeStep;
             }
             set
             {
-                this.timeStep = value;
+                if (aConnection.TimeStep != value)
+                {
+                    aConnection.TimeStep = value;
+                    NotifyPropertyChanged(nameof(TimeStep));
+                }
             }
         }
-
-        #endregion       
-
-        #region Methods
-        private void detectAnomalies()
+        public bool Running
         {
-            anomalyDetection.detectAnomalies(ref correlatedFeaturesList, ref anomalyReportList);
-            
-        }
-        public DataBase()
-        {
-            this.timeSeries = new TimeSeries();
-        }
-
-        public void start()
-        {
-            detectAnomalies();
-        }
-
-        public List<CorrelatedFeatures> CorrelatedFeatures
-        {
-            get
+            set
             {
-                return this.correlatedFeaturesList;
+                if (aConnection.Running != value)
+                {
+                    aConnection.Running = value;
+                    //aConnection.Interrupt();
+                }
             }
         }
+
         #endregion
+
+
 
 
     }

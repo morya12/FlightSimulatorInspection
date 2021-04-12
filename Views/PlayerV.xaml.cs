@@ -1,4 +1,5 @@
-﻿using FlightSimulatorInspection.ViewModels;
+﻿using FlightSimulatorInspection.Models;
+using FlightSimulatorInspection.ViewModels;
 using System;
 using System.Diagnostics;
 using System.Windows;
@@ -15,10 +16,10 @@ namespace FlightSimulatorInspection.Views
         private DispatcherTimer timer;
 
         private PlayerVM vm;
-        public PlayerV()
+        public PlayerV(DataBase db)
         {
             InitializeComponent();
-            vm = new PlayerVM();
+            vm = new PlayerVM(db);
             DataContext = vm;
             Trace.WriteLine("~~~~~~~~~~~~~~~~PlayerV View CREATED~~~~~~~~~~~~~~~~~~~");
             timer = new DispatcherTimer();
@@ -30,19 +31,20 @@ namespace FlightSimulatorInspection.Views
          //   slider_seek.Value = mediaElement.Position.TotalSeconds;
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Button_Play(object sender, RoutedEventArgs e)
         {
-            //mediaElement.Play();
+            vm.VM_Running = true;
         }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        private void Button_Pause(object sender, RoutedEventArgs e)
         {
-            //mediaElement.Pause();
+            vm.VM_Running = false;
         }
 
-        private void Button_Click_2(object sender, RoutedEventArgs e)
+        private void Button_Stop(object sender, RoutedEventArgs e)
         {
-            //mediaElement.Stop();
+            vm.VM_Running = false;
+            vm.VM_TimeStep = 1;
         }
 
         private void Slider_seek_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
