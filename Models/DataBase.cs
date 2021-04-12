@@ -38,6 +38,7 @@ namespace FlightSimulatorInspection.Models
     #endregion
     public class DataBase : BaseModel
     {
+        public static AutoResetEvent mre = new AutoResetEvent(false);
         #region UserInput members
 
         private string csvPath;
@@ -65,11 +66,13 @@ namespace FlightSimulatorInspection.Models
 
         #region General DataBase members
 
-        AnomalyDetection anomalyDetection;
-        List<CorrelatedFeatures> correlatedFeaturesList;
-        List<AnomalyReport> anomalyReportList;
+        private AnomalyDetection anomalyDetection;
+        private List<CorrelatedFeatures> correlatedFeaturesList;
+        private List<AnomalyReport> anomalyReportList;
         private TimeSeries timeSeries;
+        private ClientFG cliet;
         private ConnectionHandler aConnection;
+        private Thread handlingThread;
 
         #endregion
 
@@ -92,15 +95,22 @@ namespace FlightSimulatorInspection.Models
             anomalyDetection.detectAnomalies(ref correlatedFeaturesList, ref anomalyReportList);
 
         }
+        private void startHandling(string[] csvLines)
+        {
+            handlingThread = new Thread(() => aConnection.handle(csvLines));
+            handlingThread.Start();
+        }
 
         public void start()
         {
             detectAnomalies();
             //aConnection.handle(csvLines, new ClientFG().connect());
-            aConnection.handle(csvLines);
-
+            startHandling(csvLines);
         }
+        
+        #endregion
 
+        #region Properties
         public List<CorrelatedFeatures> CorrelatedFeatures
         {
             get
@@ -108,9 +118,26 @@ namespace FlightSimulatorInspection.Models
                 return this.correlatedFeaturesList;
             }
         }
-        #endregion
-
-        #region Properties
+        public bool Running
+        {
+            set
+            {
+                //when simulation finishes, the thread stops. if user want to start again we need to startHandling again.
+                if (handlingThread != null && !handlingThread.IsAlive)
+                {
+                    startHandling(csvLines);
+                }
+                if (aConnection.Running != value)
+                {
+                    //true == play -> signal the thread to stop sleeping 
+                    if (value == true)
+                    {
+                        mre.Set();
+                    }
+                    aConnection.Running = value;
+                }
+            }
+        }
         public string FGPath
         {
             get
@@ -222,17 +249,7 @@ namespace FlightSimulatorInspection.Models
                 }
             }
         }
-        public bool Running
-        {
-            set
-            {
-                if (aConnection.Running != value)
-                {
-                    aConnection.Running = value;
-                    //aConnection.Interrupt();
-                }
-            }
-        }
+        
 
         #endregion
 
