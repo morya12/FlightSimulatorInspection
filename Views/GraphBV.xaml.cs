@@ -85,29 +85,37 @@ namespace FlightSimulatorInspection.Views
 
             Task.Run(() =>
             {
-                int i = 0;
+                int csvSize = vm.VM_CsvSize;
                 while (true)  // currently not in sync with simulator
                 {
+                    int time = vm.VM_TimeStep;
                     this.data = this.vm.getDataCol('B');
                     this.Feature2 = this.vm.VM_FeatureB;
                     Thread.Sleep(500);
-                    if (this.data != null && this.data.Any())
+                    if (this.data != null)
                     {
-                        value = data[i];
-                        i++;
+                        if (this.data != null && time < csvSize)
+                        {
+                            value = data[time];
+                        }
+                        else
+                        {
+                            value = 0;
+                        }
+                        if (System.Windows.Application.Current != null)
+                        {
+                            Application.Current.Dispatcher.Invoke(() =>
+                            {
+                                FeaturASeries[0].Values.Add(new ObservableValue(value));
+                                FeaturASeries[0].Values.RemoveAt(0);
+                                SetLecture();
+                            });
+                        }
+                        else
+                        {
+                            Environment.Exit(0);
+                        }
                     }
-                    else
-                    {
-                        value = 0;
-                    }
-                    Application.Current.Dispatcher.Invoke(() =>
-                    {
-                        FeaturASeries[0].Values.Add(new ObservableValue(value));
-                        FeaturASeries[0].Values.RemoveAt(0);
-                        SetLecture();
-
-                    });
-
                 }
             });
         }

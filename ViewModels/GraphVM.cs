@@ -84,5 +84,27 @@ namespace FlightSimulatorInspection.ViewModels
                 return yRange;
             }
         }
+        public int VM_TimeStep
+        {
+            get
+            {
+                return graphModel.TimeStep;
+            }
+        }
+        public int VM_CsvSize
+        {
+            get
+            {
+                return graphModel.CsvSize;
+            }
+        }
+        public CorrelatedFeatures correlationData()
+        {
+            return this.graphModel.Correlated;
+        }
+        public List<AnomalyReport> getRelavemtAnomalies()
+        {
+            return this.graphModel.RelevantReports;
+        }
     }
 }

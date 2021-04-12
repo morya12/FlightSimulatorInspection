@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
+using System.Net.Sockets;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Xml;
 using FlightSimulatorInspection.Models;
@@ -37,15 +40,16 @@ namespace FlightSimulatorInspection.Models
     #endregion
     public class DataBase : BaseModel
     {
+        public static AutoResetEvent mre = new AutoResetEvent(false);
         #region UserInput members
 
         private string csvPath;
+        private string[] csvLines;
+        private int csvSize;
         private string xmlPath;
         private string fgPath;
         private bool regAlgo = false;
         private bool circleAlgo = false;
-        private int timeStep;
-        private int speed;
 
         #endregion
 
@@ -64,11 +68,92 @@ namespace FlightSimulatorInspection.Models
 
         #region General DataBase members
 
-        AnomalyDetection anomalyDetection = new AnomalyDetection();
-        List<CorrelatedFeatures> correlatedFeaturesList = new List<CorrelatedFeatures>();
-        List<AnomalyReport> anomalyReportList = new List<AnomalyReport>();
+        private AnomalyDetection anomalyDetection;
+        private List<CorrelatedFeatures> correlatedFeaturesList;
+        private List<AnomalyReport> anomalyReportList;
         private TimeSeries timeSeries;
+        private Socket fgSocket;
+        private ConnectionHandler aConnection;
+        private Thread handlingThread;
 
+        #endregion
+
+        #region Constructor
+        public DataBase()
+        {
+            this.timeSeries = new TimeSeries();
+            anomalyDetection = new AnomalyDetection();
+            correlatedFeaturesList = new List<CorrelatedFeatures>();
+            anomalyReportList = new List<AnomalyReport>();
+            aConnection = new ConnectionHandler();
+            aConnection.PropertyChanged += (object sender, PropertyChangedEventArgs e) => NotifyPropertyChanged(e.PropertyName);
+        }
+
+        #endregion
+
+        #region Methods
+        public void OnClosing()
+        {
+            //don't forget to close resources
+            if (fgSocket != null)
+                fgSocket.Disconnect(true);
+        }
+        private void detectAnomalies()
+        {
+            anomalyDetection.detectAnomalies(ref correlatedFeaturesList, ref anomalyReportList);
+
+        }
+        private void startHandling(string[] csvLines, Socket socket)
+        {
+            handlingThread = new Thread(() => aConnection.handle(csvLines, socket));
+            handlingThread.Start();
+        }
+
+        public void start()
+        {
+            detectAnomalies();
+            fgSocket = new ClientFG().connect();
+            startHandling(csvLines, fgSocket);
+        }
+
+        #endregion
+
+        #region Properties
+        public List<CorrelatedFeatures> CorrelatedFeatures
+        {
+            get
+            {
+                return this.correlatedFeaturesList;
+            }
+        }
+        public bool Running
+        {
+            set
+            {
+                //when simulation finishes, the thread stops. if user want to start again we need to startHandling again.
+                if (handlingThread != null && !handlingThread.IsAlive)
+                {
+                    startHandling(csvLines, fgSocket);
+                }
+                if (aConnection.Running != value)
+                {
+                    //true == play -> signal the thread to stop sleeping 
+                    if (value == true)
+                    {
+                        mre.Set();
+                    }
+                    aConnection.Running = value;
+                }
+            }
+        }
+
+        public List<AnomalyReport> AnomalyReports
+        {
+            get
+            {
+                return this.anomalyReportList;
+            }
+        }
         #endregion
 
         #region Properties
@@ -94,10 +179,28 @@ namespace FlightSimulatorInspection.Models
             {
                 InsertCsvHeader();
                 this.csvPath = value;
+                this.csvLines = File.ReadAllLines(csvPath);
+                CsvSize = csvLines.Length - 1;
                 this.timeSeries = new TimeSeries(csvPath);
                 this.anomalyDetection.CsvLearnPath = csvLearnPath;
                 this.anomalyDetection.CsvPath = csvPath;
                 NotifyPropertyChanged(nameof(CsvPath));
+            }
+        }
+        public int CsvSize
+        {
+            get
+            {
+                return this.csvSize;
+            }
+            set
+            {
+                if (csvSize != value)
+                {
+                    csvSize = value;
+                    NotifyPropertyChanged(nameof(CsvSize));
+                }
+
             }
         }
         public string XmlPath
@@ -155,91 +258,28 @@ namespace FlightSimulatorInspection.Models
         {
             get
             {
-                return this.timeStep;
-
+                return aConnection.TimeStep;
             }
             set
             {
-                this.timeStep = value;
+                if (aConnection.TimeStep != value)
+                {
+                    aConnection.TimeStep = value;
+                    NotifyPropertyChanged(nameof(TimeStep));
+                }
             }
+
         }
 
-        public int Speed
+        public double Speed
         {
-            get
-            {
-                return this.speed;
-            }
             set
             {
-                this.speed = value;
+                if (aConnection.Speed != value)
+                {
+                    aConnection.Speed = value;
+                }
             }
-        }
-
-        #endregion       
-
-        #region Methods
-        private void detectAnomalies()
-        {
-            anomalyDetection.detectAnomalies(ref correlatedFeaturesList, ref anomalyReportList);
-            
-        }
-        public DataBase()
-        {
-            this.timeSeries = new TimeSeries();
-        }
-
-        public void start()
-        {
-            detectAnomalies();
-        }
-
-        public List<CorrelatedFeatures> CorrelatedFeatures
-        {
-            get
-            {
-                return this.correlatedFeaturesList;
-            }
-        }
-
-        public static void InsertCsvHeader()
-        {
-            var csv = new StringBuilder();
-
-            XmlDocument xmlDocument = new XmlDocument();
-            xmlDocument.Load(@"C:\Users\elaza\Desktop\playback_small.xml");
-            XmlNodeList name = xmlDocument.GetElementsByTagName("name");
-            string nameOfAttributes = "";
-            //nameOfAttributes += Environment.NewLine;
-            string newLine = Environment.NewLine;
-
-            List<String> ls = new List<string>();
-
-            for (int i = 0; i < ((name.Count) / 2); i++)
-            {
-                ls.Add(name[i].InnerText);
-                Console.WriteLine(name[i].InnerText);
-                nameOfAttributes += name[i].InnerXml + ",";
-            }
-
-            //nameOfAttributes = nameOfAttributes + "engine_rpm";
-            //  nameOfAttributes += newLine;
-            nameOfAttributes = nameOfAttributes.Replace('-', '_');
-
-
-            // #1 Read CSV File
-            string[] CSVDump = File.ReadAllLines(@"C:\Users\elaza\Desktop\reg_flight.csv");
-
-            // #2 Split Data
-            List<List<string>> CSV = CSVDump.Select(x =>
-            x.Split(',').ToList()).ToList();
-
-
-            //#3 Update Data
-            CSV.Insert(0, ls); // 0 is index of first row
-
-            //#4 Write CSV File
-            File.WriteAllLines(@"C:\Users\elaza\Desktop\reg_flight.csv", CSV.Select(x => string.Join(",", x)));
 
         }
         #endregion

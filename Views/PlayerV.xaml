@@ -6,8 +6,8 @@
              xmlns:local="clr-namespace:FlightSimulatorInspection.Views"
              xmlns:ViewModels="clr-namespace:FlightSimulatorInspection.ViewModels" x:Class="FlightSimulatorInspection.Views.PlayerV"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
-  <Grid Background="#99ccff">
+             d:DesignHeight="450" d:DesignWidth="550">
+  <Grid Background="#233C4F">
     <Grid.RowDefinitions>
       <RowDefinition Height="auto" />
       <RowDefinition Height="*"/>
@@ -22,27 +22,27 @@
       </Grid.ColumnDefinitions>
       <!--Play Button-->
       <StackPanel HorizontalAlignment="Center" Orientation="Vertical" Grid.Column="0" Margin="0 10 0 0">
-        <Button Content="Play" FontWeight="UltraBlack" Background="Orange" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
+                <Button Content="Play" Background="#FF396387" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Click="Button_Play"/>
       </StackPanel>
       <!--Pause Button-->
       <StackPanel HorizontalAlignment="Center" Orientation="Vertical" Grid.Column="1" Margin="0 10 0 0">
-        <Button Content="Pause" FontWeight="UltraBlack"  Background="Orange" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Click="Button_Click_1"/>
+                <Button Content="Pause"  Background="#FF396387" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Click="Button_Pause" Foreground="White"/>
       </StackPanel>
       <!--Stop Button-->
       <StackPanel HorizontalAlignment="Center" Grid.Column="2" Margin="0 10 0 0">
-        <Button Content="Stop" FontWeight="UltraBlack" Background="Orange" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Click="Button_Click_2"/>
+                <Button Content="Stop" Background="#FF396387" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Click="Button_Stop"/>
       </StackPanel>
       <!--SpeedRatio Slider-->
       <StackPanel Grid.Column="3" HorizontalAlignment="Center" Margin="0 10 0 0">
-        <Slider x:Name="speedRatioSlider" Value="1" Maximum="4" HorizontalAlignment="Left" VerticalAlignment="Top" Height="30" Width="90" ValueChanged="Slider_ValueChanged"/>
-      </StackPanel>
+                <ComboBox x:Name="changeSpeed" SelectionChanged="changeSpeed_SelectionChanged" HorizontalAlignment="Stretch" Width="80"/>
+        </StackPanel>
     </Grid>
     <Grid Grid.Row="1">
       <Grid.ColumnDefinitions>
         <ColumnDefinition Width="*"/>
       </Grid.ColumnDefinitions>
       <StackPanel Grid.Column="0" HorizontalAlignment="Center" Margin="0 10 0 0">
-        <Slider HorizontalAlignment="Left" TickFrequency="5" Name="slider_seek" VerticalAlignment="Top" Height="36" Width="600" ValueChanged="Slider_seek_ValueChanged"/>
+        <Slider Value="{Binding VM_TimeStep}" Minimum="1" Maximum="{Binding VM_CsvSize}" HorizontalAlignment="Left" TickFrequency="1" Name="slider_seek" VerticalAlignment="Top" Height="36" Width="500"/>
       </StackPanel>
     </Grid>
 

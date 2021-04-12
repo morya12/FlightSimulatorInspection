@@ -83,28 +83,36 @@ namespace FlightSimulatorInspection.Views
 
         Task.Run(() =>
         {
-            int i = 0;
+            int csvSize = vm.VM_CsvSize;
             while (true)  // currently not in sync with simulator
             {
+                int time = vm.VM_TimeStep;
                 this.data = this.vm.getDataCol('A');
                 this.Feature1 = this.vm.VM_FeatureA;
                 Thread.Sleep(500);
-                if (this.data != null && this.data.Any())
-                {
-                    value = data[i];
-                    i++;
-                }
-                else
-                {
-                    value = 0;
-                }
-                Application.Current.Dispatcher.Invoke(() =>
-                {
-                    FeaturASeries[0].Values.Add(new ObservableValue(value));
-                    FeaturASeries[0].Values.RemoveAt(0);
-                    SetLecture();
-                });
-                
+                    if (this.data != null &&  time < csvSize)
+                    {
+                        value = data[time];
+                        
+                    }
+                    else
+                    {
+                        value = 0;
+                    }
+                    if (System.Windows.Application.Current != null)
+                    {
+                        Application.Current.Dispatcher.Invoke(() =>
+                        {
+                            FeaturASeries[0].Values.Add(new ObservableValue(value));
+                            FeaturASeries[0].Values.RemoveAt(0);
+                            SetLecture();
+                         });
+                    } 
+                    else
+                    {
+                        Environment.Exit(0);
+                    }
+                 
             }
         });
 

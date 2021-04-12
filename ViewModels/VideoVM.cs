@@ -128,6 +128,7 @@ namespace FlightSimulatorInspection.ViewModels
                 processEXE.Refresh();
                 processEXE.Close();
             }
+            dbModel.OnClosing();
         }
         public void ResizeEmbeddedApp()
         {

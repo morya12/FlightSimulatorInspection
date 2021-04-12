@@ -20,6 +20,7 @@ using LiveCharts.Wpf;
 using FlightSimulatorInspection.ViewModels;
 
 
+
 namespace FlightSimulatorInspection.Views
 {
     public partial class RegressionGraphV : UserControl
@@ -101,11 +102,12 @@ namespace FlightSimulatorInspection.Views
                 },
                 new LineSeries
                 {
+
                     Title = "Liner regrssion", // need to calc two range points and draw a line between
                     Values = new ChartValues<ObservablePoint> {
-                        new ObservablePoint(10,10),
-                        //new ObservablePoint(62, 117),
-
+                    
+                    //new ObservablePoint(start.X,start.Y),
+                    //new ObservablePoint(end.X, end.Y),
                     },
                     PointGeometry = null,
 
@@ -117,7 +119,7 @@ namespace FlightSimulatorInspection.Views
                 {
                     Values = new ChartValues<ScatterPoint>
                     {
-                       new ScatterPoint( 50, 50, 100),// x,y,radius
+                       //new ScatterPoint( 50, 50, 100),// x,y,radius
 
                     },
                     Fill = Brushes.Transparent,
@@ -148,51 +150,74 @@ namespace FlightSimulatorInspection.Views
         }
         private void UpdateAllOnClick(object sender, RoutedEventArgs e)
         {
+           
+            FeatureACol = null;
+            FeatureBCol = null;
+            if (FeatureACol == null || FeatureBCol == null) {
+                return;
+            }
             if (vm.VM_CircleAlgo)
             {
+                Point CircleData = new Point(this.vm.correlationData().CX, this.vm.correlationData().CY);
+                float r = this.vm.correlationData().Radius;
                 ScatterSeries circle = (ScatterSeries)SeriesCollection[4];
                 circle.Stroke = Brushes.Black;
-                circle.Values.Add(new ScatterPoint(50, 50, 100));//x,y,radius
+                circle.Values.Add(new ScatterPoint(CircleData.X,CircleData.Y, r));//x,y,radius
+                Console.WriteLine(CircleData.X);
+                Console.WriteLine(CircleData.Y);
+                Console.WriteLine(r);
 
             }
             else
             {
+                float XValOfStart = this.vm.XRange.X;
+                float XValOfEnd = this.vm.XRange.Y;
+                Point lineData = new Point(this.vm.correlationData().LineA, this.vm.correlationData().LineB);
+
+                float YValOfStart = (float)((XValOfStart * lineData.X) + lineData.Y);
+                float YValOfEnd = (float)((XValOfEnd * lineData.X) + lineData.Y);
+
+                Point start = new Point(XValOfStart, YValOfStart);
+                Point end = new Point(XValOfEnd, YValOfEnd);
+
                 LineSeries l = (LineSeries)SeriesCollection[3];
+                l.Values.Add(new ObservablePoint(start.X, start.Y));
+
+                l.Values.Add(new ObservablePoint(end.X, end.Y));
+               
                 l.Stroke = Brushes.Black;
             }
-            //double i = 10;
-            int i = 0;
+            int csvsize = vm.VM_CsvSize;
                 Task.Run(() =>
            {
                FeatureACol= null;
                FeatureBCol = null;
 
-                while (true)
-                {
-                    Thread.Sleep(500);
-                    var series = SeriesCollection[1]; //blue 
+               while (true)
+               {
+                   int time = vm.VM_TimeStep;
+                   Thread.Sleep(500);
+                   if (System.Windows.Application.Current != null && time<csvsize)
+                   {
+                       var series = SeriesCollection[1]; //blue 
 
-                   float x = this.featureACol[i];
-                   float y = this.featureBCol[i];
-                   //i += r.NextDouble();
-                   //i += r.NextDouble() + 0.5;//only for checking
+                   float x = this.featureACol[time];
+                       if (featureBCol == null)
+                       {
+                           continue;
+                       }
+                   float y = this.featureBCol[time];
 
-                    counter++;
-                    series.Values.Add(new ScatterPoint(x, y));
-                    if (counter > 30)
-                    {
-                        SeriesCollection[0].Values.Add(SeriesCollection[1].Values[0]);
-                        SeriesCollection[1].Values.RemoveAt(0);
-                    }
+                       counter++;
+                       series.Values.Add(new ScatterPoint(x, y));
+                       if (counter > 30)
+                       {
+                           SeriesCollection[0].Values.Add(SeriesCollection[1].Values[0]);
+                           SeriesCollection[1].Values.RemoveAt(0);
+                       }
 
-                    if (counter == 50)
-                    {
-                       //  SeriesCollection[2].Values.Add(new ScatterPoint(i+2, i+2,7));
-                       
-                    }
-                   i++;
-
-                }
+                   }
+               }
             });
         }
     }
