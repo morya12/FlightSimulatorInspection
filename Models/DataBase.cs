@@ -108,6 +108,14 @@ namespace FlightSimulatorInspection.Models
                 return this.correlatedFeaturesList;
             }
         }
+
+        public List<AnomalyReport> AnomalyReports
+        {
+            get
+            {
+                return this.anomalyReportList;
+            }
+        }
         #endregion
 
         #region Properties

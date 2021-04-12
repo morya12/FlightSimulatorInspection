@@ -52,7 +52,7 @@ namespace FlightSimulatorInspection.Models
         List<float> featureBCol;
         public event PropertyChangedEventHandler PropertyChanged;
         public List<string> parameters;
-        Point lineData;
+        CorrelatedFeatures correlated;
 
         public Graph()
         {
@@ -99,17 +99,14 @@ namespace FlightSimulatorInspection.Models
                 }
             }
         }
-        public Point LineData {
+
+        public CorrelatedFeatures Correlated
+        {
             get
             {
-                return this.lineData;
-            }
-            set
-            {
-                this.lineData = value;
+                return this.correlated;
             }
         }
-
         public bool RegAlgo
         {
             get
@@ -234,55 +231,46 @@ namespace FlightSimulatorInspection.Models
 
             float maxCorr = -1;
             int index = 0;
-            int corrIndex = -1;
-            string maxCorNameA = "--";
-            string maxCorNameB = "--";
-            Point dataOfLine = new Point(0, 0);
-            List<CorrelatedFeatures> correlations = new List<CorrelatedFeatures>();
+            CorrelatedFeatures c = new CorrelatedFeatures();
             foreach (CorrelatedFeatures f in list)
             {
-                //Console.Write(f.Feature1);
-                //Console.Write(" , ");
-                //Console.WriteLine(f.Feature2);
                 if ((f.Feature1 == this.CorrelatedFeatureA) || (f.Feature2 == this.CorrelatedFeatureA))
                 {
-                    correlations.Add(f);
                     List<float> a = this.db.TimeSeries.getFeatureDataCol(f.Feature1);
                     List<float> b = this.db.TimeSeries.getFeatureDataCol(f.Feature2);
-
                     float res = pearson(a, b);
                     if (maxCorr < res)
                     {
                         maxCorr = res;
-                        corrIndex = index;
-                        maxCorNameA = f.Feature1;
-                        maxCorNameB = f.Feature2;
-                        dataOfLine = new Point(f.LineA, f.LineB);
-                        //Console.Write(f.LineA);
-                        //Console.Write(",");
-                        //Console.WriteLine(f.LineB);
-
+                        this.correlated = f;
+                        c = f;
                     }
                 }
                 index++;
             }
-            if (this.CorrelatedFeatureA == maxCorNameA)
+            if (this.CorrelatedFeatureA == c.Feature1)
             {
-                this.CorrelatedFeatureB = maxCorNameB;
-            } else if (this.CorrelatedFeatureA == maxCorNameB)
+                this.CorrelatedFeatureB = c.Feature2;
+              
+            } else if (this.CorrelatedFeatureA == c.Feature2)
             {
-                this.CorrelatedFeatureB = maxCorNameA;
+                this.CorrelatedFeatureB = c.Feature1;
             } else
             {
                 Console.WriteLine("didnt find match");
                 this.featureBCol = new List<float>();
                 this.correlatedFeatureB = null;
-                this.lineData = null;
                 return;
             }
-            this.lineData = dataOfLine;
             this.featureBCol = this.db.TimeSeries.getFeatureDataCol(CorrelatedFeatureB);
         }
+
+        //public bool isAnnomaly()
+        //{
+           // this.DB.Anno
+        //}
+
+        
     }
 }
 

@@ -25,22 +25,10 @@ namespace FlightSimulatorInspection.Views
 {
     public partial class RegressionGraphV : UserControl
     {
-        Point lineData;
         int counter = 0;
         private GraphVM vm;
         private List<float> featureACol;
         private List<float> featureBCol;
-
-        public Point LineData {
-            get
-            {
-                if (this.lineData == null)
-                {
-                    this.lineData = new Point(this.vm.lineData().X, this.vm.lineData().Y);
-                }
-                return this.lineData;
-            }
-        }
 
         public List<float> FeatureACol{
             get
@@ -131,7 +119,7 @@ namespace FlightSimulatorInspection.Views
                 {
                     Values = new ChartValues<ScatterPoint>
                     {
-                       new ScatterPoint( 50, 50, 100),// x,y,radius
+                       //new ScatterPoint( 50, 50, 100),// x,y,radius
 
                     },
                     Fill = Brushes.Transparent,
@@ -164,28 +152,26 @@ namespace FlightSimulatorInspection.Views
         {
             FeatureACol = null;
             FeatureBCol = null;
-            if (FeatureACol == null) {
+            if (FeatureACol == null || FeatureBCol == null) {
                 return;
             }
             if (vm.VM_CircleAlgo)
             {
+                Point CircleData = new Point(this.vm.correlationData().CX, this.vm.correlationData().CY);
+                float r = this.vm.correlationData().Radius;
                 ScatterSeries circle = (ScatterSeries)SeriesCollection[4];
                 circle.Stroke = Brushes.Black;
-                circle.Values.Add(new ScatterPoint(50, 50, 100));//x,y,radius
+                circle.Values.Add(new ScatterPoint(CircleData.X,CircleData.Y, r));//x,y,radius
+                Console.WriteLine(CircleData.X);
+                Console.WriteLine(CircleData.Y);
+                Console.WriteLine(r);
 
             }
             else
             {
-                FeatureACol = null;
-                FeatureBCol = null;
-                if (featureBCol == null)
-                {
-                    clear();
-                    return;
-                }
                 float XValOfStart = this.vm.XRange.X;
                 float XValOfEnd = this.vm.XRange.Y;
-                Point lineData = new Point(this.vm.lineData().X, this.vm.lineData().Y);
+                Point lineData = new Point(this.vm.correlationData().LineA, this.vm.correlationData().LineB);
 
                 float YValOfStart = (float)((XValOfStart * lineData.X) + lineData.Y);
                 float YValOfEnd = (float)((XValOfEnd * lineData.X) + lineData.Y);
