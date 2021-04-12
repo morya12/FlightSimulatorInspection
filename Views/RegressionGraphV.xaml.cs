@@ -20,14 +20,27 @@ using LiveCharts.Wpf;
 using FlightSimulatorInspection.ViewModels;
 
 
+
 namespace FlightSimulatorInspection.Views
 {
     public partial class RegressionGraphV : UserControl
     {
+        Point lineData;
         int counter = 0;
         private GraphVM vm;
         private List<float> featureACol;
         private List<float> featureBCol;
+
+        public Point LineData {
+            get
+            {
+                if (this.lineData == null)
+                {
+                    this.lineData = new Point(this.vm.lineData().X, this.vm.lineData().Y);
+                }
+                return this.lineData;
+            }
+        }
 
         public List<float> FeatureACol{
             get
@@ -101,11 +114,12 @@ namespace FlightSimulatorInspection.Views
                 },
                 new LineSeries
                 {
+
                     Title = "Liner regrssion", // need to calc two range points and draw a line between
                     Values = new ChartValues<ObservablePoint> {
-                        new ObservablePoint(10,10),
-                        //new ObservablePoint(62, 117),
-
+                    
+                    //new ObservablePoint(start.X,start.Y),
+                    //new ObservablePoint(end.X, end.Y),
                     },
                     PointGeometry = null,
 
@@ -157,25 +171,38 @@ namespace FlightSimulatorInspection.Views
             }
             else
             {
+                FeatureACol = null;
+                FeatureBCol = null;
+                float XValOfStart = this.vm.XRange.X;
+                float XValOfEnd = this.vm.XRange.Y;
+                Point lineData = new Point(this.vm.lineData().X, this.vm.lineData().Y);
+
+                float YValOfStart = (float)((XValOfStart * lineData.X) + lineData.Y);
+                float YValOfEnd = (float)((XValOfEnd * lineData.X) + lineData.Y);
+
+                Point start = new Point(XValOfStart, YValOfStart);
+                Point end = new Point(XValOfEnd, YValOfEnd);
+
                 LineSeries l = (LineSeries)SeriesCollection[3];
+                l.Values.Add(new ObservablePoint(start.X, start.Y));
+
+                l.Values.Add(new ObservablePoint(end.X, end.Y));
+               
                 l.Stroke = Brushes.Black;
             }
-            //double i = 10;
             int i = 0;
                 Task.Run(() =>
            {
                FeatureACol= null;
                FeatureBCol = null;
 
-                while (true)
+               while (true)
                 {
                     Thread.Sleep(500);
                     var series = SeriesCollection[1]; //blue 
 
                    float x = this.featureACol[i];
                    float y = this.featureBCol[i];
-                   //i += r.NextDouble();
-                   //i += r.NextDouble() + 0.5;//only for checking
 
                     counter++;
                     series.Values.Add(new ScatterPoint(x, y));
