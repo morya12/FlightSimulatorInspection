@@ -56,7 +56,7 @@ namespace FlightSimulatorInspection.Models
                 this.speed = value;
             }
         }
-        public int host = 6400;
+        public int host = 5400;
 
         public ClientFG(string xmlFile, string csvFile)
         {
