@@ -158,6 +158,47 @@ namespace FlightSimulatorInspection.Models
             startHandling(csvLines, fgSocket);
         }
 
+        public static void InsertCsvHeader()
+        {
+            var csv = new StringBuilder();
+
+            XmlDocument xmlDocument = new XmlDocument();
+            xmlDocument.Load(@"C:\Users\elaza\Desktop\playback_small.xml");
+            XmlNodeList name = xmlDocument.GetElementsByTagName("name");
+            string nameOfAttributes = "";
+            nameOfAttributes += Environment.NewLine;
+            string newLine = Environment.NewLine;
+
+            List<String> ls = new List<string>();
+
+            for (int i = 0; i < ((name.Count) / 2); i++)
+            {
+                ls.Add(name[i].InnerText);
+                Console.WriteLine(name[i].InnerText);
+                nameOfAttributes += name[i].InnerXml + ",";
+            }
+
+            //nameOfAttributes = nameOfAttributes + "engine_rpm";
+            //  nameOfAttributes += newLine;
+            nameOfAttributes = nameOfAttributes.Replace('-', '_');
+
+
+            // #1 Read CSV File
+            string[] CSVDump = File.ReadAllLines(@"C:\Users\elaza\Desktop\reg_flight.csv");
+
+            // #2 Split Data
+            List<List<string>> CSV = CSVDump.Select(x =>
+            x.Split(',').ToList()).ToList();
+
+
+            //#3 Update Data
+            CSV.Insert(0, ls); // 0 is index of first row
+
+            //#4 Write CSV File
+            File.WriteAllLines(@"C:\Users\elaza\Desktop\reg_flight.csv", CSV.Select(x => string.Join(",", x)));
+        }
+    }
+
         #endregion
 
         #region Properties
