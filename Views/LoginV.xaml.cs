@@ -25,6 +25,8 @@ namespace FlightSimulatorInspection.Views
         {
             // Create OpenFileDialog
             Microsoft.Win32.OpenFileDialog openFileDlg = new Microsoft.Win32.OpenFileDialog();
+            openFileDlg.Filter = "CSV files (*.csv)|*.csv|XML files (*.xml)|*.xml";
+
             // Launch OpenFileDialog by calling ShowDialog method
             Nullable<bool> result = openFileDlg.ShowDialog();
             // Get the selected file name and display in a TextBox.
@@ -40,6 +42,7 @@ namespace FlightSimulatorInspection.Views
             Microsoft.Win32.OpenFileDialog openFileDlg = new Microsoft.Win32.OpenFileDialog();
 
             // Launch OpenFileDialog by calling ShowDialog method
+            openFileDlg.Filter = "XML Files (*.xml)|*.xml"; 
             Nullable<bool> result = openFileDlg.ShowDialog();
 
             // Get the selected file name and display in a TextBox.
@@ -55,6 +58,7 @@ namespace FlightSimulatorInspection.Views
             // Create OpenFileDialog
             Microsoft.Win32.OpenFileDialog openFileDlg = new Microsoft.Win32.OpenFileDialog();
             // Launch OpenFileDialog by calling ShowDialog method
+           // openFileDlg.Filter = " Exe Files(.exe)| *.exe | All Files(*.*) | *.* ";
             Nullable<bool> result = openFileDlg.ShowDialog();
             // Get the selected file name and display in a TextBox.
             // Load content of file in a TextBlock
@@ -71,7 +75,8 @@ namespace FlightSimulatorInspection.Views
                 vm.VM_RegAlgo = true;
             else
                 vm.VM_CircleAlgo = true;
-            ConnectionHandler.readCSV(vm.VM_CsvPath);
+            ConnectionHandler h = new ConnectionHandler();
+            h.readCSV(vm.VM_CsvPath);
             (this.Parent as Border).Visibility = Visibility.Collapsed;
             vm.start();
 

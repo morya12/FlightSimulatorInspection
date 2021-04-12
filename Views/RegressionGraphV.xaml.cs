@@ -24,10 +24,33 @@ namespace FlightSimulatorInspection.Views
 {
     public partial class RegressionGraphV : UserControl
     {
-        public double x = 3.5;
-        public double y = 0;
         int counter = 0;
         private GraphVM vm;
+        private List<float> featureACol;
+        private List<float> featureBCol;
+
+        public List<float> FeatureACol{
+            get
+            {
+                return this.featureACol;
+            }
+            set
+            {
+                this.featureACol = this.vm.getDataCol('A');
+            }
+        }
+        public List<float> FeatureBCol
+        {
+            get
+            {
+                return this.featureBCol;
+            }
+            set
+            {
+                this.featureBCol = this.vm.getDataCol('B');
+            }
+        }
+
         public RegressionGraphV(GraphVM g)
         {
             InitializeComponent();
@@ -35,18 +58,18 @@ namespace FlightSimulatorInspection.Views
 
             SeriesCollection = new SeriesCollection
             {
-                new ScatterSeries //blue
+                new ScatterSeries //grey
                 {
                     Values = new ChartValues<ScatterPoint>
                     {
-                     //   new ScatterPoint(2.6, 5, 5),
+                     //   new ScatterPoint(2.6, 5, 5), //xP,yP,r
                     },
                     Title = "old",
                     Fill = Brushes.Gray,
                     MinPointShapeDiameter = 5,
                     MaxPointShapeDiameter = 5
                 },
-                new ScatterSeries //red
+                new ScatterSeries //blue
                 {
                     Values = new ChartValues<ScatterPoint>
                     {
@@ -73,24 +96,40 @@ namespace FlightSimulatorInspection.Views
                     Title = "annomly",
                     Fill = Brushes.Red,
                     //ScalesXAt = 100, only for acxes
-                   // PointGeometry = Defa
-                    //
-                    
                     MinPointShapeDiameter = 7,
                     MaxPointShapeDiameter = 7
                 },
                 new LineSeries
                 {
-                    Title = "liner regrssion",
+                    Title = "Liner regrssion", // need to calc two range points and draw a line between
                     Values = new ChartValues<ObservablePoint> {
-                        new ObservablePoint(x,y),
-                        new ObservablePoint(62, 117),
+                        new ObservablePoint(10,10),
+                        //new ObservablePoint(62, 117),
 
                     },
                     PointGeometry = null,
-                    Stroke = Brushes.Black,
+
+                    Stroke = Brushes.Transparent,
                     Fill = Brushes.Transparent
                 },
+
+                new ScatterSeries // transparent
+                {
+                    Values = new ChartValues<ScatterPoint>
+                    {
+                       new ScatterPoint( 50, 50, 100),// x,y,radius
+
+                    },
+                    Fill = Brushes.Transparent,
+                    StrokeThickness = 1,
+                    Stroke = Brushes.Transparent,
+                    PointGeometry = DefaultGeometries.Circle,
+                    //ScalesXAt = 100, only for acxes
+                    Title = "Minimal Circle",
+                    MinPointShapeDiameter = 100,
+                    MaxPointShapeDiameter = 100
+                },
+
             };
 
             DataContext = this;
@@ -104,22 +143,39 @@ namespace FlightSimulatorInspection.Views
                 SeriesCollection[1].Values.Clear();
                 SeriesCollection[2].Values.Clear();
                 SeriesCollection[3].Values.Clear();
+                SeriesCollection[4].Values.Clear();
                 counter = 0;
-
         }
         private void UpdateAllOnClick(object sender, RoutedEventArgs e)
         {
-            Task.Run(() =>
+            if (vm.VM_CircleAlgo)
             {
-                var r = new Random();
+                ScatterSeries circle = (ScatterSeries)SeriesCollection[4];
+                circle.Stroke = Brushes.Black;
+                circle.Values.Add(new ScatterPoint(50, 50, 100));//x,y,radius
+
+            }
+            else
+            {
+                LineSeries l = (LineSeries)SeriesCollection[3];
+                l.Stroke = Brushes.Black;
+            }
+            //double i = 10;
+            int i = 0;
+                Task.Run(() =>
+           {
+               FeatureACol= null;
+               FeatureBCol = null;
+
                 while (true)
                 {
                     Thread.Sleep(500);
                     var series = SeriesCollection[1]; //blue 
 
-  
-                    x += r.NextDouble();
-                    y += r.NextDouble() + 0.5;
+                   float x = this.featureACol[i];
+                   float y = this.featureBCol[i];
+                   //i += r.NextDouble();
+                   //i += r.NextDouble() + 0.5;//only for checking
 
                     counter++;
                     series.Values.Add(new ScatterPoint(x, y));
@@ -129,11 +185,12 @@ namespace FlightSimulatorInspection.Views
                         SeriesCollection[1].Values.RemoveAt(0);
                     }
 
-                    if (counter % 10 == 1)
+                    if (counter == 50)
                     {
-                        SeriesCollection[2].Values.Add(new ScatterPoint(x+2, y+2,7));
-                        //SeriesCollection[1].Values.RemoveAt(0);
+                       //  SeriesCollection[2].Values.Add(new ScatterPoint(i+2, i+2,7));
+                       
                     }
+                   i++;
 
                 }
             });

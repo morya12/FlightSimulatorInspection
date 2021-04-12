@@ -28,13 +28,30 @@ namespace FlightSimulatorInspection.Views
         private double value;
         private List<float> data;
         private GraphVM vm;
+        private string feature1;
+
+        public string Feature1
+        {
+            get
+            {
+                return this.feature1;
+            }
+            set
+            {
+                this.feature1 = value;
+                OnPropertyChanged("Feature1");
+            }
+        }
 
     public GraphAV(GraphVM g)
     {
         InitializeComponent();
         this.vm = g;
+        this.feature1 = "Feature A";
+        this.DataContext = this;
 
-        FeaturASeries = new SeriesCollection
+
+            FeaturASeries = new SeriesCollection
             {
                 new LineSeries
                 {
@@ -66,12 +83,11 @@ namespace FlightSimulatorInspection.Views
 
         Task.Run(() =>
         {
-            this.data = this.vm.getDataCol();
-            var r = new Random();
             int i = 0;
             while (true)  // currently not in sync with simulator
             {
-                this.data = this.vm.getDataCol();
+                this.data = this.vm.getDataCol('A');
+                this.Feature1 = this.vm.VM_FeatureA;
                 Thread.Sleep(500);
                 if (this.data != null && this.data.Any())
                 {
@@ -82,23 +98,19 @@ namespace FlightSimulatorInspection.Views
                 {
                     value = 0;
                 }
-                //value = (r.NextDouble() > 0.3 ? 1 : -1) * r.Next(0, 5); //need to bind to feature 
                 Application.Current.Dispatcher.Invoke(() =>
                 {
                     FeaturASeries[0].Values.Add(new ObservableValue(value));
                     FeaturASeries[0].Values.RemoveAt(0);
                     SetLecture();
-
                 });
                 
             }
         });
-        DataContext = this;
-        //tb1.DataContext = g;
 
         }
 
-        public SeriesCollection FeaturASeries { get; set; }
+    public SeriesCollection FeaturASeries { get; set; }
 
     public double LastValue
     {
@@ -113,30 +125,22 @@ namespace FlightSimulatorInspection.Views
     private void SetLecture()
     {
         var target = ((ChartValues<ObservableValue>)FeaturASeries[0].Values).Last().Value;
-        // var step = (target - _lastLecture) / 4; // makes it look smooth
-
-
 
         Task.Run(() =>
         {
-            //for (var i = 0; i < 4; i++)
-            //{
-            //    Thread.Sleep(100);
-            //    LastLecture += step;
-            //}
             LastValue = target;
         });
 
     }
 
-    public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler PropertyChanged;
 
-    protected virtual void OnPropertyChanged(string propertyName = null)
-    {
-        var handler = PropertyChanged;
-        if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
+        protected virtual void OnPropertyChanged(string propertyName = null)
+        {
+            var handler = PropertyChanged;
+            if (handler != null)
+                handler(this, new PropertyChangedEventArgs(propertyName));
+        }
     }
 
-
-}
 }

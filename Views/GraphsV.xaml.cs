@@ -24,14 +24,15 @@ namespace FlightSimulatorInspection.Views
     /// </summary>
     public partial class GraphsV : UserControl
     {
-
+        string feature1;
+        string feature2;
         GraphVM graphVM;
         public GraphsV(DataBase db)
         {
             InitializeComponent();
             graphVM = new GraphVM(new Graph(), db);
             GraphABorder.Child = new GraphAV(graphVM);
-            GraphBBorder.Child = new GraphBV(); //need to add graphVM to constrctor 
+            GraphBBorder.Child = new GraphBV(graphVM); //need to add graphVM to constrctor 
             RegressionGraphBorder.Child = new RegressionGraphV(graphVM);
             List<string> features = this.graphVM.getParameters();
             // here need to get list of graph
@@ -41,18 +42,20 @@ namespace FlightSimulatorInspection.Views
                 newItem.Content = a;
                 featureListBox.Items.Add(newItem);
 
-            }
-           
+            }           
         }
 
         private void featureListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            
             if (featureListBox.SelectedItem != null)
             {
                 Console.WriteLine((featureListBox.SelectedItem as ListBoxItem).Content.ToString());
-                graphVM.VM_FeatureA = (featureListBox.SelectedItem as ListBoxItem).Content.ToString();
+                // graphVM.VM_FeatureA = (featureListBox.SelectedItem as ListBoxItem).Content.ToString();
+                this.graphVM.VM_FeatureA = (featureListBox.SelectedItem as ListBoxItem).Content.ToString();
+                this.feature2 = graphVM.VM_FeatureB;
+
             }
         }
+
     }
 }

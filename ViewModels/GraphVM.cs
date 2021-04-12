@@ -19,30 +19,31 @@ namespace FlightSimulatorInspection.ViewModels
 
         public string VM_FeatureA
         {
-            get { return graphModel.UserChoise; }
+            get { return graphModel.CorrelatedFeatureA; }
             set
             {
-                if (graphModel.UserChoise != value)
-                    graphModel.UserChoise = value;
-               // Console.WriteLine(graphModel.UserChoise);
+                if (graphModel.CorrelatedFeatureA != value)
+                    graphModel.CorrelatedFeatureA = value;
             }
-        }
-        public float VM_FeatureAValue
-        {
-            get { return graphModel.FeatureAValue; }
         }
         public string VM_FeatureB
         {
             get { return graphModel.CorrelatedFeatureB; }
-            set
+        }
+
+        public bool VM_RegAlgo
+        {
+            get
             {
-                if (graphModel.CorrelatedFeatureB != value)
-                    graphModel.CorrelatedFeatureB = value;
+                return graphModel.RegAlgo;
             }
         }
-        public float VM_FeatureBValue
+        public bool VM_CircleAlgo
         {
-            get { return graphModel.FeatureBValue; }
+            get
+            {
+                return graphModel.CircleAlgo;
+            }
         }
         public GraphVM(Graph model, DataBase db)
         {
@@ -52,13 +53,14 @@ namespace FlightSimulatorInspection.ViewModels
                 NotifyPropertyChanged("VM_" + e.PropertyName);
             };
         }
+
         public List<string> getParameters()
         {
             return this.graphModel.Parameters;
         }
-        public List<float> getDataCol()
+        public List<float> getDataCol(char c)
         {
-            return this.graphModel.dataCol();
+            return this.graphModel.dataCol(c);
         }
         
         public Point XRange
@@ -82,6 +84,5 @@ namespace FlightSimulatorInspection.ViewModels
                 return yRange;
             }
         }
-
     }
 }
