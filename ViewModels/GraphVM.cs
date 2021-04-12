@@ -85,9 +85,9 @@ namespace FlightSimulatorInspection.ViewModels
             }
         }
 
-        public Point lineData()
+        public CorrelatedFeatures correlationData()
         {
-            return this.graphModel.LineData;
+            return this.graphModel.Correlated;
         }
     }
 }
