@@ -15,14 +15,6 @@ namespace FlightSimulatorInspection.Models
         public bool running;
         public int speed;
         private int timeStep;
-        //Thread handlingThread = new Thread(new ThreadStart(this));
-        //public Thread HandlingThread
-        //{
-        //    get
-        //    {
-        //        return handlingThread;
-        //    }
-        //}
         public int TimeStep
         {
             get
@@ -72,33 +64,24 @@ namespace FlightSimulatorInspection.Models
                 running = value;
             }
         }
+
         //socket not working.. need to fix it than we can change function signature
         //public void handle(string[] csvLines, Socket socket)
         public void handle(string[] csvLines)
         {
             byte[] bytes;
-            //ThreadStart start = delegate () { };
-            //Thread t = new Thread((){ }).Start();
-
-            new Thread(delegate ()
+            for (TimeStep = 1; TimeStep < csvLines.Length; TimeStep++)
             {
                 if (!Running)
-                    Thread.Sleep(Timeout.Infinite);
-                for (TimeStep = 1; TimeStep < csvLines.Length; TimeStep++)
-                {
-                    if (Running)
-                    {
-                        bytes = Encoding.ASCII.GetBytes(csvLines[TimeStep]);
-                        //socket.Send(bytes);
-                        FlightStats.Instance.updateStatsTable(csvLines[TimeStep]);
-                        Thread.Sleep(10 / 1);
+                    DataBase.mre.WaitOne();
+                bytes = Encoding.ASCII.GetBytes(csvLines[TimeStep]);
+                //socket.Send(bytes);
+                FlightStats.Instance.updateStatsTable(csvLines[TimeStep]);
+                Thread.Sleep(10 / 1);
+            }
+            Running = false;
+            //socket.Disconnect(true);
 
-                    }
-                }
-
-                //socket.Disconnect(true);
-
-            }).Start();
         }
     }
 }
