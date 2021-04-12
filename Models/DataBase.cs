@@ -7,6 +7,7 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Xml;
 using FlightSimulatorInspection.Models;
 
 
@@ -176,6 +177,7 @@ namespace FlightSimulatorInspection.Models
             }
             set
             {
+                InsertCsvHeader();
                 this.csvPath = value;
                 this.csvLines = File.ReadAllLines(csvPath);
                 CsvSize = csvLines.Length - 1;
@@ -281,6 +283,7 @@ namespace FlightSimulatorInspection.Models
 
         }
         #endregion
+
 
     }
 }

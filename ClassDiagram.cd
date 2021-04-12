@@ -47,7 +47,7 @@
   <Class Name="FlightSimulatorInspection.Models.ConnectionHandler" Collapsed="true">
     <Position X="7.25" Y="3.75" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAgAAAAJAAAAAQAAAAAAAAAQAAA=</HashCode>
       <FileName>Models\ConnectionHandler .cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -68,7 +68,7 @@
   <Class Name="FlightSimulatorInspection.Models.DataBase" Collapsed="true">
     <Position X="7.5" Y="2.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AEAFAAAAAQYACQYgCAACACggAAAAAAQAAAAQEgAIABA=</HashCode>
+      <HashCode>AEAFAAAAAQYECQYgCAACACghAAAAAQQAAAAQEgAIABA=</HashCode>
       <FileName>Models\DataBase.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -89,7 +89,7 @@
   <Class Name="FlightSimulatorInspection.Models.Graph" Collapsed="true">
     <Position X="18.25" Y="3.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AEAAAABIAAAUAIAgAAAAIAAAgAAAkAAAAJAAUCCIABA=</HashCode>
+      <HashCode>AEAAAIBJAAIUAIAAAAAAAQAAgAAAgAAAAIAAUACYADA=</HashCode>
       <FileName>Models\Graph.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -137,14 +137,14 @@
   <Class Name="FlightSimulatorInspection.ViewModels.GraphVM" Collapsed="true">
     <Position X="5" Y="9.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AACAAAAAAAQAAARAAAAgYAABAKAAAACAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAQAEABAAAAgYAABAKAAAACAAAAAQAAAAAA=</HashCode>
       <FileName>ViewModels\GraphVM.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="FlightSimulatorInspection.ViewModels.LoginVM" Collapsed="true">
     <Position X="7.25" Y="9.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AABAACAAAQAAGAQgAAACAAAAAAAAAAAAAAAAQgAIAAA=</HashCode>
+      <HashCode>AABAACAAAQIAGAQgAAACAAAAAAAAAAAAAAAAQgAIAAA=</HashCode>
       <FileName>ViewModels\LoginVM.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -154,6 +154,7 @@
       <HashCode>AAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAIAAA=</HashCode>
       <FileName>ViewModels\PlayerVM.cs</FileName>
     </TypeIdentifier>
+    <Lollipop Position="0.2" />
   </Class>
   <Class Name="FlightSimulatorInspection.ViewModels.VideoVM" Collapsed="true">
     <Position X="11.75" Y="9.75" Width="1.5" />
@@ -173,7 +174,7 @@
   <Class Name="FlightSimulatorInspection.Views.GraphAV" Collapsed="true" BaseTypeListCollapsed="true">
     <Position X="20" Y="3.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAQAAAQAAAgAABAIAAAAAAAgAAgACAAAAAQAAAAAAA=</HashCode>
+      <HashCode>AAAQBAAQAAQgAABAIAAAAAAAgAAgACAAAAAQAAAAAAA=</HashCode>
       <FileName>Views\GraphAV.xaml.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
@@ -181,7 +182,7 @@
   <Class Name="FlightSimulatorInspection.Views.GraphBV" Collapsed="true" BaseTypeListCollapsed="true">
     <Position X="21.75" Y="3.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAQAAAQAAAAAABAIAAAAAAAgAAgACAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAgQAAAQAAAgAABAIAAAAAAAgAAgACAAAAAQAAAIAAA=</HashCode>
       <FileName>Views\GraphBV.xaml.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
@@ -189,7 +190,7 @@
   <Class Name="FlightSimulatorInspection.Views.GraphsV" Collapsed="true" BaseTypeListCollapsed="true">
     <Position X="14.75" Y="4.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>QAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAA=</HashCode>
+      <HashCode>QAgAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAA=</HashCode>
       <FileName>Views\GraphsV.xaml.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
@@ -213,7 +214,7 @@
   <Class Name="FlightSimulatorInspection.Views.RegressionGraphV" Collapsed="true" BaseTypeListCollapsed="true">
     <Position X="16.5" Y="5.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AEAAAAAAAAAgAAAAAAAAAAAAAAEABAEAAABgAAAAAAA=</HashCode>
+      <HashCode>AEAAAAAIAAAgCAAAAAAAAAAAAAEABAEAAAAAEAAAABA=</HashCode>
       <FileName>Views\RegressionGraphV.xaml.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
