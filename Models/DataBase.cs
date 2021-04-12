@@ -127,7 +127,7 @@ namespace FlightSimulatorInspection.Models
                 csvHeaders.Remove(csvHeaders.Length - 1, 1);
                 csvHeaders.Append(newLine);
             }
-            
+
             string CsvWithHeaders = csvHeaders.ToString() + File.ReadAllText(oldCsvPath);
             //Create a new csv
             File.WriteAllText(newCsvPath, CsvWithHeaders);
@@ -158,50 +158,11 @@ namespace FlightSimulatorInspection.Models
             startHandling(csvLines, fgSocket);
         }
 
-        public static void InsertCsvHeader()
-        {
-            var csv = new StringBuilder();
-
-            XmlDocument xmlDocument = new XmlDocument();
-            xmlDocument.Load(@"C:\Users\elaza\Desktop\playback_small.xml");
-            XmlNodeList name = xmlDocument.GetElementsByTagName("name");
-            string nameOfAttributes = "";
-            nameOfAttributes += Environment.NewLine;
-            string newLine = Environment.NewLine;
-
-            List<String> ls = new List<string>();
-
-            for (int i = 0; i < ((name.Count) / 2); i++)
-            {
-                ls.Add(name[i].InnerText);
-                Console.WriteLine(name[i].InnerText);
-                nameOfAttributes += name[i].InnerXml + ",";
-            }
-
-            //nameOfAttributes = nameOfAttributes + "engine_rpm";
-            //  nameOfAttributes += newLine;
-            nameOfAttributes = nameOfAttributes.Replace('-', '_');
-
-
-            // #1 Read CSV File
-            string[] CSVDump = File.ReadAllLines(@"C:\Users\elaza\Desktop\reg_flight.csv");
-
-            // #2 Split Data
-            List<List<string>> CSV = CSVDump.Select(x =>
-            x.Split(',').ToList()).ToList();
-
-
-            //#3 Update Data
-            CSV.Insert(0, ls); // 0 is index of first row
-
-            //#4 Write CSV File
-            File.WriteAllLines(@"C:\Users\elaza\Desktop\reg_flight.csv", CSV.Select(x => string.Join(",", x)));
-        }
-    }
-
         #endregion
 
+
         #region Properties
+
         public string CsvHeaders
         {
             get
@@ -244,136 +205,132 @@ namespace FlightSimulatorInspection.Models
                 return this.anomalyReportList;
             }
         }
-        #endregion
-
-        #region Properties
         public string FGPath
+    {
+        get
         {
-            get
-            {
-                return this.fgPath;
-            }
-            set
-            {
-                this.fgPath = value;
-                NotifyPropertyChanged(nameof(FGPath));
-            }
+            return this.fgPath;
         }
-        public string CsvPath
+        set
         {
-            get
-            {
-                return this.csvPath;
-            }
-            set
-            {
-                this.csvPath = value;
-                newAnomalyCsvPath = csvPath.Remove(csvPath.Length - 4) + "_with_headers.csv";
-                this.csvLines = File.ReadAllLines(csvPath);
-                CsvSize = csvLines.Length - 1;
-                this.timeSeries = new TimeSeries(csvPath);
-                this.anomalyDetection.CsvLearnPath = newCsvLearnPath;
-                this.anomalyDetection.CsvPath = newAnomalyCsvPath;
-                NotifyPropertyChanged(nameof(CsvPath));
-            }
+            this.fgPath = value;
+            NotifyPropertyChanged(nameof(FGPath));
         }
-        public int CsvSize
+    }
+    public string CsvPath
+    {
+        get
         {
-            get
-            {
-                return this.csvSize;
-            }
-            set
-            {
-                if (csvSize != value)
-                {
-                    csvSize = value;
-                    NotifyPropertyChanged(nameof(CsvSize));
-                }
-
-            }
+            return this.csvPath;
         }
-        public string XmlPath
+        set
         {
-            get
-            {
-                return this.xmlPath;
-            }
-            set
-            {
-                this.xmlPath = value;
-                NotifyPropertyChanged(nameof(XmlPath));
-
-            }
+            this.csvPath = value;
+            newAnomalyCsvPath = csvPath.Remove(csvPath.Length - 4) + "_with_headers.csv";
+            this.csvLines = File.ReadAllLines(csvPath);
+            CsvSize = csvLines.Length - 1;
+            this.timeSeries = new TimeSeries(csvPath);
+            this.anomalyDetection.CsvLearnPath = newCsvLearnPath;
+            this.anomalyDetection.CsvPath = newAnomalyCsvPath;
+            NotifyPropertyChanged(nameof(CsvPath));
         }
-        public bool RegAlgo
+    }
+    public int CsvSize
+    {
+        get
         {
-            get
-            {
-                return this.regAlgo;
-            }
-            set
-            {
-                this.regAlgo = value;
-                this.anomalyDetection.DllPath = simplyAnomalyDetectionDLLPath;
-                NotifyPropertyChanged(nameof(RegAlgo));
-
-            }
+            return this.csvSize;
         }
-        public bool CircleAlgo
+        set
         {
-            get
+            if (csvSize != value)
             {
-                return this.circleAlgo;
-            }
-            set
-            {
-                this.circleAlgo = value;
-                this.anomalyDetection.DllPath = minCircleAnomalyDetectionDLLPath;
-                NotifyPropertyChanged(nameof(CircleAlgo));
-            }
-        }
-        public TimeSeries TimeSeries
-        {
-            get
-            {
-                return this.timeSeries;
-            }
-            set
-            {
-                this.timeSeries = value;
-            }
-        }
-        public int TimeStep
-        {
-            get
-            {
-                return aConnection.TimeStep;
-            }
-            set
-            {
-                if (aConnection.TimeStep != value)
-                {
-                    aConnection.TimeStep = value;
-                    NotifyPropertyChanged(nameof(TimeStep));
-                }
+                csvSize = value;
+                NotifyPropertyChanged(nameof(CsvSize));
             }
 
         }
-
-        public double Speed
+    }
+    public string XmlPath
+    {
+        get
         {
-            set
-            {
-                if (aConnection.Speed != value)
-                {
-                    aConnection.Speed = value;
-                }
-            }
+            return this.xmlPath;
+        }
+        set
+        {
+            this.xmlPath = value;
+            NotifyPropertyChanged(nameof(XmlPath));
 
         }
-        #endregion
+    }
+    public bool RegAlgo
+    {
+        get
+        {
+            return this.regAlgo;
+        }
+        set
+        {
+            this.regAlgo = value;
+            this.anomalyDetection.DllPath = simplyAnomalyDetectionDLLPath;
+            NotifyPropertyChanged(nameof(RegAlgo));
 
+        }
+    }
+    public bool CircleAlgo
+    {
+        get
+        {
+            return this.circleAlgo;
+        }
+        set
+        {
+            this.circleAlgo = value;
+            this.anomalyDetection.DllPath = minCircleAnomalyDetectionDLLPath;
+            NotifyPropertyChanged(nameof(CircleAlgo));
+        }
+    }
+    public TimeSeries TimeSeries
+    {
+        get
+        {
+            return this.timeSeries;
+        }
+        set
+        {
+            this.timeSeries = value;
+        }
+    }
+    public int TimeStep
+    {
+        get
+        {
+            return aConnection.TimeStep;
+        }
+        set
+        {
+            if (aConnection.TimeStep != value)
+            {
+                aConnection.TimeStep = value;
+                NotifyPropertyChanged(nameof(TimeStep));
+            }
+        }
+
+    }
+
+    public double Speed
+    {
+        set
+        {
+            if (aConnection.Speed != value)
+            {
+                aConnection.Speed = value;
+            }
+        }
+
+    }
+    #endregion
 
     }
 }
