@@ -26,6 +26,10 @@ namespace FlightSimulatorInspection.ViewModels
                     graphModel.CorrelatedFeatureA = value;
             }
         }
+        public string VM_FeatureB
+        {
+            get { return graphModel.CorrelatedFeatureB; }
+        }
 
         public bool VM_RegAlgo
         {
@@ -80,6 +84,5 @@ namespace FlightSimulatorInspection.ViewModels
                 return yRange;
             }
         }
-
     }
 }

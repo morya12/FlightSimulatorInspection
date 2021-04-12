@@ -24,7 +24,8 @@ namespace FlightSimulatorInspection.Views
     /// </summary>
     public partial class GraphsV : UserControl
     {
-
+        string feature1;
+        string feature2;
         GraphVM graphVM;
         public GraphsV(DataBase db)
         {
@@ -41,18 +42,20 @@ namespace FlightSimulatorInspection.Views
                 newItem.Content = a;
                 featureListBox.Items.Add(newItem);
 
-            }
-           
+            }           
         }
 
         private void featureListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            
             if (featureListBox.SelectedItem != null)
             {
                 Console.WriteLine((featureListBox.SelectedItem as ListBoxItem).Content.ToString());
-                graphVM.VM_FeatureA = (featureListBox.SelectedItem as ListBoxItem).Content.ToString();
+                // graphVM.VM_FeatureA = (featureListBox.SelectedItem as ListBoxItem).Content.ToString();
+                this.graphVM.VM_FeatureA = (featureListBox.SelectedItem as ListBoxItem).Content.ToString();
+                this.feature2 = graphVM.VM_FeatureB;
+
             }
         }
+
     }
 }

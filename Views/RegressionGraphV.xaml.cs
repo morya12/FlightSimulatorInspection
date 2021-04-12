@@ -26,7 +26,30 @@ namespace FlightSimulatorInspection.Views
     {
         int counter = 0;
         private GraphVM vm;
+        private List<float> featureACol;
+        private List<float> featureBCol;
 
+        public List<float> FeatureACol{
+            get
+            {
+                return this.featureACol;
+            }
+            set
+            {
+                this.featureACol = this.vm.getDataCol('A');
+            }
+        }
+        public List<float> FeatureBCol
+        {
+            get
+            {
+                return this.featureBCol;
+            }
+            set
+            {
+                this.featureBCol = this.vm.getDataCol('B');
+            }
+        }
 
         public RegressionGraphV(GraphVM g)
         {
@@ -35,18 +58,18 @@ namespace FlightSimulatorInspection.Views
 
             SeriesCollection = new SeriesCollection
             {
-                new ScatterSeries //blue
+                new ScatterSeries //grey
                 {
                     Values = new ChartValues<ScatterPoint>
                     {
-                     //   new ScatterPoint(2.6, 5, 5),
+                     //   new ScatterPoint(2.6, 5, 5), //xP,yP,r
                     },
                     Title = "old",
                     Fill = Brushes.Gray,
                     MinPointShapeDiameter = 5,
                     MaxPointShapeDiameter = 5
                 },
-                new ScatterSeries //red
+                new ScatterSeries //blue
                 {
                     Values = new ChartValues<ScatterPoint>
                     {
@@ -78,7 +101,7 @@ namespace FlightSimulatorInspection.Views
                 },
                 new LineSeries
                 {
-                    Title = "Liner regrssion",
+                    Title = "Liner regrssion", // need to calc two range points and draw a line between
                     Values = new ChartValues<ObservablePoint> {
                         new ObservablePoint(10,10),
                         //new ObservablePoint(62, 117),
@@ -90,7 +113,7 @@ namespace FlightSimulatorInspection.Views
                     Fill = Brushes.Transparent
                 },
 
-                new ScatterSeries //red
+                new ScatterSeries // transparent
                 {
                     Values = new ChartValues<ScatterPoint>
                     {
@@ -137,21 +160,25 @@ namespace FlightSimulatorInspection.Views
                 LineSeries l = (LineSeries)SeriesCollection[3];
                 l.Stroke = Brushes.Black;
             }
-            double i = 10;
-
+            //double i = 10;
+            int i = 0;
                 Task.Run(() =>
            {
-                var r = new Random();
+               FeatureACol= null;
+               FeatureBCol = null;
+
                 while (true)
                 {
                     Thread.Sleep(500);
                     var series = SeriesCollection[1]; //blue 
 
-                    i += r.NextDouble();
-                    i += r.NextDouble() + 0.5;//only for checking
+                   float x = this.featureACol[i];
+                   float y = this.featureBCol[i];
+                   //i += r.NextDouble();
+                   //i += r.NextDouble() + 0.5;//only for checking
 
                     counter++;
-                    series.Values.Add(new ScatterPoint(i, i));
+                    series.Values.Add(new ScatterPoint(x, y));
                     if (counter > 30)
                     {
                         SeriesCollection[0].Values.Add(SeriesCollection[1].Values[0]);
@@ -163,6 +190,7 @@ namespace FlightSimulatorInspection.Views
                        //  SeriesCollection[2].Values.Add(new ScatterPoint(i+2, i+2,7));
                        
                     }
+                   i++;
 
                 }
             });
