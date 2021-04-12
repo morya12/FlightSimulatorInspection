@@ -84,6 +84,13 @@ namespace FlightSimulatorInspection.ViewModels
                 return yRange;
             }
         }
+        public int VM_TimeStep
+        {
+            get
+            {
+                return graphModel.TimeStep;
+            }
+        }
 
         public CorrelatedFeatures correlationData()
         {

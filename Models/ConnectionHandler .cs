@@ -16,13 +16,13 @@ namespace FlightSimulatorInspection.Models
         public int speed;
         private int timeStep;
         //Thread handlingThread = new Thread(new ThreadStart(this));
-        /*public Thread HandlingThread
-        {
-            get
-            {
-                return handlingThread;
-            }
-        }*/
+        //public Thread HandlingThread
+        //{
+        //    get
+        //    {
+        //        return handlingThread;
+        //    }
+        //}
         public int TimeStep
         {
             get

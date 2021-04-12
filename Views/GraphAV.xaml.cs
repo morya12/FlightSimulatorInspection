@@ -83,16 +83,18 @@ namespace FlightSimulatorInspection.Views
 
         Task.Run(() =>
         {
-            int i = 0;
+            
+            
             while (true)  // currently not in sync with simulator
             {
+                int time = vm.VM_TimeStep;
                 this.data = this.vm.getDataCol('A');
                 this.Feature1 = this.vm.VM_FeatureA;
                 Thread.Sleep(500);
                     if (this.data != null && this.data.Any())
                     {
-                        value = data[i];
-                        i++;
+                        value = data[time];
+                        
                     }
                     else
                     {
