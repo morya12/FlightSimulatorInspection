@@ -138,6 +138,17 @@ namespace FlightSimulatorInspection.Models
                 }
             }
         }
+
+        public List<AnomalyReport> AnomalyReports
+        {
+            get
+            {
+                return this.anomalyReportList;
+            }
+        }
+        #endregion
+
+        #region Properties
         public string FGPath
         {
             get
@@ -248,13 +259,8 @@ namespace FlightSimulatorInspection.Models
                     NotifyPropertyChanged(nameof(TimeStep));
                 }
             }
-        }
         
 
         #endregion
-
-
-
-
     }
 }

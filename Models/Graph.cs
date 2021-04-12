@@ -10,26 +10,49 @@ namespace FlightSimulatorInspection.Models
     //for mor- watch 4.2 11 minute
     public class Point
     {
-        float x { get; set; }
-        float y { get; set; }
+        float x;
+
+        float y;
         public Point(float x, float y)
         {
             this.x = x;
             this.y = y;
         }
+        public float X
+        {
+            get
+            {
+                return this.x;
+            }
+            set
+            {
+                this.x = value;
+            }
+        }
+        public float Y
+        {
+            get
+            {
+                return this.y;
+            }
+            set
+            {
+                this.y = value;
+            }
+        }
+
     }
     
     public class Graph
     {
         private DataBase db;
-        float featureAValue;
         string correlatedFeatureA;
         string correlatedFeatureB;
         List<float> featureACol;
         List<float> featureBCol;
         public event PropertyChangedEventHandler PropertyChanged;
         public List<string> parameters;
-
+        CorrelatedFeatures correlated;
 
         public Graph()
         {
@@ -46,24 +69,6 @@ namespace FlightSimulatorInspection.Models
                 this.db = value;
             }
         }
-        public float FeatureAValue
-        {
-            get { return this.featureAValue; }
-        } 
-        public bool RegAlgo
-        {
-            get
-            {
-                return db.RegAlgo;
-            }
-        }
-        public bool CircleAlgo
-        {
-            get
-            {
-                return db.CircleAlgo;
-            }
-        }
         public string CorrelatedFeatureA
         {
             get { return this.correlatedFeatureA; }
@@ -72,7 +77,7 @@ namespace FlightSimulatorInspection.Models
                 if (this.correlatedFeatureA != value)
                 {
                     this.correlatedFeatureA = value;
-                    Console.WriteLine(correlatedFeatureA);
+                    //Console.WriteLine(correlatedFeatureA);
                     NotifyPropertyChanged("FeatureA");
 
                     this.featureACol = this.db.TimeSeries.getFeatureDataCol(this.correlatedFeatureA);
@@ -89,11 +94,34 @@ namespace FlightSimulatorInspection.Models
                 if (this.correlatedFeatureB != value)
                 {
                     this.correlatedFeatureB = value;
-                    NotifyPropertyChanged("featureB"); 
+                    NotifyPropertyChanged("featureB");
                     this.featureBCol = this.db.TimeSeries.getFeatureDataCol(this.correlatedFeatureB);
                 }
             }
         }
+
+        public CorrelatedFeatures Correlated
+        {
+            get
+            {
+                return this.correlated;
+            }
+        }
+        public bool RegAlgo
+        {
+            get
+            {
+                return db.RegAlgo;
+            }
+        }
+        public bool CircleAlgo
+        {
+            get
+            {
+                return db.CircleAlgo;
+            }
+        }
+       
         public List<string> Parameters
         {
             get
@@ -145,7 +173,10 @@ namespace FlightSimulatorInspection.Models
 
                 index++;
             }
-            return new Point(dataCol[minIndex], dataCol[maxIndex]);
+            Point p = new Point(dataCol[minIndex], dataCol[maxIndex]);
+            //Console.Write(p.X);
+            //Console.WriteLine(p.Y);
+            return p;
         }
         float avg(List<float> x, int size)
         {
@@ -178,7 +209,6 @@ namespace FlightSimulatorInspection.Models
             float aveX = calculateAverage(x, size);
             float aveY = calculateAverage(y, size);
             List<float> xy = new List<float>(size);
-            Console.WriteLine(size);
             for (int i = 0; i < size; i++)
             {
                 xy.Add(x[i] * y[i]);
@@ -201,46 +231,46 @@ namespace FlightSimulatorInspection.Models
 
             float maxCorr = -1;
             int index = 0;
-            int corrIndex = -1;
-            string maxCorNameA = "--";
-            string maxCorNameB = "--";
-            List<CorrelatedFeatures> correlations = new List<CorrelatedFeatures>();
-            int size = featureACol.Count();
+            CorrelatedFeatures c = new CorrelatedFeatures();
             foreach (CorrelatedFeatures f in list)
             {
-                Console.Write(f.Feature1);
-                Console.Write(" , ");
-                Console.WriteLine(f.Feature2);
                 if ((f.Feature1 == this.CorrelatedFeatureA) || (f.Feature2 == this.CorrelatedFeatureA))
                 {
-                    correlations.Add(f);
                     List<float> a = this.db.TimeSeries.getFeatureDataCol(f.Feature1);
                     List<float> b = this.db.TimeSeries.getFeatureDataCol(f.Feature2);
-
                     float res = pearson(a, b);
                     if (maxCorr < res)
                     {
                         maxCorr = res;
-                        corrIndex = index;
-                        maxCorNameA = f.Feature1;
-                        maxCorNameB = f.Feature2;
+                        this.correlated = f;
+                        c = f;
                     }
                 }
                 index++;
             }
-            if (this.CorrelatedFeatureA == maxCorNameA)
+            if (this.CorrelatedFeatureA == c.Feature1)
             {
-                this.CorrelatedFeatureB = maxCorNameB;
-            } else if (this.CorrelatedFeatureA == maxCorNameB)
+                this.CorrelatedFeatureB = c.Feature2;
+              
+            } else if (this.CorrelatedFeatureA == c.Feature2)
             {
-                this.CorrelatedFeatureB = maxCorNameA;
+                this.CorrelatedFeatureB = c.Feature1;
             } else
             {
-                Console.WriteLine("didnt fins match");
+                Console.WriteLine("didnt find match");
+                this.featureBCol = new List<float>();
+                this.correlatedFeatureB = null;
+                return;
             }
             this.featureBCol = this.db.TimeSeries.getFeatureDataCol(CorrelatedFeatureB);
         }
 
+        //public bool isAnnomaly()
+        //{
+           // this.DB.Anno
+        //}
+
+        
     }
 }
 

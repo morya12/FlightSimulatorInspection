@@ -8,20 +8,20 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
 
-    <Grid Background="Bisque">
+    <Grid Background="#233C4F">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="10"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <!-- Top Bar -->
-        <Grid Grid.Row="0" TextBlock.FontSize="10" TextBlock.FontWeight="Bold">
+        <Grid Grid.Row="0" TextBlock.FontSize="10" TextBlock.FontWeight="Bold" TextBlock.Foreground="White">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="auto"/>
-                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
             <StackPanel Grid.Column="0" Margin="0 0 30 0">
@@ -41,16 +41,16 @@
 
             <StackPanel Grid.Column="3" Margin="0 0 30 0">
                 <TextBlock Text="Altimeter:"/>
-                <ProgressBar Value="{Binding VM_Altimeter_indicated_altitude_ft, Mode=OneWay}" Height="10" Width="60"/>
+                <ProgressBar Value="{Binding VM_Altimeter_indicated_altitude_ft, Mode=OneWay}" Height="10" Width="60" HorizontalAlignment="Left"/>
             </StackPanel>
 
             <StackPanel Grid.Column="4">
                 <TextBlock Text="Airspeed:"/>
-                <ProgressBar Value="{Binding VM_Airspeed, Mode=OneWay}" Height="10" Width="60"/>
+                <ProgressBar Value="{Binding VM_Airspeed, Mode=OneWay}" Height="10" Width="60" HorizontalAlignment="Left"/>
             </StackPanel>
             <!-- Need to add oriantation deg.. -->
         </Grid>
-        <Button Grid.Row="1" x:Name="button1"/>
+        <Button Grid.Row="1" x:Name="button1" Background="#FF162634"/>
 
         <Border Grid.Row="2">
             <WindowsFormsHost Grid.Row="2" x:Name="WindowsFormsHost1"/>

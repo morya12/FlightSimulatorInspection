@@ -84,5 +84,10 @@ namespace FlightSimulatorInspection.ViewModels
                 return yRange;
             }
         }
+
+        public CorrelatedFeatures correlationData()
+        {
+            return this.graphModel.Correlated;
+        }
     }
 }

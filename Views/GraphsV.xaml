@@ -7,23 +7,22 @@
              xmlns:View="clr-namespace:FlightSimulatorInspection.Views"
 
              mc:Ignorable="d" 
-             d:DesignHeight="250" d:DesignWidth="350">
-  <Grid Background="White">
-    <Grid.RowDefinitions>
-      <RowDefinition Height="*" />
-      <RowDefinition Height="*" />
-    </Grid.RowDefinitions>
-    <Grid.ColumnDefinitions>
-      <ColumnDefinition Width="*" />
-      <ColumnDefinition Width="*" />
-    </Grid.ColumnDefinitions>
-        <Border x:Name="GraphABorder" Grid.Row="0" Grid.Column="0"/>
-        <Border x:Name="GraphBBorder" Grid.Row="0" Grid.Column="1"/>
-        <Border x:Name="RegressionGraphBorder" Grid.Row="1" Grid.ColumnSpan="2" Margin="100,0.333,0,0"/>
+             d:DesignHeight="600" d:DesignWidth="300" >
+    <Grid Background="#1C2F3F">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2*" />
+            <RowDefinition Height="3*" />
+            <RowDefinition Height="3*" />
+            <RowDefinition Height="4*" />
+        </Grid.RowDefinitions>
 
-    <WrapPanel HorizontalAlignment="Left"  Grid.Row="1" VerticalAlignment="Top">
-      <ListBox x:Name="featureListBox" Height="125" Width="100" SelectionChanged="featureListBox_SelectionChanged"/>
-    </WrapPanel>
+        <Border x:Name="GraphABorder" Grid.Row="1" />
+        <Border x:Name="GraphBBorder" Grid.Row="2" />
+        <Border x:Name="RegressionGraphBorder" Grid.Row="3" />
 
-  </Grid>
+        <StackPanel HorizontalAlignment="Left" Height="100"  Grid.Row="0" VerticalAlignment="Top" Width="300">
+            <TextBlock x:Name="textBlock" HorizontalAlignment="center" TextWrapping="Wrap" Text="Feature Selection:" VerticalAlignment="Top" FontWeight="Bold" Foreground="White"/>
+            <ListBox x:Name="featureListBox" Height="80" Width="300" SelectionChanged="featureListBox_SelectionChanged" Background="#FF162634" Foreground="White" />
+        </StackPanel>
+    </Grid>
 </UserControl>
