@@ -91,7 +91,13 @@ namespace FlightSimulatorInspection.ViewModels
                 return graphModel.TimeStep;
             }
         }
-
+        public int VM_CsvSize
+        {
+            get
+            {
+                return graphModel.CsvSize;
+            }
+        }
         public CorrelatedFeatures correlationData()
         {
             return this.graphModel.Correlated;

@@ -187,7 +187,7 @@ namespace FlightSimulatorInspection.Views
                
                 l.Stroke = Brushes.Black;
             }
-            int i = 0;
+            int csvsize = vm.VM_CsvSize;
                 Task.Run(() =>
            {
                FeatureACol= null;
@@ -195,17 +195,18 @@ namespace FlightSimulatorInspection.Views
 
                while (true)
                {
+                   int time = vm.VM_TimeStep;
                    Thread.Sleep(500);
-                   if (System.Windows.Application.Current != null)
+                   if (System.Windows.Application.Current != null && time<csvsize)
                    {
                        var series = SeriesCollection[1]; //blue 
 
-                   float x = this.featureACol[i];
+                   float x = this.featureACol[time];
                        if (featureBCol == null)
                        {
                            continue;
                        }
-                   float y = this.featureBCol[i];
+                   float y = this.featureBCol[time];
 
                        counter++;
                        series.Values.Add(new ScatterPoint(x, y));
@@ -214,13 +215,6 @@ namespace FlightSimulatorInspection.Views
                            SeriesCollection[0].Values.Add(SeriesCollection[1].Values[0]);
                            SeriesCollection[1].Values.RemoveAt(0);
                        }
-
-                       if (counter == 50)
-                       {
-                           //  SeriesCollection[2].Values.Add(new ScatterPoint(i+2, i+2,7));
-
-                       }
-                       i++;
 
                    }
                }

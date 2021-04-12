@@ -128,6 +128,13 @@ namespace FlightSimulatorInspection.Models
                 return db.TimeStep;
             }
         }
+        public int CsvSize
+        {
+            get
+            {
+                return db.CsvSize;
+            }
+        }
         public List<string> Parameters
         {
             get
