@@ -102,5 +102,9 @@ namespace FlightSimulatorInspection.ViewModels
         {
             return this.graphModel.Correlated;
         }
+        public List<AnomalyReport> getRelavemtAnomalies()
+        {
+            return this.graphModel.RelevantReports;
+        }
     }
 }
