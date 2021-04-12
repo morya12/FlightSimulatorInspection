@@ -53,6 +53,7 @@ namespace FlightSimulatorInspection.Models
         public event PropertyChangedEventHandler PropertyChanged;
         public List<string> parameters;
         CorrelatedFeatures correlated;
+        List<AnomalyReport> relevantReports;
 
         public Graph()
         {
@@ -99,12 +100,22 @@ namespace FlightSimulatorInspection.Models
                 }
             }
         }
-
         public CorrelatedFeatures Correlated
         {
             get
             {
                 return this.correlated;
+            }
+        }
+        public List<AnomalyReport> RelevantReports
+        {
+            get
+            {
+                return this.relevantReports;
+            }
+            set
+            {
+                this.relevantReports = value;
             }
         }
         public bool RegAlgo
@@ -121,7 +132,6 @@ namespace FlightSimulatorInspection.Models
                 return db.CircleAlgo;
             }
         }
-       
         public List<string> Parameters
         {
             get
@@ -263,14 +273,22 @@ namespace FlightSimulatorInspection.Models
                 return;
             }
             this.featureBCol = this.db.TimeSeries.getFeatureDataCol(CorrelatedFeatureB);
+            findRelevantAnomalies();
         }
 
-        //public bool isAnnomaly()
-        //{
-           // this.DB.Anno
-        //}
-
-        
+        public void findRelevantAnomalies()
+        {
+            List<AnomalyReport> allReports = this.DB.AnomalyReports;
+            List<AnomalyReport> relevantReports = new List<AnomalyReport>();
+            foreach (AnomalyReport a in allReports)
+            {
+                if (a.Description.Contains(this.correlatedFeatureA) && a.Description.Contains(this.correlatedFeatureB))
+                {
+                    relevantReports.Add(a);
+                }
+            }
+            this.RelevantReports = relevantReports;
+        }
     }
 }
 

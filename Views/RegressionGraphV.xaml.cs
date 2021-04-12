@@ -205,7 +205,8 @@ namespace FlightSimulatorInspection.Views
                            continue;
                        }
                    float y = this.featureBCol[i];
-
+                       
+                       //// need to add to the red dots if the curr timeStep is inside the relevant anomalies
                        counter++;
                        series.Values.Add(new ScatterPoint(x, y));
                        if (counter > 30)
