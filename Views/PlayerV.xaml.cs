@@ -14,7 +14,7 @@ namespace FlightSimulatorInspection.Views
     public partial class PlayerV : UserControl
     {
         private DispatcherTimer timer;
-
+        private int baseSpeed = 100;
         private PlayerVM vm;
         public PlayerV(DataBase db)
         {
@@ -22,9 +22,15 @@ namespace FlightSimulatorInspection.Views
             vm = new PlayerVM(db);
             DataContext = vm;
             Trace.WriteLine("~~~~~~~~~~~~~~~~PlayerV View CREATED~~~~~~~~~~~~~~~~~~~");
-            timer = new DispatcherTimer();
-            timer.Interval = TimeSpan.FromMilliseconds(500);
-            timer.Tick += new EventHandler(timer_Tick);
+            for(double i=0.5; i<=2.0; i += 0.25)
+            {
+                if(i!=1.0)
+                    changeSpeed.Items.Add(i.ToString());
+                else
+                    changeSpeed.Items.Add("Normal");
+            }
+            vm.VM_Speed = baseSpeed;
+            changeSpeed.Text = "Normal";
         }
         private void timer_Tick(object sender, EventArgs e)
         {
@@ -47,29 +53,17 @@ namespace FlightSimulatorInspection.Views
             vm.VM_TimeStep = 1;
         }
 
-        private void Slider_seek_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        private void changeSpeed_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            //mediaElement.Position = TimeSpan.FromSeconds(slider_seek.Value);
-        }
-
-     //   private void MediaElement_MediaOpened(object sender, RoutedEventArgs e)
-     //   {
-     //       TimeSpan ts = //mediaElement.NaturalDuration.TimeSpan;
-     //       slider_seek.Maximum = ts.TotalSeconds;
-     //       timer.Start();
-     //   }
-
-        private void Window_Drop(object sender, DragEventArgs e)
-        {
-            string filename = (string)((DataObject)e.Data).GetFileDropList()[0];
-            //mediaElement.Source = new Uri(filename);
-            //mediaElement.LoadedBehavior = MediaState.Manual;
-            //mediaElement.UnloadedBehavior = MediaState.Manual;
-            //mediaElement.Play();
-        }
-        private void Slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
-        {
-            //mediaElement.SpeedRatio = (double)speedRatioSlider.Value;
+            string str = (sender as ComboBox).SelectedItem as string;
+            double selectedSpeed;
+            if (str == "Normal")
+            {
+                selectedSpeed = 1.0;
+            }
+            else
+                selectedSpeed = double.Parse(str);
+            vm.VM_Speed = baseSpeed * (1 / selectedSpeed);
         }
     }
 }

@@ -107,7 +107,7 @@ namespace FlightSimulatorInspection.Models
             //aConnection.handle(csvLines, new ClientFG().connect());
             startHandling(csvLines);
         }
-        
+
         #endregion
 
         #region Properties
@@ -259,8 +259,21 @@ namespace FlightSimulatorInspection.Models
                     NotifyPropertyChanged(nameof(TimeStep));
                 }
             }
-        
 
+        }
+
+        public double Speed
+        {
+            set
+            {
+                if (aConnection.Speed != value)
+                {
+                    aConnection.Speed = value;
+                }
+            }
+
+        }
         #endregion
+
     }
 }

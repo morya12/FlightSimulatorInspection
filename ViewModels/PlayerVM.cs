@@ -48,5 +48,12 @@ namespace FlightSimulatorInspection.ViewModels
                 model.Running = value;
             }
         }
+        public double VM_Speed
+        {
+            set
+            {
+                model.Speed = value;
+            }
+        }
     }
 }
