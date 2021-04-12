@@ -84,5 +84,10 @@ namespace FlightSimulatorInspection.ViewModels
                 return yRange;
             }
         }
+
+        public Point lineData()
+        {
+            return this.graphModel.LineData;
+        }
     }
 }
