@@ -118,23 +118,7 @@ namespace FlightSimulatorInspection.Models
             
             #endregion
         }
-
-        private int timeStep;
-        public int TimeStep
-        {
-            get
-            {
-                return timeStep;
-            }
-            set
-            {
-                if(timeStep != value)
-                {
-                    timeStep = value;
-                    NotifyPropertyChanged(nameof(TimeStep));
-                }
-            }
-        }
+        
         private OrderedDictionary statsTable;
         /// <summary>
         /// using Indexer to get and set values in our dictionary
@@ -186,7 +170,7 @@ namespace FlightSimulatorInspection.Models
         /// </summary>
         /// <param name="line"> specific line to parse </param>
         /// <param name="currentTimeStep"> timeS</param>
-        public void updateStatsTable(string line, int currentTimeStep)
+        public void updateStatsTable(string line)
         {
             string[] newVals = line.Split(',');
             int len = newVals.Length;
@@ -197,9 +181,7 @@ namespace FlightSimulatorInspection.Models
                     string valName = Enum.GetName(typeof(Stats), i);
                     this[valName] = double.Parse(newVals[i]);
                 }
-                TimeStep = currentTimeStep;
             }
-
         }
     }
 }
