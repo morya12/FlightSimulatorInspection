@@ -92,8 +92,7 @@ namespace FlightSimulatorInspection.Views
                 Thread.Sleep(500);
                     if (this.data != null &&  time < csvSize)
                     {
-                        value = data[time];
-                        
+                        value = data[time];   
                     }
                     else
                     {

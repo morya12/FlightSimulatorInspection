@@ -212,7 +212,7 @@ namespace FlightSimulatorInspection.Models
         {
             float sum = 0;
             List <float> f = x;
-            for (int i = 0; i < size; i++)
+            for (int i = 0; i < size - 100; i++)
             {
                 sum += f[i] / size;
             }
@@ -252,7 +252,6 @@ namespace FlightSimulatorInspection.Models
         public void findMaxCorrelation()
         {
             List<CorrelatedFeatures> list = db.CorrelatedFeatures;
-            foreach(CorrelatedFeatures caa in list) { Console.WriteLine("!" + caa.Feature1.ToString() +"  " + caa.Feature2.ToString()); }
 
             float maxCorr = -1;
             int index = 0;
@@ -282,7 +281,7 @@ namespace FlightSimulatorInspection.Models
                 this.CorrelatedFeatureB = c.Feature1;
             } else
             {
-                Console.WriteLine("didnt find match");
+               // Console.WriteLine("didnt find match");
                 this.featureBCol = new List<float>();
                 this.correlatedFeatureB = null;
                 return;
@@ -295,11 +294,15 @@ namespace FlightSimulatorInspection.Models
         {
             List<AnomalyReport> allReports = this.DB.AnomalyReports;
             List<AnomalyReport> relevantReports = new List<AnomalyReport>();
+         
+
             foreach (AnomalyReport a in allReports)
             {
                 if (a.Description.Contains(this.correlatedFeatureA) && a.Description.Contains(this.correlatedFeatureB))
                 {
                     relevantReports.Add(a);
+                   // Console.WriteLine("WORKING");
+
                 }
             }
             this.RelevantReports = relevantReports;

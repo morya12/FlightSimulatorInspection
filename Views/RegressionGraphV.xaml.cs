@@ -18,17 +18,18 @@ using LiveCharts;
 using LiveCharts.Defaults;
 using LiveCharts.Wpf;
 using FlightSimulatorInspection.ViewModels;
-
-
+using System.ComponentModel;
 
 namespace FlightSimulatorInspection.Views
 {
-    public partial class RegressionGraphV : UserControl
+    public partial class RegressionGraphV : UserControl, INotifyPropertyChanged
     {
         int counter = 0;
         private GraphVM vm;
         private List<float> featureACol;
         private List<float> featureBCol;
+
+        public event PropertyChangedEventHandler PropertyChanged;
 
         public List<float> FeatureACol{
             get
@@ -56,6 +57,10 @@ namespace FlightSimulatorInspection.Views
         {
             InitializeComponent();
             this.vm = g;
+            this.vm.PropertyChanged +=
+                delegate (Object sender, PropertyChangedEventArgs e) {
+                    NotifyPropertyChanged("VM_" + e.PropertyName);
+                };
 
             SeriesCollection = new SeriesCollection
             {
@@ -136,6 +141,15 @@ namespace FlightSimulatorInspection.Views
 
             DataContext = this;
         }
+
+        private void NotifyPropertyChanged(string v)
+        {
+            if(v == "VM_FeatureA")
+            {
+                Start();
+            }
+        }
+
         public SeriesCollection SeriesCollection { get; set; }
 
 
@@ -148,9 +162,8 @@ namespace FlightSimulatorInspection.Views
                 SeriesCollection[4].Values.Clear();
                 counter = 0;
         }
-        private void UpdateAllOnClick(object sender, RoutedEventArgs e)
+        private void Start()
         {
-           
             FeatureACol = null;
             FeatureBCol = null;
             if (FeatureACol == null || FeatureBCol == null) {
@@ -172,7 +185,7 @@ namespace FlightSimulatorInspection.Views
             {
                 float XValOfStart = this.vm.XRange.X;
                 float XValOfEnd = this.vm.XRange.Y;
-                Point lineData = new Point(this.vm.correlationData().LineA, this.vm.correlationData().LineB);
+                Point lineData = new System.Windows.Point(this.vm.correlationData().LineA, this.vm.correlationData().LineB);
 
                 float YValOfStart = (float)((XValOfStart * lineData.X) + lineData.Y);
                 float YValOfEnd = (float)((XValOfEnd * lineData.X) + lineData.Y);
@@ -196,29 +209,47 @@ namespace FlightSimulatorInspection.Views
                while (true)
                {
                    int time = vm.VM_TimeStep;
-                   Thread.Sleep(500);
-                   if (System.Windows.Application.Current != null && time<csvsize)
+                   Thread.Sleep(100);
+                   if (System.Windows.Application.Current != null && time < csvsize)
                    {
+
                        var series = SeriesCollection[1]; //blue 
 
-                   float x = this.featureACol[time];
+                       float x = this.featureACol[time];
                        if (featureBCol == null)
                        {
                            continue;
                        }
-                   float y = this.featureBCol[time];
-
+                       float y = this.featureBCol[time];
                        counter++;
-                       series.Values.Add(new ScatterPoint(x, y));
-                       if (counter > 30)
+                       int anomlyCount = vm.VM_RelevantReports.Count();
+                       if (anomlyCount > 0)
                        {
-                           SeriesCollection[0].Values.Add(SeriesCollection[1].Values[0]);
-                           SeriesCollection[1].Values.RemoveAt(0);
-                       }
+                           if (vm.VM_RelevantReports[0].TimeStep <= time && vm.VM_RelevantReports[anomlyCount - 1].TimeStep >= time)
+                           {
+                               for (int i = 0; i < anomlyCount; i++)
+                               {
+                                   Console.WriteLine("Time step" + vm.VM_RelevantReports[i].TimeStep + "time" + time);
+                                   if (vm.VM_RelevantReports[i].TimeStep == time)
+                                   {
 
-                   }
+                                       SeriesCollection[2].Values.Add(new ScatterPoint(x, y));
+                                       break;
+                                   }
+                               }
+                           }
+
+                       }
+                           series.Values.Add(new ScatterPoint(x, y));
+                           if (counter > 30)
+                           {
+                               SeriesCollection[0].Values.Add(SeriesCollection[1].Values[0]);
+                               SeriesCollection[1].Values.RemoveAt(0);
+                           }
+                       }
+                   
                }
             });
         }
     }
-    }
+ }

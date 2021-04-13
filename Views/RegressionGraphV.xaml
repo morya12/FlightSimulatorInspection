@@ -11,9 +11,7 @@
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
-        <Button Grid.Row="0" Click="UpdateAllOnClick">
-            Move All
-        </Button>
+
         <lvc:CartesianChart Grid.Row="1" Series="{Binding SeriesCollection}">
         </lvc:CartesianChart>
     </Grid>

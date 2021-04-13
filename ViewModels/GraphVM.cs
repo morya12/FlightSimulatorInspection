@@ -24,6 +24,7 @@ namespace FlightSimulatorInspection.ViewModels
             {
                 if (graphModel.CorrelatedFeatureA != value)
                     graphModel.CorrelatedFeatureA = value;
+                NotifyPropertyChanged("FeatureA");
             }
         }
         public string VM_FeatureB
@@ -45,12 +46,22 @@ namespace FlightSimulatorInspection.ViewModels
                 return graphModel.CircleAlgo;
             }
         }
+
+        public List<AnomalyReport> VM_RelevantReports
+        {
+            get
+            {
+                return graphModel.RelevantReports;
+            }
+
+        }
         public GraphVM(Graph model, DataBase db)
         {
             this.graphModel = model;
             this.graphModel.DB = db;
             graphModel.PropertyChanged += delegate (object sender, PropertyChangedEventArgs e) {
                 NotifyPropertyChanged("VM_" + e.PropertyName);
+                Console.WriteLine("Gfgggg");
             };
         }
 
@@ -102,9 +113,10 @@ namespace FlightSimulatorInspection.ViewModels
         {
             return this.graphModel.Correlated;
         }
-        public List<AnomalyReport> getRelavemtAnomalies()
-        {
-            return this.graphModel.RelevantReports;
-        }
+        //public List<AnomalyReport> getRelavemtAnomalies()
+        //{
+        //    return this.graphModel.RelevantReports;
+        //}
+
     }
 }
