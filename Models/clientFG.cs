@@ -56,7 +56,7 @@ namespace FlightSimulatorInspection.Models
                 this.speed = value;
             }
         }
-        public int host = 5400;
+        public int host = 6400;
 
         public ClientFG(string xmlFile, string csvFile)
         {
@@ -77,30 +77,6 @@ namespace FlightSimulatorInspection.Models
             Console.WriteLine(remoteEP.ToString());
             s.Connect(remoteEP);
             return s;
-            /*
-            try
-            {   
-                string[] lines = File.ReadAllLines(CsvFilePath);
-                byte[] bytes;
-                int i = 0;
-
-                foreach (string line in lines)
-                {
-                    bytes = Encoding.ASCII.GetBytes(lines[i]);
-                    s.Send(bytes);
-                    FlightStats.Instance.updateStatsTable(lines[i], i);
-                    Thread.Sleep(100 / Speed);
-                    i++;
-                }
-            }
-            catch
-            {
-            }
-            finally
-            {
-                s.Disconnect(true);
-            }
-            */
         }
     }
 }

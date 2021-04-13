@@ -29,6 +29,19 @@ namespace FlightSimulatorInspection.Views
         private List<float> data;
         private GraphVM vm;
         private string feature1;
+        private List<float> featureACol;
+
+        public List<float> FeatureACol
+        {
+            get
+            {
+                return this.featureACol;
+            }
+            set
+            {
+                this.featureACol = this.vm.getDataCol('A');
+            }
+        }
 
         public string Feature1
         {
@@ -83,34 +96,42 @@ namespace FlightSimulatorInspection.Views
 
         Task.Run(() =>
         {
-            int csvSize = vm.VM_CsvSize;
-            while (true)  // currently not in sync with simulator
+            while (true) 
             {
+                int csvSize = vm.VM_CsvSize;
                 int time = vm.VM_TimeStep;
-                this.data = this.vm.getDataCol('A');
-                this.Feature1 = this.vm.VM_FeatureA;
+                Console.WriteLine(time);
                 Thread.Sleep(500);
-                    if (this.data != null &&  time < csvSize)
+
+                if (System.Windows.Application.Current != null) 
+                {
+                    if (csvSize > 0 && time < csvSize)
                     {
-                        value = data[time];   
-                    }
-                    else
-                    {
-                        value = 0;
-                    }
-                    if (System.Windows.Application.Current != null)
-                    {
-                        Application.Current.Dispatcher.Invoke(() =>
+                        //Console.WriteLine(csvSize);
+                        //float x = this.featureACol[time];
+
+                        this.data = this.vm.getDataCol('A');
+                        this.Feature1 = this.vm.VM_FeatureA;
+                        if (this.data != null &&  time < csvSize)
                         {
-                            FeaturASeries[0].Values.Add(new ObservableValue(value));
-                            FeaturASeries[0].Values.RemoveAt(0);
-                            SetLecture();
-                         });
-                    } 
-                    else
+                             value = data[time];                        
+                        }
+                        else
+                        {
+                           value = 0;
+                        }
+                    Application.Current.Dispatcher.Invoke(() =>
                     {
-                        Environment.Exit(0);
+                        FeaturASeries[0].Values.Add(new ObservableValue(value));
+                        FeaturASeries[0].Values.RemoveAt(0);
+                        SetLecture();
+                        });
                     }
+                } 
+                else
+                {
+                    Environment.Exit(0);
+                }
                  
             }
         });

@@ -132,7 +132,6 @@ namespace FlightSimulatorInspection.Models
                 if (this.parameters[i] == feature) {
                     return info[i];
                 }
-                //Console.WriteLine(parameters[i]);
             }
             return null;
         }
