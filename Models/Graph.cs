@@ -252,6 +252,7 @@ namespace FlightSimulatorInspection.Models
         public void findMaxCorrelation()
         {
             List<CorrelatedFeatures> list = db.CorrelatedFeatures;
+            foreach(CorrelatedFeatures caa in list) { Console.WriteLine(caa); }
 
             float maxCorr = -1;
             int index = 0;

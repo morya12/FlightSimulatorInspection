@@ -177,7 +177,7 @@ namespace FlightSimulatorInspection.Models
             }
             set
             {
-                InsertCsvHeader();
+                //InsertCsvHeader();
                 this.csvPath = value;
                 this.csvLines = File.ReadAllLines(csvPath);
                 CsvSize = csvLines.Length - 1;
