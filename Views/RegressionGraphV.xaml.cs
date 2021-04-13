@@ -29,6 +29,7 @@ namespace FlightSimulatorInspection.Views
         private List<float> featureACol;
         private List<float> featureBCol;
         bool firstSelection = false;
+        int threadC = 0;
 
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -209,6 +210,8 @@ namespace FlightSimulatorInspection.Views
             int csvsize = vm.VM_CsvSize;
                 Task.Run(() =>
            {
+               threadC++;
+               Console.WriteLine(threadC);
                FeatureACol= null;
                FeatureBCol = null;
 
@@ -238,7 +241,6 @@ namespace FlightSimulatorInspection.Views
                                    //Console.WriteLine("Time step" + vm.VM_RelevantReports[i].TimeStep + "time" + time);
                                    if (vm.VM_RelevantReports[i].TimeStep == time)
                                    {
-
                                        SeriesCollection[2].Values.Add(new ScatterPoint(x, y));
                                        break;
                                    }

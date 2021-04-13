@@ -7,6 +7,7 @@ namespace FlightSimulatorInspection.ViewModels
 {
     public class FlightControlsVM : BaseViewModel
     {
+        private BaseModel model;
         public FlightControlsVM()
         {
             Trace.WriteLine("~~~~~~~~~~~~~~~~FlightControls ViewModel CREATED~~~~~~~~~~~~~~~~~~~");
