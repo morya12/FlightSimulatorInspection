@@ -71,54 +71,9 @@ namespace FlightSimulatorInspection.Models
             {
                 statsTable.Add(Enum.GetName(typeof(Stats), i), 0.0);
             }
-            #region To DELETE
-            /*statsTable.Add("aileron", 0.0f);
-            statsTable.Add("elevator", 0.0f);
-            statsTable.Add("rudder", 0.0f);
-            statsTable.Add("flaps", 0.0f);
-            statsTable.Add("slats", 0.0f);
-            statsTable.Add("speedbrake", 0.0f);
-            statsTable.Add("throttle1", 0.0f);
-            statsTable.Add("throttle2", 0.0f);
-            statsTable.Add("engine_pump1", 0.0f);
-            statsTable.Add("engine_pump2", 0.0f);
-            statsTable.Add("electric_pump1", 0.0f);
-            statsTable.Add("electric_pump2", 0.0f);
-            statsTable.Add("external_power", 0.0f);
-            statsTable.Add("APU_generator", 0.0f);
-            statsTable.Add("latitude_deg", 0.0f);
-            statsTable.Add("longitude_deg", 0.0f);
-            statsTable.Add("altitude_ft", 0.0f);
-            statsTable.Add("roll_deg", 0.0f);
-            statsTable.Add("pitch_deg", 0.0f);
-            statsTable.Add("heading_deg", 0.0f);
-            statsTable.Add("side_slip_deg", 0.0f);
-            statsTable.Add("airspeed_kt", 0.0f);
-            statsTable.Add("glideslope", 0.0f);
-            statsTable.Add("vertical_speed_fps", 0.0f);
-            statsTable.Add("airspeed_indicator_indicated_speed_kt", 0.0f);
-            statsTable.Add("altimeter_indicated_altitude_ft", 0.0f);
-            statsTable.Add("altimeter_pressure_alt_ft", 0.0f);
-            statsTable.Add("attitude_indicator_indicated_pitch_deg", 0.0f);
-            statsTable.Add("attitude_indicator_indicated_roll_deg", 0.0f);
-            statsTable.Add("attitude_indicator_internal_pitch_deg", 0.0f);
-            statsTable.Add("attitude_indicator_internal_roll_deg", 0.0f);
-            statsTable.Add("encoder_indicated_altitude_ft", 0.0f);
-            statsTable.Add("encoder_pressure_alt_ft", 0.0f);
-            statsTable.Add("gps_indicated_altitude_ft", 0.0f);
-            statsTable.Add("gps_indicated_ground_speed_kt", 0.0f);
-            statsTable.Add("gps_indicated_vertical_speed", 0.0f);
-            statsTable.Add("indicated_heading_deg", 0.0f);
-            statsTable.Add("magnetic_compass_indicated_heading_deg", 0.0f);
-            statsTable.Add("slip_skid_ball_indicated_slip_skid", 0.0f);
-            statsTable.Add("turn_indicator_indicated_turn_rate", 0.0f);
-            statsTable.Add("vertical_speed_indicator_indicated_speed_fpm", 0.0f);
-            statsTable.Add("engine_rpm", 0.0f);*/
-            #endregion
             
             #endregion
         }
-        
         private OrderedDictionary statsTable;
         /// <summary>
         /// using Indexer to get and set values in our dictionary
@@ -148,22 +103,6 @@ namespace FlightSimulatorInspection.Models
                 }
             }
         }
-        /// <summary>
-        /// indexer of type int key. uses indexer of type string.
-        /// </summary>
-        /// <param name="key"></param>
-        /// <returns></returns>
-        public double this[int key]
-        {
-            get
-            {
-                return this[Enum.GetName(typeof(Stats), key)];
-            }
-            set
-            {
-                this[Enum.GetName(typeof(Stats), key)] = value;
-            }
-        }
 
         /// <summary>
         /// parse a new line with commas to float and update statsTable accordingly
@@ -183,5 +122,6 @@ namespace FlightSimulatorInspection.Models
                 }
             }
         }
+
     }
 }
