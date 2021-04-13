@@ -13,7 +13,6 @@ namespace FlightSimulatorInspection.Views
     /// </summary>
     public partial class PlayerV : UserControl
     {
-        private DispatcherTimer timer;
         private int baseSpeed = 100;
         private PlayerVM vm;
         public PlayerV(DataBase db)
@@ -31,10 +30,6 @@ namespace FlightSimulatorInspection.Views
             }
             vm.VM_Speed = baseSpeed;
             changeSpeed.Text = "Normal";
-        }
-        private void timer_Tick(object sender, EventArgs e)
-        {
-         //   slider_seek.Value = mediaElement.Position.TotalSeconds;
         }
 
         private void Button_Play(object sender, RoutedEventArgs e)

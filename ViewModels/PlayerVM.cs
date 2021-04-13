@@ -1,27 +1,17 @@
 ﻿using FlightSimulatorInspection.Models;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FlightSimulatorInspection.ViewModels
 {
-    public class PlayerVM : BaseViewModel, INotifyPropertyChanged
+    public class PlayerVM : BaseViewModel
     {
         private DataBase model;
-        private ConnectionHandler connectionModel;
         public PlayerVM(DataBase db)
         {
-            Trace.WriteLine("~~~~~~~~~~~~~~~~Player ViewModel CREATED~~~~~~~~~~~~~~~~~~~");
-
             this.model = db;
             model.PropertyChanged += (object sender, PropertyChangedEventArgs e) => NotifyPropertyChanged("VM_" + e.PropertyName);
         }
-        //You may add Properties here
-
         public int VM_TimeStep
         {
             get
@@ -34,6 +24,7 @@ namespace FlightSimulatorInspection.ViewModels
                     model.TimeStep = value;
             }
         }
+        //Slider needs to know it's max --> each line in csv is a time tick
         public int VM_CsvSize
         {
             get
