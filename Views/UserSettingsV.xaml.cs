@@ -31,7 +31,22 @@ namespace FlightSimulatorInspection.Views
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            vm.connect();
+            if (vm.connect())
+                (sender as Button).Visibility = Visibility.Hidden;
+            else
+                (sender as Button).Content = "Please try again in a moment";
+        }
+
+        private void Button_MouseEnter(object sender, MouseEventArgs e)
+        {
+            (sender as Button).Foreground = Brushes.Black;
+        }
+
+        private void Button_MouseLeave(object sender, MouseEventArgs e)
+        {
+            var converter = new System.Windows.Media.BrushConverter();
+            var brush = (Brush)converter.ConvertFromString("#FFE8E8E8");
+            (sender as Button).Foreground = brush;
         }
     }
 }

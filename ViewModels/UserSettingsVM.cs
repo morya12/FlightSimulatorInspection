@@ -17,9 +17,9 @@ namespace FlightSimulatorInspection.ViewModels
             model.PropertyChanged += (object sender, PropertyChangedEventArgs e) => NotifyPropertyChanged("VM_" + e.PropertyName);
         }
 
-        public void connect()
+        public bool connect()
         {
-            //model.connect();
+            return model.connect();
         }
     }
 }

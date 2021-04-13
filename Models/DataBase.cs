@@ -138,7 +138,7 @@ namespace FlightSimulatorInspection.Models
             //don't forget to close resources
             if (fgSocket != null)
                 fgSocket.Disconnect(true);
-            if(File.Exists(newAnomalyCsvPath))
+            if (File.Exists(newAnomalyCsvPath))
                 File.Delete(newAnomalyCsvPath);
             if (File.Exists(newCsvLearnPath))
                 File.Delete(newCsvLearnPath);
@@ -146,7 +146,6 @@ namespace FlightSimulatorInspection.Models
         private void detectAnomalies()
         {
             anomalyDetection.detectAnomalies(ref correlatedFeaturesList, ref anomalyReportList);
-
         }
         private void startHandling(string[] csvLines, Socket socket)
         {
@@ -159,15 +158,25 @@ namespace FlightSimulatorInspection.Models
             CreateCsvWithHeaders(csvLearnPath, newCsvLearnPath);
             CreateCsvWithHeaders(CsvPath, newAnomalyCsvPath);
             detectAnomalies();
+        }
+
+        public bool connect()
+        {
             fgSocket = new ClientFG().connect();
-            startHandling(csvLines, fgSocket);
+            if (fgSocket != null)
+            {
+                startHandling(csvLines, fgSocket);
+                return true;
+            }
+            else
+                return false;
         }
 
         #endregion
 
 
         #region Properties
-        
+
         public string NewAnomalyCsvPath
         {
             get
@@ -199,6 +208,11 @@ namespace FlightSimulatorInspection.Models
             {
                 return this.correlatedFeaturesList;
             }
+            set
+            {
+                this.correlatedFeaturesList = value;
+                NotifyPropertyChanged(nameof(CorrelatedFeatures));
+            }
         }
         public bool Running
         {
@@ -227,136 +241,141 @@ namespace FlightSimulatorInspection.Models
             {
                 return this.anomalyReportList;
             }
+            set
+            {
+                this.anomalyReportList = value;
+                NotifyPropertyChanged(nameof(AnomalyReports));
+            }
         }
         public string FGPath
-    {
-        get
         {
-            return this.fgPath;
-        }
-        set
-        {
-            this.fgPath = value;
-            NotifyPropertyChanged(nameof(FGPath));
-        }
-    }
-    public string CsvPath
-    {
-        get
-        {
-            return this.csvPath;
-        }
-        set
-        {
-            this.csvPath = value;
-            newAnomalyCsvPath = csvPath.Remove(csvPath.Length - 4) + "_with_headers.csv";
-            this.csvLines = File.ReadAllLines(csvPath);
-
-            //Console.WriteLine("Im here");
-            //Console.WriteLine(this.csvLines.Length);
-            CsvSize = csvLines.Length - 1;
-            this.timeSeries = new TimeSeries(csvPath);
-            this.anomalyDetection.CsvLearnPath = newCsvLearnPath;
-            this.anomalyDetection.CsvPath = newAnomalyCsvPath;
-            NotifyPropertyChanged(nameof(CsvPath));
-        }
-    }
-    public int CsvSize
-    {
-        get
-        {
-            return this.csvSize;
-        }
-        set
-        {
-            if (csvSize != value)
+            get
             {
-                csvSize = value;
-                NotifyPropertyChanged(nameof(CsvSize));
+                return this.fgPath;
+            }
+            set
+            {
+                this.fgPath = value;
+                NotifyPropertyChanged(nameof(FGPath));
+            }
+        }
+        public string CsvPath
+        {
+            get
+            {
+                return this.csvPath;
+            }
+            set
+            {
+                this.csvPath = value;
+                newAnomalyCsvPath = csvPath.Remove(csvPath.Length - 4) + "_with_headers.csv";
+                this.csvLines = File.ReadAllLines(csvPath);
+
+                //Console.WriteLine("Im here");
+                //Console.WriteLine(this.csvLines.Length);
+                CsvSize = csvLines.Length - 1;
+                this.timeSeries = new TimeSeries(csvPath);
+                this.anomalyDetection.CsvLearnPath = newCsvLearnPath;
+                this.anomalyDetection.CsvPath = newAnomalyCsvPath;
+                NotifyPropertyChanged(nameof(CsvPath));
+            }
+        }
+        public int CsvSize
+        {
+            get
+            {
+                return this.csvSize;
+            }
+            set
+            {
+                if (csvSize != value)
+                {
+                    csvSize = value;
+                    NotifyPropertyChanged(nameof(CsvSize));
+                }
+
+            }
+        }
+        public string XmlPath
+        {
+            get
+            {
+                return this.xmlPath;
+            }
+            set
+            {
+                this.xmlPath = value;
+                NotifyPropertyChanged(nameof(XmlPath));
+
+            }
+        }
+        public bool RegAlgo
+        {
+            get
+            {
+                return this.regAlgo;
+            }
+            set
+            {
+                this.regAlgo = value;
+                this.anomalyDetection.DllPath = simplyAnomalyDetectionDLLPath;
+                NotifyPropertyChanged(nameof(RegAlgo));
+
+            }
+        }
+        public bool CircleAlgo
+        {
+            get
+            {
+                return this.circleAlgo;
+            }
+            set
+            {
+                this.circleAlgo = value;
+                this.anomalyDetection.DllPath = minCircleAnomalyDetectionDLLPath;
+                NotifyPropertyChanged(nameof(CircleAlgo));
+            }
+        }
+        public TimeSeries TimeSeries
+        {
+            get
+            {
+                return this.timeSeries;
+            }
+            set
+            {
+                this.timeSeries = value;
+            }
+        }
+        public int TimeStep
+        {
+            get
+            {
+                return aConnection.TimeStep;
+            }
+            set
+            {
+                if (aConnection.TimeStep != value)
+                {
+                    aConnection.TimeStep = value;
+                    NotifyPropertyChanged(nameof(TimeStep));
+                }
             }
 
         }
-    }
-    public string XmlPath
-    {
-        get
-        {
-            return this.xmlPath;
-        }
-        set
-        {
-            this.xmlPath = value;
-            NotifyPropertyChanged(nameof(XmlPath));
 
-        }
-    }
-    public bool RegAlgo
-    {
-        get
+        public double Speed
         {
-            return this.regAlgo;
-        }
-        set
-        {
-            this.regAlgo = value;
-            this.anomalyDetection.DllPath = simplyAnomalyDetectionDLLPath;
-            NotifyPropertyChanged(nameof(RegAlgo));
-
-        }
-    }
-    public bool CircleAlgo
-    {
-        get
-        {
-            return this.circleAlgo;
-        }
-        set
-        {
-            this.circleAlgo = value;
-            this.anomalyDetection.DllPath = minCircleAnomalyDetectionDLLPath;
-            NotifyPropertyChanged(nameof(CircleAlgo));
-        }
-    }
-    public TimeSeries TimeSeries
-    {
-        get
-        {
-            return this.timeSeries;
-        }
-        set
-        {
-            this.timeSeries = value;
-        }
-    }
-    public int TimeStep
-    {
-        get
-        {
-            return aConnection.TimeStep;
-        }
-        set
-        {
-            if (aConnection.TimeStep != value)
+            set
             {
-                aConnection.TimeStep = value;
-                NotifyPropertyChanged(nameof(TimeStep));
+                if (aConnection.Speed != value)
+                {
+                    aConnection.Speed = value;
+                }
             }
+
         }
-
-    }
-
-    public double Speed
-    {
-        set
-        {
-            if (aConnection.Speed != value)
-            {
-                aConnection.Speed = value;
-            }
-        }
-
-    }
-    #endregion
+        #endregion
 
     }
 }
