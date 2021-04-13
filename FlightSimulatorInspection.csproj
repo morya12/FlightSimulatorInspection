@@ -191,6 +191,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\MinCircleDetectorDLL.dll" />
+    <Resource Include="Resources\playback_small.xml" />
     <Content Include="Resources\SimpleAnomalyDetectorDLL.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

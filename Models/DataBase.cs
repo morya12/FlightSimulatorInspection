@@ -56,13 +56,10 @@ namespace FlightSimulatorInspection.Models
         #region Static resources
 
         private static string path = Directory.GetCurrentDirectory();
-        private string csvLearnPath = path + "\\..\\..\\Resources\\reg_flight.csv";
+        private static string csvLearnPath = path + "\\..\\..\\Resources\\reg_flight.csv";
+        private string newCsvLearnPath = csvLearnPath.Remove(csvLearnPath.Length - 4) + "_with_headers.csv";
         private string simplyAnomalyDetectionDLLPath = path + "\\..\\..\\Resources\\SimpleAnomalyDetectorDLL.dll";
         private string minCircleAnomalyDetectionDLLPath = path + "\\..\\..\\Resources\\MinCircleDetectorDLL.dll";
-
-        //private string csvLearnPath = @"C:\Users\97205\source\repos\FlightSimulatorInspection\Resources\reg_flight.csv";
-        //private string simplyAnomalyDetectionDLLPath = @"C:\Users\97205\source\repos\FlightSimulatorInspection\Resources\SimpleAnomalyDetectorDLL.dll";
-        //private string minCircleAnomalyDetectionDLLPath = @"C:\Users\97205\source\repos\FlightSimulatorInspection\Resources\MinCircleDetectorDLL.dll";
 
         #endregion
 
@@ -75,6 +72,8 @@ namespace FlightSimulatorInspection.Models
         private Socket fgSocket;
         private ConnectionHandler aConnection;
         private Thread handlingThread;
+        private string csvHeaders;
+        private string newAnomalyCsvPath;
 
         #endregion
 
@@ -92,11 +91,57 @@ namespace FlightSimulatorInspection.Models
         #endregion
 
         #region Methods
+
+        //method to create a new csv with headers, withput destroying the old csv
+        private void CreateCsvWithHeaders(string oldCsvPath, string newCsvPath)
+        {
+            //if we havn't read XML yet
+            if (csvHeaders == null)
+            {
+                XmlDocument xmlDocument = new XmlDocument();
+                xmlDocument.Load(XmlPath);
+                XmlNodeList name = xmlDocument.GetElementsByTagName("name");
+                StringBuilder csvHeadersBuilder = new StringBuilder();
+                string newLine = Environment.NewLine;
+
+                //get headers from XML
+                for (int i = 0; i < (name.Count) / 2; i++)
+                {
+                    //if there are headers next to eachother with the same name - tag them with numbers
+                    if (name[i].InnerXml == name[i + 1].InnerXml)
+                    {
+                        int j = 1;
+                        while (name[i].InnerXml == name[i + 1].InnerXml)
+                        {
+                            csvHeadersBuilder.Append(name[i].InnerXml + j.ToString() + ",");
+                            j++;
+                            i++;
+                        }
+                        csvHeadersBuilder.Append(name[i].InnerXml + j.ToString() + ",");
+                        continue;
+                    }
+                    else
+                        csvHeadersBuilder.Append(name[i].InnerXml + ",");
+                }
+                //remove last comma
+                csvHeadersBuilder.Remove(csvHeadersBuilder.Length - 1, 1);
+                csvHeadersBuilder.Append(newLine);
+                CsvHeaders = csvHeadersBuilder.ToString();
+            }
+
+            string CsvWithHeaders = CsvHeaders + File.ReadAllText(oldCsvPath);
+            //Create a new csv
+            File.WriteAllText(newCsvPath, CsvWithHeaders);
+        }
         public void OnClosing()
         {
             //don't forget to close resources
             if (fgSocket != null)
                 fgSocket.Disconnect(true);
+            if(File.Exists(newAnomalyCsvPath))
+                File.Delete(newAnomalyCsvPath);
+            if (File.Exists(newCsvLearnPath))
+                File.Delete(newCsvLearnPath);
         }
         private void detectAnomalies()
         {
@@ -111,6 +156,8 @@ namespace FlightSimulatorInspection.Models
 
         public void start()
         {
+            CreateCsvWithHeaders(csvLearnPath, newCsvLearnPath);
+            CreateCsvWithHeaders(CsvPath, newAnomalyCsvPath);
             detectAnomalies();
             fgSocket = new ClientFG().connect();
             startHandling(csvLines, fgSocket);
@@ -118,7 +165,34 @@ namespace FlightSimulatorInspection.Models
 
         #endregion
 
+
         #region Properties
+        
+        public string NewAnomalyCsvPath
+        {
+            get
+            {
+                return newAnomalyCsvPath;
+            }
+        }
+        public string NewCsvLearnPath
+        {
+            get
+            {
+                return newCsvLearnPath;
+            }
+        }
+        public string CsvHeaders
+        {
+            get
+            {
+                return csvHeaders;
+            }
+            set
+            {
+                csvHeaders = value;
+            }
+        }
         public List<CorrelatedFeatures> CorrelatedFeatures
         {
             get
@@ -154,136 +228,132 @@ namespace FlightSimulatorInspection.Models
                 return this.anomalyReportList;
             }
         }
-        #endregion
-
-        #region Properties
         public string FGPath
+    {
+        get
         {
-            get
-            {
-                return this.fgPath;
-            }
-            set
-            {
-                this.fgPath = value;
-                NotifyPropertyChanged(nameof(FGPath));
-            }
+            return this.fgPath;
         }
-        public string CsvPath
+        set
         {
-            get
-            {
-                return this.csvPath;
-            }
-            set
-            {
-                //InsertCsvHeader();
-                this.csvPath = value;
-                this.csvLines = File.ReadAllLines(csvPath);
-                CsvSize = csvLines.Length - 1;
-                this.timeSeries = new TimeSeries(csvPath);
-                this.anomalyDetection.CsvLearnPath = csvLearnPath;
-                this.anomalyDetection.CsvPath = csvPath;
-                NotifyPropertyChanged(nameof(CsvPath));
-            }
+            this.fgPath = value;
+            NotifyPropertyChanged(nameof(FGPath));
         }
-        public int CsvSize
+    }
+    public string CsvPath
+    {
+        get
         {
-            get
-            {
-                return this.csvSize;
-            }
-            set
-            {
-                if (csvSize != value)
-                {
-                    csvSize = value;
-                    NotifyPropertyChanged(nameof(CsvSize));
-                }
-
-            }
+            return this.csvPath;
         }
-        public string XmlPath
+        set
         {
-            get
-            {
-                return this.xmlPath;
-            }
-            set
-            {
-                this.xmlPath = value;
-                NotifyPropertyChanged(nameof(XmlPath));
-
-            }
+            this.csvPath = value;
+            newAnomalyCsvPath = csvPath.Remove(csvPath.Length - 4) + "_with_headers.csv";
+            this.csvLines = File.ReadAllLines(csvPath);
+            CsvSize = csvLines.Length - 1;
+            this.timeSeries = new TimeSeries(csvPath);
+            this.anomalyDetection.CsvLearnPath = newCsvLearnPath;
+            this.anomalyDetection.CsvPath = newAnomalyCsvPath;
+            NotifyPropertyChanged(nameof(CsvPath));
         }
-        public bool RegAlgo
+    }
+    public int CsvSize
+    {
+        get
         {
-            get
-            {
-                return this.regAlgo;
-            }
-            set
-            {
-                this.regAlgo = value;
-                this.anomalyDetection.DllPath = simplyAnomalyDetectionDLLPath;
-                NotifyPropertyChanged(nameof(RegAlgo));
-
-            }
+            return this.csvSize;
         }
-        public bool CircleAlgo
+        set
         {
-            get
+            if (csvSize != value)
             {
-                return this.circleAlgo;
-            }
-            set
-            {
-                this.circleAlgo = value;
-                this.anomalyDetection.DllPath = minCircleAnomalyDetectionDLLPath;
-                NotifyPropertyChanged(nameof(CircleAlgo));
-            }
-        }
-        public TimeSeries TimeSeries
-        {
-            get
-            {
-                return this.timeSeries;
-            }
-            set
-            {
-                this.timeSeries = value;
-            }
-        }
-        public int TimeStep
-        {
-            get
-            {
-                return aConnection.TimeStep;
-            }
-            set
-            {
-                if (aConnection.TimeStep != value)
-                {
-                    aConnection.TimeStep = value;
-                    NotifyPropertyChanged(nameof(TimeStep));
-                }
+                csvSize = value;
+                NotifyPropertyChanged(nameof(CsvSize));
             }
 
         }
-
-        public double Speed
+    }
+    public string XmlPath
+    {
+        get
         {
-            set
-            {
-                if (aConnection.Speed != value)
-                {
-                    aConnection.Speed = value;
-                }
-            }
+            return this.xmlPath;
+        }
+        set
+        {
+            this.xmlPath = value;
+            NotifyPropertyChanged(nameof(XmlPath));
 
         }
-        #endregion
+    }
+    public bool RegAlgo
+    {
+        get
+        {
+            return this.regAlgo;
+        }
+        set
+        {
+            this.regAlgo = value;
+            this.anomalyDetection.DllPath = simplyAnomalyDetectionDLLPath;
+            NotifyPropertyChanged(nameof(RegAlgo));
 
+        }
+    }
+    public bool CircleAlgo
+    {
+        get
+        {
+            return this.circleAlgo;
+        }
+        set
+        {
+            this.circleAlgo = value;
+            this.anomalyDetection.DllPath = minCircleAnomalyDetectionDLLPath;
+            NotifyPropertyChanged(nameof(CircleAlgo));
+        }
+    }
+    public TimeSeries TimeSeries
+    {
+        get
+        {
+            return this.timeSeries;
+        }
+        set
+        {
+            this.timeSeries = value;
+        }
+    }
+    public int TimeStep
+    {
+        get
+        {
+            return aConnection.TimeStep;
+        }
+        set
+        {
+            if (aConnection.TimeStep != value)
+            {
+                aConnection.TimeStep = value;
+                NotifyPropertyChanged(nameof(TimeStep));
+            }
+        }
+
+    }
+
+    public double Speed
+    {
+        set
+        {
+            if (aConnection.Speed != value)
+            {
+                aConnection.Speed = value;
+            }
+        }
+
+    }
+    #endregion
 
     }
 }
