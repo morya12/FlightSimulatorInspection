@@ -58,6 +58,14 @@ namespace FlightSimulatorInspection.ViewModels
                 return this.panel;
             }
         }
+        
+        public string VM_Heading
+        {
+            get
+            {
+                return (model as FlightStats)[FlightStats.Stats.Heading.ToString()].ToString();
+            }
+        }
         public string VM_FGPath
         {
             get
