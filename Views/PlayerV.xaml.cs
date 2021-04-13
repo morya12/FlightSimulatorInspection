@@ -4,6 +4,8 @@ using System;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
+using System.Windows.Media;
 using System.Windows.Threading;
 
 namespace FlightSimulatorInspection.Views
@@ -60,5 +62,18 @@ namespace FlightSimulatorInspection.Views
                 selectedSpeed = double.Parse(str);
             vm.VM_Speed = baseSpeed * (1 / selectedSpeed);
         }
+
+        private void Button_MouseEnter(object sender, MouseEventArgs e)
+        {
+            (sender as Button).Foreground = Brushes.Black;
+        }
+
+        private void Button_MouseLeave(object sender, MouseEventArgs e)
+        {
+            var converter = new System.Windows.Media.BrushConverter();
+            var brush = (Brush)converter.ConvertFromString("#FFE8E8E8");
+            (sender as Button).Foreground = brush;
+        }
+
     }
 }
