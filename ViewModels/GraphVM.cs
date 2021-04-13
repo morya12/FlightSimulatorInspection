@@ -102,9 +102,16 @@ namespace FlightSimulatorInspection.ViewModels
         {
             return this.graphModel.Correlated;
         }
-        public List<AnomalyReport> getRelavemtAnomalies()
+        public bool isItAnomalyTime(int ts)
         {
-            return this.graphModel.RelevantReports;
+            foreach (AnomalyReport a in graphModel.RelevantReports)
+            {
+                if (a.TimeStep == ts)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }

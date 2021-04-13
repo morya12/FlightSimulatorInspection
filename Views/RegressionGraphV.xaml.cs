@@ -207,9 +207,15 @@ namespace FlightSimulatorInspection.Views
                            continue;
                        }
                    float y = this.featureBCol[time];
-
+                       if (vm.isItAnomalyTime(time))
+                       {
+                           SeriesCollection[2].Values.Add(new ScatterPoint(x, y));
+                       }else
+                       {
+                        series.Values.Add(new ScatterPoint(x, y));
+                       }
+                       
                        counter++;
-                       series.Values.Add(new ScatterPoint(x, y));
                        if (counter > 30)
                        {
                            SeriesCollection[0].Values.Add(SeriesCollection[1].Values[0]);

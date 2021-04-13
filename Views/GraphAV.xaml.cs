@@ -29,6 +29,19 @@ namespace FlightSimulatorInspection.Views
         private List<float> data;
         private GraphVM vm;
         private string feature1;
+        private List<float> featureACol;
+
+        public List<float> FeatureACol
+        {
+            get
+            {
+                return this.featureACol;
+            }
+            set
+            {
+                this.featureACol = this.vm.getDataCol('A');
+            }
+        }
 
         public string Feature1
         {
@@ -84,23 +97,31 @@ namespace FlightSimulatorInspection.Views
         Task.Run(() =>
         {
             int csvSize = vm.VM_CsvSize;
-            while (true)  // currently not in sync with simulator
+            while (true) 
             {
                 int time = vm.VM_TimeStep;
-                this.data = this.vm.getDataCol('A');
-                this.Feature1 = this.vm.VM_FeatureA;
                 Thread.Sleep(500);
-                    if (this.data != null &&  time < csvSize)
-                    {
-                        value = data[time];
-                        
-                    }
-                    else
-                    {
-                        value = 0;
-                    }
-                    if (System.Windows.Application.Current != null)
-                    {
+                Console.WriteLine(time);
+                Console.WriteLine(csvSize);
+
+                if (System.Windows.Application.Current != null && time < csvSize)
+                {
+
+                    float x = this.featureACol[time];
+
+                    //this.data = this.vm.getDataCol('A');
+                    //this.Feature1 = this.vm.VM_FeatureA;
+                    //if (this.data != null &&  time < csvSize)
+                    //  {
+                    //     value = data[time];                        
+                    // }
+                    //else
+                    //{
+                    //   value = 0;
+                    //}
+               // }
+                   // if (System.Windows.Application.Current != null)
+                 //   {
                         Application.Current.Dispatcher.Invoke(() =>
                         {
                             FeaturASeries[0].Values.Add(new ObservableValue(value));
