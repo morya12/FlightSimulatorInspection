@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace FlightSimulatorInspection.ViewModels
 {
-    public class PlayerVM : BaseViewModel, INotifyPropertyChanged
+    public class PlayerVM : BaseViewModel
     {
         private DataBase model;
         private ConnectionHandler connectionModel;
@@ -30,7 +30,7 @@ namespace FlightSimulatorInspection.ViewModels
             }
             set
             {
-                if(model.TimeStep != value)
+                if (model.TimeStep != value)
                     model.TimeStep = value;
             }
         }
