@@ -27,12 +27,14 @@ namespace FlightSimulatorInspection.Views
         string feature1;
         string feature2;
         GraphVM graphVM;
+        bool firstSelection = false;
         public GraphsV(DataBase db)
         {
             InitializeComponent();
             graphVM = new GraphVM(new Graph(), db);
             GraphABorder.Child = new GraphAV(graphVM);
             GraphBBorder.Child = new GraphBV(graphVM); //need to add graphVM to constrctor 
+            
             RegressionGraphBorder.Child = new RegressionGraphV(graphVM);
             List<string> features = this.graphVM.getParameters();
             // here need to get list of graph
@@ -49,11 +51,15 @@ namespace FlightSimulatorInspection.Views
         {
             if (featureListBox.SelectedItem != null)
             {
+                
                 Console.WriteLine((featureListBox.SelectedItem as ListBoxItem).Content.ToString());
                 // graphVM.VM_FeatureA = (featureListBox.SelectedItem as ListBoxItem).Content.ToString();
                 this.graphVM.VM_FeatureA = (featureListBox.SelectedItem as ListBoxItem).Content.ToString();
                 this.feature2 = graphVM.VM_FeatureB;
-
+                if (!firstSelection)
+                {
+                    ;
+                }
             }
         }
 
