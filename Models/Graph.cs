@@ -52,7 +52,6 @@ namespace FlightSimulatorInspection.Models
         List<float> featureBCol;
         public event PropertyChangedEventHandler PropertyChanged;
         public List<string> parameters;
-        CorrelatedFeatures correlated;
         List<AnomalyReport> relevantReports;
 
         public Graph()
