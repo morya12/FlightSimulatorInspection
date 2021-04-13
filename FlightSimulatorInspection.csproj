@@ -70,6 +70,7 @@
     <Compile Include="ViewModels\GraphVM.cs" />
     <Compile Include="ViewModels\LoginVM.cs" />
     <Compile Include="ViewModels\PlayerVM.cs" />
+    <Compile Include="ViewModels\UserSettingsVM.cs" />
     <Compile Include="ViewModels\VideoVM.cs" />
     <Compile Include="Views\FlightControlsV.xaml.cs">
       <DependentUpon>FlightControlsV.xaml</DependentUpon>
@@ -91,6 +92,9 @@
     </Compile>
     <Compile Include="Views\RegressionGraphV.xaml.cs">
       <DependentUpon>RegressionGraphV.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserSettingsV.xaml.cs">
+      <DependentUpon>UserSettingsV.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\VideoV.xaml.cs">
       <DependentUpon>VideoV.xaml</DependentUpon>
@@ -132,6 +136,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\RegressionGraphV.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UserSettingsV.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -14,6 +14,7 @@ namespace FlightSimulatorInspection
         {
             InitializeComponent();
             DataBase db = new DataBase();
+            UserSettingsVBorder.Child = new UserSettingsV(new UserSettingsVM(db));
             LoginBorder.Child = new LoginV(new LoginVM(db));
             VideoBorder.Child = new VideoV(new VideoVM(db));
             PlayerBorder.Child = new PlayerV(db);
