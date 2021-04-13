@@ -251,6 +251,9 @@ namespace FlightSimulatorInspection.Models
             this.csvPath = value;
             newAnomalyCsvPath = csvPath.Remove(csvPath.Length - 4) + "_with_headers.csv";
             this.csvLines = File.ReadAllLines(csvPath);
+
+            //Console.WriteLine("Im here");
+            //Console.WriteLine(this.csvLines.Length);
             CsvSize = csvLines.Length - 1;
             this.timeSeries = new TimeSeries(csvPath);
             this.anomalyDetection.CsvLearnPath = newCsvLearnPath;
