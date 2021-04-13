@@ -4,6 +4,8 @@ using System.Windows.Controls;
 using System.Diagnostics;
 using FlightSimulatorInspection.Models;
 using FlightSimulatorInspection.ViewModels;
+using System.Windows.Threading;
+using System.Threading;
 
 namespace FlightSimulatorInspection.Views
 {
@@ -13,12 +15,15 @@ namespace FlightSimulatorInspection.Views
     public partial class LoginV : UserControl
     {
         private LoginVM vm;
+        DispatcherTimer timer = new DispatcherTimer();
+
         public LoginV(LoginVM vm)
         {
             InitializeComponent();
             this.vm = vm;
             DataContext = this.vm;
-            Trace.WriteLine("~~~~~~~~~~~~~~~~LOGIN View CREATED~~~~~~~~~~~~~~~~~~~");
+            string src = Environment.CurrentDirectory + "\\..\\..\\Images\\loadingGif.gif";
+            media.Source = new Uri(src);
         }
         
         private void b1Click(object sender, RoutedEventArgs e)
@@ -76,10 +81,30 @@ namespace FlightSimulatorInspection.Views
                 vm.VM_RegAlgo = true;
             else
                 vm.VM_CircleAlgo = true;
+            mainGrid.Visibility = Visibility.Collapsed;
+            //open loading Screen
+            loading();
+            
+        }
+        private void MediaElement_MediaEnded(object sender, RoutedEventArgs e)
+        {
+            media.Position = new TimeSpan(0, 0, 1);
+            media.Play();
+        }
+
+        private void timer_tick(object sender, EventArgs e)
+        {
+            timer.Stop();
+            media.Visibility = Visibility.Collapsed;
             (this.Parent as Border).Visibility = Visibility.Collapsed;
             vm.start();
+        }
 
-
+        private void loading()
+        {
+            timer.Tick += timer_tick;
+            timer.Interval = new TimeSpan(0, 0, 10);
+            timer.Start();
         }
     }
 }

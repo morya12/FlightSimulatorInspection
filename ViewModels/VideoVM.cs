@@ -36,7 +36,6 @@ namespace FlightSimulatorInspection.ViewModels
         private string fgPath;
         public VideoVM(DataBase db)
         {
-            Trace.WriteLine("~~~~~~~~~~~~~~~~Video ViewModel CREATED~~~~~~~~~~~~~~~~~~~");
             panel = new System.Windows.Forms.Panel();
             this.model = FlightStats.Instance;
             model.PropertyChanged += (object sender, PropertyChangedEventArgs e) => NotifyPropertyChanged("VM_" + e.PropertyName);
@@ -46,8 +45,7 @@ namespace FlightSimulatorInspection.ViewModels
             {
                 if (e.PropertyName == nameof(dbModel.FGPath))
                 {
-                    runEXE();
-                    //ConnectionHandler.readCSV("DAS");
+                    runEXE(dbModel.FGPath);
                 }
             };
         }
@@ -104,10 +102,10 @@ namespace FlightSimulatorInspection.ViewModels
         }
         #endregion
 
-        public void runEXE()
+        public void runEXE(string exePath)
         {
-            ProcessStartInfo psi = new ProcessStartInfo("notepad.exe");
-            //ProcessStartInfo psi = new ProcessStartInfo(@"C:\Program Files\FlightGear 2020.3.6\bin\fgfs.exe");
+            //ProcessStartInfo psi = new ProcessStartInfo("notepad.exe");
+            ProcessStartInfo psi = new ProcessStartInfo(exePath);
             
             processEXE = Process.Start(psi);
             processEXE.WaitForInputIdle();

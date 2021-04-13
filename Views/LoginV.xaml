@@ -9,50 +9,70 @@
       d:DesignHeight="600" d:DesignWidth="1100">
 
     <Grid>
-        <!-- backround-->
-        <Rectangle Height="350" VerticalAlignment="Bottom" Fill="White"/>
-        <Rectangle Height="350" VerticalAlignment="Top">
-            <Rectangle.Fill>
-                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="#FF2281D1"/>
-                    <GradientStop Color="#FF34268A" Offset="1"/>
-                    <GradientStop Color="#FF33288b" Offset="0.5"/>
-                </LinearGradientBrush>
-            </Rectangle.Fill>
-        </Rectangle>
-        <Image Source="/Images/plane.png" Width="70" Height="100" VerticalAlignment="Top" Margin="500,85,500,0"/>
-        <Rectangle Width="280" Height="240" Fill="White" VerticalAlignment="Center" Margin="0,100" RadiusY="19.333" RadiusX="19.333">
-            <Rectangle.Effect>
-                <DropShadowEffect Color ="#FFBBBBBB" Direction="0" BlurRadius="15" RenderingBias="Quality" ShadowDepth="1"/>
-            </Rectangle.Effect>
-        </Rectangle>
-        <!-- main grid-->
-        <Grid Width="280" Height="240" VerticalAlignment="Center" Margin="0,100" >
-            <Grid.RowDefinitions>
-                <RowDefinition Height="0*"/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="0*"/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-            <TextBlock Text="welcome" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="105,13,104,0" Foreground="Gray" FontSize="18" Grid.ColumnSpan="2" Grid.RowSpan="2" />
+        <Grid x:Name="mainGrid">
+            <!-- backround-->
+            <Rectangle Height="350" VerticalAlignment="Bottom" Fill="White"/>
+            <Rectangle Height="350" VerticalAlignment="Top">
+                <Rectangle.Fill>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FF2281D1"/>
+                        <GradientStop Color="#FF34268A" Offset="1"/>
+                        <GradientStop Color="#FF33288b" Offset="0.5"/>
+                    </LinearGradientBrush>
+                </Rectangle.Fill>
+            </Rectangle>
+            <Image Source="/Images/plane.png" Width="70" Height="100" VerticalAlignment="Top" Margin="500,85,500,0"/>
+            <Rectangle Width="280" Height="240" Fill="White" VerticalAlignment="Center" Margin="0,100" RadiusY="19.333" RadiusX="19.333">
+                <Rectangle.Effect>
+                    <DropShadowEffect Color ="#FFBBBBBB" Direction="0" BlurRadius="15" RenderingBias="Quality" ShadowDepth="1"/>
+                </Rectangle.Effect>
+            </Rectangle>
+            <!-- main grid-->
+            <Grid Width="280" Height="240" VerticalAlignment="Center" Margin="0,100" >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0*"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0*"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="welcome" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="105,13,104,0" Foreground="Gray" FontSize="18" Grid.ColumnSpan="2" Grid.RowSpan="2" />
 
-            <!-- upload file buttons-->
-            <Button x:Name="b1" Grid.ColumnSpan="2" Content="upload CSV file" HorizontalAlignment="Center" Margin="20,60,20,0" Grid.RowSpan="2" Width="240" Click="b1Click" Background="#FFF6F6F6" BorderBrush="{DynamicResource {x:Static SystemColors.ActiveCaptionBrushKey}}"  Foreground="#FF092BB6" RenderTransformOrigin="1,0.5" VerticalAlignment="Top" Height="24"/>
-            <Button x:Name="b2" Grid.ColumnSpan="2" Content="upload XML file" HorizontalAlignment="Center" Margin="20,100,20,0" Grid.RowSpan="2" Width="240" Click="b2Click" Background="#FFF6F6F6" BorderBrush="{DynamicResource {x:Static SystemColors.ActiveCaptionBrushKey}}"  Foreground="#FF092BB6" RenderTransformOrigin="1,0.5" VerticalAlignment="Top" Height="24"/>
-            <Button x:Name="b3" Grid.ColumnSpan="2" Content="open FlightGear" HorizontalAlignment="Center" Margin="20,140,20,0" Grid.RowSpan="2" Width="240" Click="b3Click" Background="#FFF6F6F6" BorderBrush="{DynamicResource {x:Static SystemColors.ActiveCaptionBrushKey}}"  Foreground="#FF092BB6" RenderTransformOrigin="1,0.5" VerticalAlignment="Top" Height="24"/>
+                <!-- upload file buttons-->
+                <Button x:Name="b1" Grid.ColumnSpan="2" Content="upload CSV file" HorizontalAlignment="Center" Margin="20,60,20,0" Grid.RowSpan="2" Width="240" Click="b1Click" Background="#FFF6F6F6" BorderBrush="{DynamicResource {x:Static SystemColors.ActiveCaptionBrushKey}}"  Foreground="#FF092BB6" RenderTransformOrigin="1,0.5" VerticalAlignment="Top" Height="24"/>
+                <Button x:Name="b2" Grid.ColumnSpan="2" Content="upload XML file" HorizontalAlignment="Center" Margin="20,100,20,0" Grid.RowSpan="2" Width="240" Click="b2Click" Background="#FFF6F6F6" BorderBrush="{DynamicResource {x:Static SystemColors.ActiveCaptionBrushKey}}"  Foreground="#FF092BB6" RenderTransformOrigin="1,0.5" VerticalAlignment="Top" Height="24"/>
+                <Button x:Name="b3" Grid.ColumnSpan="2" Content="open FlightGear" HorizontalAlignment="Center" Margin="20,140,20,0" Grid.RowSpan="2" Width="240" Click="b3Click" Background="#FFF6F6F6" BorderBrush="{DynamicResource {x:Static SystemColors.ActiveCaptionBrushKey}}"  Foreground="#FF092BB6" RenderTransformOrigin="1,0.5" VerticalAlignment="Top" Height="24"/>
 
-            <!-- choose algorithm -->
-            <TextBlock Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="20,170,20,0" Grid.RowSpan="2" TextWrapping="Wrap" Text="choose algorithm:" VerticalAlignment="Top" Foreground="#FF092BB6"/>
-            <WrapPanel Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="25" Margin="20,190,20,0" Grid.RowSpan="2" VerticalAlignment="Top" Width="238" >
-                <RadioButton x:Name="regressionAlgo" Content="regression analysis " IsChecked="True" Foreground="#FF092BB6" />
-                <RadioButton x:Name="minCircleAlgo" Content="circle analysis" Foreground="#FF092BB6" />
-            </WrapPanel>
+                <!-- choose algorithm -->
+                <TextBlock Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="20,170,20,0" Grid.RowSpan="2" TextWrapping="Wrap" Text="choose algorithm:" VerticalAlignment="Top" Foreground="#FF092BB6"/>
+                <WrapPanel Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="25" Margin="20,190,20,0" Grid.RowSpan="2" VerticalAlignment="Top" Width="238" >
+                    <RadioButton x:Name="regressionAlgo" Content="regression analysis " IsChecked="True" Foreground="#FF092BB6" />
+                    <RadioButton x:Name="minCircleAlgo" Content="circle analysis" Foreground="#FF092BB6" />
+                </WrapPanel>
 
+            </Grid>
+            <!-- start button-->
+            <Button x:Name="startButton" VerticalAlignment="Bottom" Margin="0,150" Width="150" Content="START"   Click="startClick" Background="#FF2281D1" Foreground="White" Height="25"  />
         </Grid>
-        <!-- start button-->
-        <Button x:Name="startButton" VerticalAlignment="Bottom" Margin="0,150" Width="150" Content="START"   Click="startClick" Background="#FF2281D1" Foreground="White" Height="25"  />
-
+        <Grid x:Name="mediaGrid" Background="#1C2F3F">
+            <!-- Trigger visibility of MainGrid depends on visibility of LoginGrid -->
+            <Grid.Style>
+                <Style>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ElementName=mainGrid, Path=Visibility}" Value="Visible">
+                            <Setter Property="Grid.Visibility" Value="Collapsed"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Grid.Style>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="4*"/>
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Row="0" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="30" Text="Please wait while we establish connection with FlightGear..."/>
+            <MediaElement Grid.Row="1" x:Name="media" HorizontalAlignment="Center" VerticalAlignment="Center" UnloadedBehavior="Manual" MediaEnded="MediaElement_MediaEnded" Height="100" Width="450"/>
+            
+        </Grid>
     </Grid>
 </UserControl>

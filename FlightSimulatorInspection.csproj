@@ -191,6 +191,7 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Images\loadingGif.gif" />
     <Content Include="Resources\MinCircleDetectorDLL.dll" />
     <Resource Include="Resources\playback_small.xml" />
     <Content Include="Resources\SimpleAnomalyDetectorDLL.dll" />
