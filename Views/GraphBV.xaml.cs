@@ -89,7 +89,6 @@ namespace FlightSimulatorInspection.Views
                 {
                     int csvSize = vm.VM_CsvSize;
                     int time = vm.VM_TimeStep;
-                    Console.WriteLine(time);
                     Thread.Sleep(500);
                     if (System.Windows.Application.Current != null)
                     {

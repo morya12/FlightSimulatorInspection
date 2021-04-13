@@ -292,7 +292,6 @@ namespace FlightSimulatorInspection.Models
                 for (int i = 0; i < vectorARSize; i++)
                 {
                     ar = new AnomalyReport();
-                    Console.WriteLine(i);
                     strBuilder = new StringBuilder(STRING_MAX_LEN);
                     anomalyReportWrapped = CreateAnomalyReportWrapperByIndx(anomalyReportVector, i);
                     getDescription(anomalyReportWrapped, strBuilder, STRING_MAX_LEN);

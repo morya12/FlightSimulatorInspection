@@ -28,6 +28,8 @@ namespace FlightSimulatorInspection.Views
         private GraphVM vm;
         private List<float> featureACol;
         private List<float> featureBCol;
+        bool firstSelection = false;
+
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -144,10 +146,14 @@ namespace FlightSimulatorInspection.Views
 
         private void NotifyPropertyChanged(string v)
         {
-            if(v == "VM_FeatureA")
+            if (v == "VM_FeatureA")
             {
-                Start();
+                if (vm.VM_FeatureB != null && !firstSelection) { 
+                     firstSelection = true;
+                     Start();
+                }
             }
+            
         }
 
         public SeriesCollection SeriesCollection { get; set; }
@@ -229,7 +235,7 @@ namespace FlightSimulatorInspection.Views
                            {
                                for (int i = 0; i < anomlyCount; i++)
                                {
-                                   Console.WriteLine("Time step" + vm.VM_RelevantReports[i].TimeStep + "time" + time);
+                                   //Console.WriteLine("Time step" + vm.VM_RelevantReports[i].TimeStep + "time" + time);
                                    if (vm.VM_RelevantReports[i].TimeStep == time)
                                    {
 

@@ -27,7 +27,6 @@ namespace FlightSimulatorInspection.Views
         string feature1;
         string feature2;
         GraphVM graphVM;
-        bool firstSelection = false;
         public GraphsV(DataBase db)
         {
             InitializeComponent();
@@ -53,13 +52,9 @@ namespace FlightSimulatorInspection.Views
             {
                 
                 Console.WriteLine((featureListBox.SelectedItem as ListBoxItem).Content.ToString());
-                // graphVM.VM_FeatureA = (featureListBox.SelectedItem as ListBoxItem).Content.ToString();
                 this.graphVM.VM_FeatureA = (featureListBox.SelectedItem as ListBoxItem).Content.ToString();
                 this.feature2 = graphVM.VM_FeatureB;
-                if (!firstSelection)
-                {
-                    ;
-                }
+
             }
         }
 
