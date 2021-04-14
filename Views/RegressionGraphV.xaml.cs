@@ -156,10 +156,10 @@ namespace FlightSimulatorInspection.Views
         {
             if (v == "VM_FeatureA")
             {
-                if (vm.VM_FeatureB != null && !firstSelection) { 
-                     firstSelection = true;
+              //  if (vm.VM_FeatureB != null && !firstSelection) { 
+              //       firstSelection = true;
                      Start();
-                }
+             //   }
             }
             
         }
@@ -185,19 +185,19 @@ namespace FlightSimulatorInspection.Views
             if (FeatureACol == null || FeatureBCol == null) {
                 return;
             }
+            clear();
             if (vm.VM_CircleAlgo)
             {
                 Point CircleData = new Point(this.vm.correlationData().CX, this.vm.correlationData().CY);
                 float r = this.vm.correlationData().Radius;
                 ScatterSeries circle = (ScatterSeries)SeriesCollection[4];
                 circle.Stroke = Brushes.Black;
-                circle.MaxPointShapeDiameter = 2.1*r;
-                circle.MinPointShapeDiameter = 2.1*r;
-                SeriesCollection[5].Values.Add(new ScatterPoint(CircleData.X - r, CircleData.X - r, 0));
-
-                SeriesCollection[5].Values.Add(new ScatterPoint(CircleData.Y + r, CircleData.Y + r, 0));
-                SeriesCollection[5].Values.Add(new ScatterPoint(0, 0, 0));
-                circle.Values.Add(new ScatterPoint(CircleData.X,CircleData.Y,5));//x,y,radius
+                circle.MaxPointShapeDiameter = r;
+                circle.MinPointShapeDiameter = r;
+               // SeriesCollection[5].Values.Add(new ScatterPoint(CircleData.X - r, CircleData.X - r, 0));
+              //  SeriesCollection[5].Values.Add(new ScatterPoint(CircleData.Y + r, CircleData.Y + r, 0));
+             //   SeriesCollection[5].Values.Add(new ScatterPoint(0, 0, 0));
+                circle.Values.Add(new ScatterPoint(CircleData.X,CircleData.Y,r));//x,y,radius
                 LineSeries l = (LineSeries)SeriesCollection[3];
                                 l.Values.Add(new ObservablePoint(CircleData.X - r, CircleData.Y));
 
@@ -220,7 +220,6 @@ namespace FlightSimulatorInspection.Views
 
                 LineSeries l = (LineSeries)SeriesCollection[3];
                 l.Values.Add(new ObservablePoint(start.X, start.Y));
-
                 l.Values.Add(new ObservablePoint(end.X, end.Y));
                
                 l.Stroke = Brushes.Black;
@@ -228,6 +227,7 @@ namespace FlightSimulatorInspection.Views
             int csvsize = vm.VM_CsvSize;
                 Task.Run(() =>
            {
+
                threadC++;
                Console.WriteLine(threadC);
                FeatureACol= null;
@@ -248,7 +248,6 @@ namespace FlightSimulatorInspection.Views
                            continue;
                        }
                        float y = this.featureBCol[time];
-                       counter++;
                        int anomlyCount = vm.VM_RelevantReports.Count();
                        if (anomlyCount > 0)
                        {
@@ -266,16 +265,21 @@ namespace FlightSimulatorInspection.Views
                            }
 
                        }
-                           series.Values.Add(new ScatterPoint(x, y));
-                           if (counter > 30)
+                       series.Values.Add(new ScatterPoint(x, y));
+                       if (counter > 30)
+                       {
+                           if (time > 2)
                            {
                                SeriesCollection[0].Values.Add(SeriesCollection[1].Values[0]);
                                SeriesCollection[1].Values.RemoveAt(0);
                            }
+
                        }
-                   
+                   }
                }
-            });
+               counter++;
+
+           });
         }
     }
  }

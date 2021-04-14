@@ -214,7 +214,7 @@ namespace FlightSimulatorInspection.Models
             List <float> f = x;
             for (int i = 0; i < size - 100; i++)
             {
-                sum += f[i] / size;
+                // sum += f[i] / size;
             }
             return sum;
         }
@@ -262,13 +262,14 @@ namespace FlightSimulatorInspection.Models
                 {
                     List<float> a = this.db.TimeSeries.getFeatureDataCol(f.Feature1);
                     List<float> b = this.db.TimeSeries.getFeatureDataCol(f.Feature2);
-                    float res = pearson(a, b);
-                    if (maxCorr < res)
-                    {
-                        maxCorr = res;
-                        this.correlated = f;
+                   // float res = pearson(a, b);
+                    //if (maxCorr < res)
+                    //{
+                    //    maxCorr = res;
+                    
+                    this.correlated = f;
                         c = f;
-                    }
+                    //}
                 }
                 index++;
             }
