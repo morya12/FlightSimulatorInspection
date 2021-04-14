@@ -156,12 +156,8 @@ namespace FlightSimulatorInspection.Views
         {
             if (v == "VM_FeatureA")
             {
-              //  if (vm.VM_FeatureB != null && !firstSelection) { 
-              //       firstSelection = true;
                      Start();
-             //   }
             }
-            
         }
 
         public SeriesCollection SeriesCollection { get; set; }
@@ -180,13 +176,26 @@ namespace FlightSimulatorInspection.Views
         }
         private void Start()
         {
-            Console.WriteLine("here starts");
             FeatureACol = null;
             FeatureBCol = null;
+            List<float> colA;
+            List<float> colB;
             if (FeatureACol == null || FeatureBCol == null) {
                 return;
             }
-            clear();
+            if (this.vm.correlationData().Feature1 != this.vm.VM_FeatureA)
+            {
+                colA = featureBCol;
+                colB = featureACol;
+            } else
+            {
+                colA = featureACol;
+                colB = featureBCol;
+            }
+
+
+
+                clear();
             if (vm.VM_CircleAlgo)
             {
                 Point CircleData = new Point(this.vm.correlationData().CX, this.vm.correlationData().CY);
@@ -212,9 +221,6 @@ namespace FlightSimulatorInspection.Views
                 float XValOfStart = this.vm.XRange.X;
                 float XValOfEnd = this.vm.XRange.Y;
                 Point lineData = new System.Windows.Point(this.vm.correlationData().LineA, this.vm.correlationData().LineB);
-                Console.Write(XValOfStart);
-                Console.Write(",");
-                Console.WriteLine(XValOfEnd);
 
                 float YValOfStart = (float)((XValOfStart * lineData.X) + lineData.Y);
                 float YValOfEnd = (float)((XValOfEnd * lineData.X) + lineData.Y);
@@ -233,7 +239,6 @@ namespace FlightSimulatorInspection.Views
            {
 
                threadC++;
-               //Console.WriteLine(threadC);
                FeatureACol= null;
                FeatureBCol = null;
 
