@@ -56,6 +56,3 @@ We used .NET Framework 4.7.2
 ## UML diagrams
 
 ![UML](https://user-images.githubusercontent.com/60241230/114762474-7a5de480-9d6a-11eb-9af7-15173cc516ef.jpg)
-
-
-## Installing Instructions:
