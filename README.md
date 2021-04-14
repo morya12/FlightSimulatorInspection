@@ -40,6 +40,8 @@ practically we read line-by-line from the text file respectively to the feature 
 
 # Project's File Organization
 
+![Files](https://user-images.githubusercontent.com/60241230/114762425-6d40f580-9d6a-11eb-8c7d-cf7aa0eddb34.JPG)
+
 As required, we based our design on the MVVM architectural pattern ,that facilitates the separation of the development of the GUI (the view)
 from the development of the business logic (the model) so that the view is not dependent on any specific model platform.
 Hence, our folders ordered as follow:
@@ -52,5 +54,8 @@ Each conatains the matching code files of every controller.
 We used .NET Framework 4.7.2
 
 ## UML diagrams
+
+![UML](https://user-images.githubusercontent.com/60241230/114762474-7a5de480-9d6a-11eb-9af7-15173cc516ef.jpg)
+
 
 ## Installing Instructions:
