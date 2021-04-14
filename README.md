@@ -1,5 +1,3 @@
-# FlightSimulatorInspection
-
 # Flight Simulator Inspection
 
 In this project we are about to collect data and fill up attributes fields such as: velocity, altitude, direction etc.
