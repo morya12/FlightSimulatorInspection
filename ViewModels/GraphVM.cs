@@ -78,9 +78,8 @@ namespace FlightSimulatorInspection.ViewModels
         {
             get
             {
-                if (this.xRange == null) {
                     xRange = this.graphModel.getRange('A');
-                }
+                
                 return xRange;
             }
         }
@@ -88,10 +87,9 @@ namespace FlightSimulatorInspection.ViewModels
         {
             get
             {
-                if (this.yRange == null)
-                {
+                
                     yRange = this.graphModel.getRange('B');
-                }
+                
                 return yRange;
             }
         }

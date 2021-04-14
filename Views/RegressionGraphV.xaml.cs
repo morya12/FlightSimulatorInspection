@@ -279,9 +279,10 @@ namespace FlightSimulatorInspection.Views
 
                        }
                    }
-               }
-               counter++;
+                   counter++;
 
+               }
+               
            });
         }
     }
