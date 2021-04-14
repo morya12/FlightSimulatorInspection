@@ -57,9 +57,7 @@ namespace FlightSimulatorInspection.Models
             }
         }
 
-        //socket not working.. need to fix it than we can change function signature
         public void handle(string[] csvLines, Socket socket)
-        //public void handle(string[] csvLines)
         {
             byte[] bytes;
             for (TimeStep = 1; TimeStep < csvLines.Length; TimeStep++)
