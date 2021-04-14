@@ -33,7 +33,7 @@ namespace FlightSimulatorInspection.ViewModels
         private BaseModel model;
         private System.Windows.Forms.Panel panel;
         private Process processEXE;
-        private string fgPath;
+
         public VideoVM(DataBase db)
         {
             panel = new System.Windows.Forms.Panel();
@@ -112,9 +112,14 @@ namespace FlightSimulatorInspection.ViewModels
 
         public void runEXE(string exePath)
         {
-            //ProcessStartInfo psi = new ProcessStartInfo("notepad.exe");
-            ProcessStartInfo psi = new ProcessStartInfo(exePath);
-            
+            string newLine = Environment.NewLine;
+            string commandLineArgument = " --generic=socket,in,10,127.0.0.1,5400,tcp,playback_small --fdm=null --httpd=8080";
+
+            ProcessStartInfo psi = new ProcessStartInfo(exePath, commandLineArgument);
+            string pathOnly = System.IO.Path.GetDirectoryName(exePath);
+            string fileNameOnly = System.IO.Path.GetFileName(exePath);
+
+
             processEXE = Process.Start(psi);
             processEXE.WaitForInputIdle();
             Thread.Sleep(2000);
@@ -141,6 +146,7 @@ namespace FlightSimulatorInspection.ViewModels
             if (processEXE == null)
                 return;
             SetWindowPos(processEXE.MainWindowHandle, IntPtr.Zero, 0, 0, (int)panel.ClientSize.Width, (int)panel.ClientSize.Height, SWP_NOZORDER | SWP_NOACTIVATE);
+
         }
 
     }

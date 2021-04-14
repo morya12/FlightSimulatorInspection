@@ -67,9 +67,16 @@ namespace FlightSimulatorInspection.Models
                 if (!Running)
                     DataBase.mre.WaitOne();
                 bytes = Encoding.ASCII.GetBytes(csvLines[TimeStep] + "\r\n");
-                socket.Send(bytes);
-                FlightStats.Instance.updateStatsTable(csvLines[TimeStep]);
-                Thread.Sleep((int)Speed);
+                try
+                {
+                    socket.Send(bytes);
+                    FlightStats.Instance.updateStatsTable(csvLines[TimeStep]);
+                    Thread.Sleep((int)Speed);
+                }
+                catch
+                {
+                    break;
+                }
             }
             Running = false;
         }
