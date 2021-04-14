@@ -61,7 +61,7 @@ namespace FlightSimulatorInspection.ViewModels
             this.graphModel.DB = db;
             graphModel.PropertyChanged += delegate (object sender, PropertyChangedEventArgs e) {
                 NotifyPropertyChanged("VM_" + e.PropertyName);
-                //Console.WriteLine("Gfgggg");
+                Console.WriteLine("Gfgggg");
             };
         }
 
@@ -78,8 +78,8 @@ namespace FlightSimulatorInspection.ViewModels
         {
             get
             {
-          
-                xRange = this.graphModel.getRange('A');
+                    xRange = this.graphModel.getRange('A');
+                
                 return xRange;
             }
         }
@@ -87,9 +87,10 @@ namespace FlightSimulatorInspection.ViewModels
         {
             get
             {
-
-                 yRange = this.graphModel.getRange('B');
-                 return yRange;
+                
+                    yRange = this.graphModel.getRange('B');
+                
+                return yRange;
             }
         }
         public int VM_TimeStep

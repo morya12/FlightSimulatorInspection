@@ -202,18 +202,18 @@ namespace FlightSimulatorInspection.Views
                 float r = this.vm.correlationData().Radius;
                 ScatterSeries circle = (ScatterSeries)SeriesCollection[4];
                 circle.Stroke = Brushes.Black;
-                circle.MaxPointShapeDiameter = r;
-                circle.MinPointShapeDiameter = r;
-               // SeriesCollection[5].Values.Add(new ScatterPoint(CircleData.X - r, CircleData.X - r, 0));
-              //  SeriesCollection[5].Values.Add(new ScatterPoint(CircleData.Y + r, CircleData.Y + r, 0));
+                circle.MaxPointShapeDiameter = 2.1*r;
+                circle.MinPointShapeDiameter = 2.1*r;
+                SeriesCollection[5].Values.Add(new ScatterPoint(CircleData.X - r, CircleData.X - r, 0));
+                SeriesCollection[5].Values.Add(new ScatterPoint(CircleData.Y + r, CircleData.Y + r, 0));
              //   SeriesCollection[5].Values.Add(new ScatterPoint(0, 0, 0));
                 circle.Values.Add(new ScatterPoint(CircleData.X,CircleData.Y,r));//x,y,radius
                 LineSeries l = (LineSeries)SeriesCollection[3];
                                 l.Values.Add(new ObservablePoint(CircleData.X - r, CircleData.Y));
-
-                //Console.WriteLine(CircleData.X);
-                //Console.WriteLine(CircleData.Y);
-                //Console.WriteLine(r);
+                l.Fill = Brushes.Black;
+                Console.WriteLine(CircleData.X);
+                Console.WriteLine(CircleData.Y);
+                Console.WriteLine(r);
 
             }
             else
@@ -264,7 +264,7 @@ namespace FlightSimulatorInspection.Views
                            {
                                for (int i = 0; i < anomlyCount; i++)
                                {
-                                   //Console.WriteLine("Time step" + vm.VM_RelevantReports[i].TimeStep + "time" + time);
+                                   Console.WriteLine("Time step" + vm.VM_RelevantReports[i].TimeStep + "time" + time);
                                    if (vm.VM_RelevantReports[i].TimeStep == time)
                                    {
                                        SeriesCollection[2].Values.Add(new ScatterPoint(x, y));
@@ -285,9 +285,10 @@ namespace FlightSimulatorInspection.Views
 
                        }
                    }
-               }
-               counter++;
+                   counter++;
 
+               }
+               
            });
         }
     }
