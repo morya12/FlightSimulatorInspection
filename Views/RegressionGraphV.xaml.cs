@@ -156,9 +156,12 @@ namespace FlightSimulatorInspection.Views
         {
             if (v == "VM_FeatureA")
             {
-              //  if (vm.VM_FeatureB != null && !firstSelection) { 
-              //       firstSelection = true;
-                     Start();
+                //  if (vm.VM_FeatureB != null && !firstSelection) { 
+                //       firstSelection = true;
+
+                    
+                    Start();
+
              //   }
             }
             
@@ -180,7 +183,6 @@ namespace FlightSimulatorInspection.Views
         }
         private void Start()
         {
-            Console.WriteLine("here starts");
             FeatureACol = null;
             FeatureBCol = null;
             if (FeatureACol == null || FeatureBCol == null) {
@@ -193,18 +195,18 @@ namespace FlightSimulatorInspection.Views
                 float r = this.vm.correlationData().Radius;
                 ScatterSeries circle = (ScatterSeries)SeriesCollection[4];
                 circle.Stroke = Brushes.Black;
-                circle.MaxPointShapeDiameter = r;
-                circle.MinPointShapeDiameter = r;
-               // SeriesCollection[5].Values.Add(new ScatterPoint(CircleData.X - r, CircleData.X - r, 0));
-              //  SeriesCollection[5].Values.Add(new ScatterPoint(CircleData.Y + r, CircleData.Y + r, 0));
+                circle.MaxPointShapeDiameter = 2.1*r;
+                circle.MinPointShapeDiameter = 2.1*r;
+                SeriesCollection[5].Values.Add(new ScatterPoint(CircleData.X - r, CircleData.X - r, 0));
+                SeriesCollection[5].Values.Add(new ScatterPoint(CircleData.Y + r, CircleData.Y + r, 0));
              //   SeriesCollection[5].Values.Add(new ScatterPoint(0, 0, 0));
                 circle.Values.Add(new ScatterPoint(CircleData.X,CircleData.Y,r));//x,y,radius
                 LineSeries l = (LineSeries)SeriesCollection[3];
                                 l.Values.Add(new ObservablePoint(CircleData.X - r, CircleData.Y));
-
-                //Console.WriteLine(CircleData.X);
-                //Console.WriteLine(CircleData.Y);
-                //Console.WriteLine(r);
+                l.Fill = Brushes.Black;
+                Console.WriteLine(CircleData.X);
+                Console.WriteLine(CircleData.Y);
+                Console.WriteLine(r);
 
             }
             else
@@ -212,9 +214,6 @@ namespace FlightSimulatorInspection.Views
                 float XValOfStart = this.vm.XRange.X;
                 float XValOfEnd = this.vm.XRange.Y;
                 Point lineData = new System.Windows.Point(this.vm.correlationData().LineA, this.vm.correlationData().LineB);
-                Console.Write(XValOfStart);
-                Console.Write(",");
-                Console.WriteLine(XValOfEnd);
 
                 float YValOfStart = (float)((XValOfStart * lineData.X) + lineData.Y);
                 float YValOfEnd = (float)((XValOfEnd * lineData.X) + lineData.Y);
@@ -233,7 +232,7 @@ namespace FlightSimulatorInspection.Views
            {
 
                threadC++;
-               //Console.WriteLine(threadC);
+               Console.WriteLine(threadC);
                FeatureACol= null;
                FeatureBCol = null;
 
@@ -259,7 +258,7 @@ namespace FlightSimulatorInspection.Views
                            {
                                for (int i = 0; i < anomlyCount; i++)
                                {
-                                   //Console.WriteLine("Time step" + vm.VM_RelevantReports[i].TimeStep + "time" + time);
+                                   Console.WriteLine("Time step" + vm.VM_RelevantReports[i].TimeStep + "time" + time);
                                    if (vm.VM_RelevantReports[i].TimeStep == time)
                                    {
                                        SeriesCollection[2].Values.Add(new ScatterPoint(x, y));

@@ -299,11 +299,11 @@ namespace FlightSimulatorInspection.Models
 
             foreach (AnomalyReport a in allReports)
             {
-                //Console.WriteLine("here");
+                Console.WriteLine("here");
                 if (a.Description.Contains(this.correlatedFeatureA) && a.Description.Contains(this.correlatedFeatureB))
                 {
                     relevantReports.Add(a);
-                    //Console.WriteLine("WORKING");
+                    Console.WriteLine("WORKING");
 
                 }
             }
