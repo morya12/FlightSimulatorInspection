@@ -61,6 +61,7 @@ namespace FlightSimulatorInspection.ViewModels
             this.graphModel.DB = db;
             graphModel.PropertyChanged += delegate (object sender, PropertyChangedEventArgs e) {
                 NotifyPropertyChanged("VM_" + e.PropertyName);
+                Console.WriteLine("Gfgggg");
             };
         }
 
