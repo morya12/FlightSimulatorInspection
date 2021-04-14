@@ -198,8 +198,6 @@ namespace FlightSimulatorInspection.Models
                 index++;
             }
             Point p = new Point(dataCol[minIndex], dataCol[maxIndex]);
-            //Console.Write(p.X);
-            //Console.WriteLine(p.Y);
             return p;
         }
         float avg(List<float> x, int size)

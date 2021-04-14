@@ -96,6 +96,7 @@ namespace FlightSimulatorInspection.Views
 
         Task.Run(() =>
         {
+            
             while (true) 
             {
                 int csvSize = vm.VM_CsvSize;
@@ -106,9 +107,6 @@ namespace FlightSimulatorInspection.Views
                 {
                     if (csvSize > 0 && time < csvSize)
                     {
-                        //Console.WriteLine(csvSize);
-                        //float x = this.featureACol[time];
-
                         this.data = this.vm.getDataCol('A');
                         this.Feature1 = this.vm.VM_FeatureA;
                         if (this.data != null &&  time < csvSize)
