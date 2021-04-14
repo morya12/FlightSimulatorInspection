@@ -159,6 +159,12 @@ namespace FlightSimulatorInspection.Models
             CreateCsvWithHeaders(CsvPath, newAnomalyCsvPath);
             detectAnomalies();
         }
+        public void changeAlgo()
+        {
+            CorrelatedFeatures = new List<CorrelatedFeatures>();
+            AnomalyReports = new List<AnomalyReport>();
+            detectAnomalies();
+        }
 
         public bool connect()
         {

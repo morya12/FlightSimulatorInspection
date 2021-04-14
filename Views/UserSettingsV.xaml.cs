@@ -48,5 +48,23 @@ namespace FlightSimulatorInspection.Views
             var brush = (Brush)converter.ConvertFromString("#FFE8E8E8");
             (sender as Button).Foreground = brush;
         }
+
+        private void regressionAlgo_Checked(object sender, RoutedEventArgs e)
+        {
+            if (minCircleAlgo.IsChecked == true)
+            {
+                minCircleAlgo.IsChecked = false;
+            }
+            vm.changeAlgo("regressionAlgo");
+        }
+
+        private void minCircleAlgo_Checked(object sender, RoutedEventArgs e)
+        {
+            if (regressionAlgo.IsChecked == true)
+            {
+                regressionAlgo.IsChecked = false;
+            }
+            vm.changeAlgo("minCircleAlgo");
+        }
     }
 }

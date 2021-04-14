@@ -21,5 +21,21 @@ namespace FlightSimulatorInspection.ViewModels
         {
             return model.connect();
         }
+        public void changeAlgo(string algo)
+        {
+            model.Running = false;
+            model.TimeStep = 1;
+            if (algo == "regressionAlgo")
+            {
+                model.CircleAlgo = false;
+                model.RegAlgo = true;
+            }
+            else if (algo == "minCircleAlgo")
+            {
+                model.CircleAlgo = true;
+                model.RegAlgo = false;
+            }
+            model.changeAlgo();
+        }
     }
 }
