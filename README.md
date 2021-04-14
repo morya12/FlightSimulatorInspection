@@ -6,7 +6,7 @@ The data would be documented into a text file, which will be loaded into our app
 The application will play the simulator respectively to the entire text file, and supply visual demonstration of the latter,
 including a feature which destined to present the anomalies that have been found.
 
-![The app on run-time](https://ibb.co/xjDbh53)
+![1](https://user-images.githubusercontent.com/60241230/114761927-d116ee80-9d69-11eb-9e3b-e0eb272060ac.jpg)
 
 # Controllers
 The different app's controllers are detailed below:
