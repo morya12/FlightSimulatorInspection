@@ -180,6 +180,7 @@ namespace FlightSimulatorInspection.Views
         }
         private void Start()
         {
+            Console.WriteLine("here starts");
             FeatureACol = null;
             FeatureBCol = null;
             if (FeatureACol == null || FeatureBCol == null) {
@@ -201,9 +202,9 @@ namespace FlightSimulatorInspection.Views
                 LineSeries l = (LineSeries)SeriesCollection[3];
                                 l.Values.Add(new ObservablePoint(CircleData.X - r, CircleData.Y));
 
-                Console.WriteLine(CircleData.X);
-                Console.WriteLine(CircleData.Y);
-                Console.WriteLine(r);
+                //Console.WriteLine(CircleData.X);
+                //Console.WriteLine(CircleData.Y);
+                //Console.WriteLine(r);
 
             }
             else
@@ -211,6 +212,9 @@ namespace FlightSimulatorInspection.Views
                 float XValOfStart = this.vm.XRange.X;
                 float XValOfEnd = this.vm.XRange.Y;
                 Point lineData = new System.Windows.Point(this.vm.correlationData().LineA, this.vm.correlationData().LineB);
+                Console.Write(XValOfStart);
+                Console.Write(",");
+                Console.WriteLine(XValOfEnd);
 
                 float YValOfStart = (float)((XValOfStart * lineData.X) + lineData.Y);
                 float YValOfEnd = (float)((XValOfEnd * lineData.X) + lineData.Y);
@@ -229,7 +233,7 @@ namespace FlightSimulatorInspection.Views
            {
 
                threadC++;
-               Console.WriteLine(threadC);
+               //Console.WriteLine(threadC);
                FeatureACol= null;
                FeatureBCol = null;
 
@@ -255,7 +259,7 @@ namespace FlightSimulatorInspection.Views
                            {
                                for (int i = 0; i < anomlyCount; i++)
                                {
-                                   Console.WriteLine("Time step" + vm.VM_RelevantReports[i].TimeStep + "time" + time);
+                                   //Console.WriteLine("Time step" + vm.VM_RelevantReports[i].TimeStep + "time" + time);
                                    if (vm.VM_RelevantReports[i].TimeStep == time)
                                    {
                                        SeriesCollection[2].Values.Add(new ScatterPoint(x, y));
