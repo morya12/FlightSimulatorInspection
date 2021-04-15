@@ -6,7 +6,7 @@ The data would be documented into a text file, which will be loaded into our app
 The application will play the simulator respectively to the entire text file, and supply visual demonstration of the latter,
 including a feature which destined to present the anomalies that have been found.
 
-![1](https://user-images.githubusercontent.com/60241230/114761927-d116ee80-9d69-11eb-9e3b-e0eb272060ac.jpg)
+![1](https://raw.githubusercontent.com/morya12/FlightSimulatorInspection/master/FGinspection.PNG)
 
 # Controllers
 The different app's controllers are detailed below:
@@ -58,4 +58,5 @@ We used .NET Framework 4.7.2
 ![UML](https://user-images.githubusercontent.com/60241230/114762474-7a5de480-9d6a-11eb-9af7-15173cc516ef.jpg)
 
 ## Video 
-https://youtu.be/aPDHRUurNng
+[Part 1](https://www.loom.com/share/9b828d41e359491998d86ee29b7b90f0)
+[Part 2](https://www.loom.com/share/61c891a6d00f4ff2a572d2eb68c15693)
