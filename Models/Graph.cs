@@ -78,7 +78,6 @@ namespace FlightSimulatorInspection.Models
                 if (this.correlatedFeatureA != value)
                 {
                     this.correlatedFeatureA = value;
-                    //Console.WriteLine(correlatedFeatureA);
                     NotifyPropertyChanged("FeatureA");
 
                     this.featureACol = this.db.TimeSeries.getFeatureDataCol(this.correlatedFeatureA);
@@ -153,9 +152,7 @@ namespace FlightSimulatorInspection.Models
                 return this.DB.TimeSeries.Parameters();
             }
             set
-            {
-                //
-            }
+            { }
            
         }
         public List<float> dataCol(char c)
@@ -198,8 +195,7 @@ namespace FlightSimulatorInspection.Models
                 index++;
             }
             Point p = new Point(dataCol[minIndex], dataCol[maxIndex]);
-            //Console.Write(p.X);
-            //Console.WriteLine(p.Y);
+
             return p;
         }
         float avg(List<float> x, int size)
@@ -282,7 +278,6 @@ namespace FlightSimulatorInspection.Models
                 this.CorrelatedFeatureB = c.Feature1;
             } else
             {
-               // Console.WriteLine("didnt find match");
                 this.featureBCol = new List<float>();
                 this.correlatedFeatureB = null;
                 return;
@@ -299,11 +294,9 @@ namespace FlightSimulatorInspection.Models
 
             foreach (AnomalyReport a in allReports)
             {
-                Console.WriteLine("here");
                 if (a.Description.Contains(this.correlatedFeatureA) && a.Description.Contains(this.correlatedFeatureB))
                 {
                     relevantReports.Add(a);
-                    Console.WriteLine("WORKING");
 
                 }
             }

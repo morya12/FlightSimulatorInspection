@@ -51,7 +51,6 @@ namespace FlightSimulatorInspection.Views
             if (featureListBox.SelectedItem != null)
             {
                 
-                Console.WriteLine((featureListBox.SelectedItem as ListBoxItem).Content.ToString());
                 this.graphVM.VM_FeatureA = (featureListBox.SelectedItem as ListBoxItem).Content.ToString();
                 this.feature2 = graphVM.VM_FeatureB;
 

@@ -211,9 +211,7 @@ namespace FlightSimulatorInspection.Views
                 LineSeries l = (LineSeries)SeriesCollection[3];
                                 l.Values.Add(new ObservablePoint(CircleData.X - r, CircleData.Y));
                 l.Fill = Brushes.Black;
-                Console.WriteLine(CircleData.X);
-                Console.WriteLine(CircleData.Y);
-                Console.WriteLine(r);
+
 
             }
             else
@@ -254,6 +252,7 @@ namespace FlightSimulatorInspection.Views
                        float x = this.featureACol[time];
                        if (featureBCol == null)
                        {
+                           clear();
                            continue;
                        }
                        float y = this.featureBCol[time];
@@ -264,7 +263,6 @@ namespace FlightSimulatorInspection.Views
                            {
                                for (int i = 0; i < anomlyCount; i++)
                                {
-                                   Console.WriteLine("Time step" + vm.VM_RelevantReports[i].TimeStep + "time" + time);
                                    if (vm.VM_RelevantReports[i].TimeStep == time)
                                    {
                                        SeriesCollection[2].Values.Add(new ScatterPoint(x, y));
@@ -274,15 +272,21 @@ namespace FlightSimulatorInspection.Views
                            }
 
                        }
-                       series.Values.Add(new ScatterPoint(x, y));
-                       if (counter > 30)
+                       if (System.Windows.Application.Current != null)
                        {
-                           if (time > 2)
+                           series.Values.Add(new ScatterPoint(x, y));
+                           if (counter > 30)
                            {
-                               SeriesCollection[0].Values.Add(SeriesCollection[1].Values[0]);
-                               SeriesCollection[1].Values.RemoveAt(0);
+                               if (time > 2)
+                               {
+                                   SeriesCollection[0].Values.Add(SeriesCollection[1].Values[0]);
+                                   SeriesCollection[1].Values.RemoveAt(0);
+                               }
                            }
-
+                       }
+                       else
+                       {
+                           Environment.Exit(0);
                        }
                    }
                    counter++;
