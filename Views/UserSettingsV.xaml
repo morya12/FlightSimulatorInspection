@@ -12,10 +12,10 @@
             <TextBlock x:Name="textBlock" HorizontalAlignment="Center" VerticalAlignment="Center"  TextWrapping="Wrap"  FontFamily="Yu Gothic" FontSize="24" Foreground="#FFE8E8E8" Text="Welcome"/>
             <TextBlock x:Name="textBlock2" HorizontalAlignment="Center" VerticalAlignment="Center"  TextWrapping="Wrap"  FontFamily="Yu Gothic" FontSize="24" Foreground="#FFE8E8E8" Text="aboard!"/>
             <Button Content="Press here to connect to FlightGear" Background="#FF396387" Foreground="#FFE8E8E8" Margin="0 10 0 0" Click="Button_Click" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave"/>
-            <TextBlock x:Name="SwitchAlgo" HorizontalAlignment="Center" VerticalAlignment="Center"  TextWrapping="Wrap"  FontFamily="Yu Gothic" FontSize="15" Foreground="#FFE8E8E8" Text="Want to switch Algo?"/>
+            <TextBlock Visibility="Hidden" x:Name="SwitchAlgo" HorizontalAlignment="Center" VerticalAlignment="Center"  TextWrapping="Wrap"  FontFamily="Yu Gothic" FontSize="15" Foreground="#FFE8E8E8" Text="Want to switch Algo?"/>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <RadioButton x:Name="regressionAlgo" FontSize="10" Content="regression analysis" Foreground="#FFE8E8E8" Margin="0 0 5 0" Checked="regressionAlgo_Checked"/>
-                <RadioButton x:Name="minCircleAlgo" FontSize="10" Content="circle analysis" Foreground="#FFE8E8E8" Checked="minCircleAlgo_Checked" />
+                <RadioButton Visibility="Hidden" x:Name="regressionAlgo" FontSize="10" Content="regression analysis" Foreground="#FFE8E8E8" Margin="0 0 5 0" Checked="regressionAlgo_Checked"/>
+                <RadioButton  Visibility="Hidden" x:Name="minCircleAlgo" FontSize="10" Content="circle analysis" Foreground="#FFE8E8E8" Checked="minCircleAlgo_Checked" />
             </StackPanel>
         </StackPanel>
     </Grid>
