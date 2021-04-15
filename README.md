@@ -55,8 +55,7 @@ We used .NET Framework 4.7.2
 
 ## UML diagrams
 
-![ClassDiagram](https://user-images.githubusercontent.com/60241230/114900640-bd789000-9e1c-11eb-92f7-30d8d027c429.jpg)
-
+![ClassDiagram](https://user-images.githubusercontent.com/60241230/114918219-82cc2300-9e2f-11eb-8100-00ed5acb8d6c.jpg)
 
 ## Video 
 [Part 1](https://www.loom.com/share/9b828d41e359491998d86ee29b7b90f0)
